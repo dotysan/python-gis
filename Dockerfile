@@ -24,6 +24,7 @@ RUN apt-get install --yes --no-install-recommends \
     g++ \
     git \
     make \
+    patch \
     pkgconf \
     wget
 
@@ -41,6 +42,7 @@ RUN ./build.sh ffmpeg
 
 RUN find build \( -name ffmpeg -o -name ffprobe \) \
     -type f |xargs cp --target-directory /usr/local/bin
+RUN ./ffinfo.sh |tee /ffinfo.txt
 
 #======================================================================
 ARG PYVER
@@ -159,6 +161,7 @@ FROM python:$PYVER-slim-$DEBVER
 LABEL org.opencontainers.image.source=$HERE
 
 COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
+COPY --from=build-ffmpeg /ffinfo.txt /
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
 COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib
@@ -215,7 +218,7 @@ RUN cat /gdal-cmake.txt
 RUN ldd /usr/local/bin/gdal* |grep 'not found' |sort |uniq -c ||:
 RUN ldd /usr/local/bin/ogr* |grep 'not found' |sort |uniq -c ||:
 RUN gdal-config --formats
-RUN pip list --verbose
+RUN pip list --verbose |tee /pip-list.txt
 
 # see docker output line-by-line
 ENV PYTHONUNBUFFERED=yessir

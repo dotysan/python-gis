@@ -1,6 +1,6 @@
 ffmpeg version 6.1.1 Copyright (c) 2000-2023 the FFmpeg developers
 built with gcc 12 (Debian 12.2.0-14)
-configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240401 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240401/include --extra-ldflags=-L/ffmpeg-static/build/20240401/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240401/bin --disable-autodetect --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='mp2,h264' --enable-parser=h264 --enable-demuxer='rtsp,mp3' --enable-muxer='fifo,data,flv,hls,h264' --enable-protocol='file,pipe,rtmp'
+configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240401 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240401/include --extra-ldflags=-L/ffmpeg-static/build/20240401/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240401/bin --disable-autodetect --disable-ffprobe --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='h264,mp2,pcm_u8' --enable-parser=h264 --enable-demuxer='mp3,rtsp' --enable-filter='anullsrc,aresample' --enable-encoder=aac --enable-muxer='data,fifo,flv,hls,h264' --enable-protocol='file,pipe,rtmp' --enable-bsf=extract_extradata --enable-indev=lavfi
 libavutil      58. 29.100 / 58. 29.100
 libavcodec     60. 31.102 / 60. 31.102
 libavformat    60. 16.100 / 60. 16.100
@@ -40,6 +40,7 @@ File formats:
   E h264            raw H.264 video
   E hls             Apple HTTP Live Streaming
   E latm            LOAS/LATM
+ D  lavfi           Libavfilter virtual input device
   E mov             QuickTime / MOV
  D  mov,mp4,m4a,3gp,3g2,mj2 QuickTime / MOV
  D  mp3             MP2/3 (MPEG audio layer 2/3)
@@ -57,7 +58,9 @@ Filters:
   | = Source or sink filter
  ... aformat           A->A       Convert the input audio to one of the specified formats.
  ... anull             A->A       Pass the source unchanged to the output.
+ ... aresample         A->A       Resample audio data.
  ... atrim             A->A       Pick one continuous section from the input, drop the rest.
+ ... anullsrc          |->A       Null audio source, return empty audio frames.
  ... format            V->V       Convert the input video to one of the specified pixel formats.
  TS. hflip             V->V       Horizontally flip the input video.
  ... null              V->V       Pass the source unchanged to the output.
@@ -358,7 +361,7 @@ Codecs:
  ..AIL. 4gv                  4GV (Fourth Generation Vocoder)
  ..AIL. 8svx_exp             8SVX exponential
  ..AIL. 8svx_fib             8SVX fibonacci
- ..AIL. aac                  AAC (Advanced Audio Coding)
+ .EAIL. aac                  AAC (Advanced Audio Coding)
  ..AIL. aac_latm             AAC LATM (Advanced Audio Coding LATM syntax)
  ..AIL. ac3                  ATSC A/52A (AC-3)
  ..A.L. ac4                  AC-4
@@ -520,7 +523,7 @@ Codecs:
  ..AI.S pcm_u24le            PCM unsigned 24-bit little-endian
  ..AI.S pcm_u32be            PCM unsigned 32-bit big-endian
  ..AI.S pcm_u32le            PCM unsigned 32-bit little-endian
- ..AI.S pcm_u8               PCM unsigned 8-bit
+ D.AI.S pcm_u8               PCM unsigned 8-bit
  ..AIL. pcm_vidc             PCM Archimedes VIDC
  ..AIL. qcelp                QCELP / PureVoice
  ..AIL. qdm2                 QDesign Music Codec 2

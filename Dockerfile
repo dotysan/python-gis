@@ -1,11 +1,14 @@
 # TODO: add dockerfile version here; require BuildKit
+ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
-ARG GDVER=3.8.3
+ARG GDVER=3.8.4
 ARG NPVER=1.26.*
 ARG FIONAVER=1.9.*
-ARG TDBVER=2.19.1
-ARG TDBREF=29ceb3e7
+
+# ARG TDBVER=2.19.1
+# ARG TDBREF=29ceb3e7
+
 ARG DEBVER=bookworm
 ARG FFREF=31717bb4ab77ff63bed5b652e20300cc962cfdf3
 #======================================================================
@@ -94,13 +97,13 @@ ARG NPVER
 RUN pip install --upgrade pip setuptools wheel \
     && pip install numpy==$NPVER
 
-# install TileDB (BEWARE! this assumes x86_64 arch)
-ARG TDBVER
-ARG TDBREF
-RUN cd /usr/local && curl --location \
-   https://github.com/TileDB-Inc/TileDB/releases/download/$TDBVER/tiledb-linux-x86_64-$TDBVER-$TDBREF.tar.gz \
-   |tar -xz
-RUN ls -doh /usr/local/include/* /usr/local/lib/*
+# # install TileDB (BEWARE! this assumes x86_64 arch)
+# ARG TDBVER
+# ARG TDBREF
+# RUN cd /usr/local && curl --location \
+#    https://github.com/TileDB-Inc/TileDB/releases/download/$TDBVER/tiledb-linux-x86_64-$TDBVER-$TDBREF.tar.gz \
+#    |tar -xz
+# RUN ls -doh /usr/local/include/* /usr/local/lib/*
 
 # fetch/prep GDAL source
 ARG GDVER
@@ -153,6 +156,8 @@ ARG PYVER
 ARG DEBVER
 FROM python:$PYVER-slim-$DEBVER
 
+LABEL org.opencontainers.image.source=$HERE
+
 COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
@@ -160,7 +165,7 @@ COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib
 COPY --from=build-gdal /usr/local/gdal/include /usr/local/include
 COPY --from=build-gdal /usr/local/gdal/share /usr/local/share
 COPY --from=build-gdal /gdal-cmake.txt /
-COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
+# COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes

@@ -4,6 +4,7 @@ TAG:=$(notdir $(CURDIR))
 PYVER:=$(shell grep -oP 'ARG PYVER=\K.*' Dockerfile)
 GDVER:=$(shell grep -oP 'ARG GDVER=\K.*' Dockerfile)
 REL=$(TAG):$(PYVER)-gdal$(GDVER)
+GID=$(shell id -g)
 
 .PHONY: run bash push tag build force
 
@@ -23,6 +24,8 @@ tag: build
 	docker tag $(TAG) $(REL)
 
 build:
-	docker build --progress=plain --tag $(TAG) .
+	docker build --progress=plain --tag $(TAG) . && \
+	docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'
 force:
-	docker build --progress=plain --tag $(TAG) --no-cache .
+	docker build --progress=plain --tag $(TAG) --no-cache . && \
+	docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'

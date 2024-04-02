@@ -70,6 +70,7 @@ RUN apt-get install --yes --no-install-recommends \
 #  * OPENCAD internal library enabled
 RUN apt-get install --yes --no-install-recommends \
     libexpat-dev \
+    libfreexl-dev \
     libgeos-dev \
     libgeotiff-dev \
     libgif-dev \
@@ -81,6 +82,9 @@ RUN apt-get install --yes --no-install-recommends \
     libpq-dev \
     libqhull-dev \
     && echo TODO
+    # libmariadb-dev \ # this doesn't work; they still want only MySQL
+    # sqlite3-pcre \
+    # libspatialite-dev \
 
 # # gdal builds without this, but test suite fails without, why?
 RUN apt-get install --yes --no-install-recommends \
@@ -194,6 +198,7 @@ RUN apt-get install --yes --no-install-recommends \
     libcrypto++8 \
     libcurl3-gnutls \
     libdeflate0 \
+    libfreexl1 \
     libgeos-c1v5 \
     libgeotiff5 \
     libgif7 \
@@ -205,6 +210,8 @@ RUN apt-get install --yes --no-install-recommends \
     libqhull-r8.0 \
     libtiff6 \
     && rm -rf /var/lib/apt/lists/*
+    # libpcre3 \
+    # libspatialite7 \
 
 ARG PIP_NO_CACHE_DIR=1
 # and disable the warning about running as root without a venv

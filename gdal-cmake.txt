@@ -268,7 +268,7 @@
 -- Could NOT find LibKML (missing: LIBKML_BASE_LIBRARY LIBKML_INCLUDE_DIR LIBKML_DOM_LIBRARY LIBKML_ENGINE_LIBRARY) 
 -- Could NOT find HDF5 (missing: HDF5_LIBRARIES HDF5_INCLUDE_DIRS C) (found version "")
 -- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so  
--- Could NOT find FreeXL (missing: FREEXL_LIBRARY FREEXL_INCLUDE_DIR) 
+-- Found FreeXL: /usr/lib/x86_64-linux-gnu/libfreexl.so  
 -- Could NOT find MRSID (missing: MRSID_LIBRARY MRSID_INCLUDE_DIR) 
 -- Could NOT find Armadillo (missing: ARMADILLO_INCLUDE_DIR) 
 -- Could NOT find HDF4 (missing: HDF4_df_LIBRARY HDF4_mfhdf_LIBRARY HDF4_INCLUDE_DIR) 
@@ -486,6 +486,7 @@
  * ogr_CARTO, CARTO
  * ogr_PG, PostGIS
  * ogr_XLSX, Microsoft Office Excel(xlsx)
+ * ogr_XLS, Microsoft Office Excel(xls)
  * ogr_CAD, OpenCAD
  * ogr_GTFS, GTFS
  * ogr_ODS, ODS
@@ -514,6 +515,8 @@
    json-c library (external)
  * WebP
    WebP compression
+ * FreeXL
+   Enable XLS driver
  * PostgreSQL
  * LibLZMA
    LZMA compression
@@ -582,7 +585,6 @@
  * ogr_MSSQLSPATIAL, MSSQLSPATIAL
  * ogr_ODBC, ODBC
  * ogr_PGEO, PGEO
- * ogr_XLS, Microsoft Office Excel(xls)
  * ogr_MONGODBV3, MongoDB V3
  * ogr_PARQUET, Parquet
  * ogr_ARROW, Arrow
@@ -629,8 +631,6 @@
    Enable KEA driver
  * HDF5
    Enable HDF5
- * FreeXL
-   Enable XLS driver
  * GTA
    Enable GTA driver
  * MRSID

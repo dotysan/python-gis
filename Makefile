@@ -27,5 +27,5 @@ build:
 	docker build --progress=plain --tag $(TAG) . && \
 	docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'
 force:
-	docker build --progress=plain --tag $(TAG) --no-cache . && \
+	docker build --progress=plain --tag $(TAG) --pull --no-cache . && \
 	docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'

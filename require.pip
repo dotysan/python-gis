@@ -1,3 +1,4 @@
+# note fiona==1.9.* is built in Dockerfile against GDAL
 folium==0.16.*
 geopandas==0.14.*
 rasterio==1.3.*

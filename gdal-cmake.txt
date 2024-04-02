@@ -264,7 +264,7 @@
 -- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
 -- Could NOT find SPATIALITE (missing: SPATIALITE_LIBRARY SPATIALITE_INCLUDE_DIR) (Required is at least version "4.1.2")
 -- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
--- Could NOT find LibKML (missing: LIBKML_BASE_LIBRARY LIBKML_INCLUDE_DIR LIBKML_DOM_LIBRARY LIBKML_ENGINE_LIBRARY) 
+-- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
 -- Found HDF5: /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so (found version "1.10.8") found components: C 
 -- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so (found version "1.2.4") 
 -- Found FreeXL: /usr/lib/x86_64-linux-gnu/libfreexl.so  
@@ -472,6 +472,7 @@
  * ogr_GPX, GPX - GPS Exchange Format
  * ogr_SVG, Scalable Vector Graphics
  * ogr_CSW, CSW
+ * ogr_LIBKML, LibKML
  * ogr_PLSCENES, PLSCENES
  * ogr_WFS, OGC WFS service
  * ogr_NGW, NextGIS Web
@@ -524,6 +525,8 @@
    Enable PCRE2 support for sqlite3
  * RASTERLITE2 (required version >= 1.1.0)
    Enable RasterLite2 support for sqlite3
+ * LibKML
+   Use LIBKML library
  * HDF5
    Enable HDF5
  * WebP
@@ -592,7 +595,6 @@
  * ogr_GMLAS, GMLAS
  * ogr_DWG, DWG
  * ogr_FILEGDB, FileGDB
- * ogr_LIBKML, LibKML
  * ogr_NAS, NAS/ALKIS
  * ogr_SOSI, SOSI:Systematic Organization of Spatial Information
  * ogr_ILI, ILI
@@ -629,8 +631,6 @@
    Enable QB3 compression in MRF
  * SPATIALITE (required version >= 4.1.2)
    Enable spatialite support for sqlite3
- * LibKML
-   Use LIBKML library
  * KEA
    Enable KEA driver
  * GTA

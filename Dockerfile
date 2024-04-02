@@ -78,6 +78,7 @@ RUN apt-get install --yes --no-install-recommends \
     libheif-dev \
     libjpeg-dev \
     libjson-c-dev \
+    libkml-dev \
     libpng-dev \
     libpoppler-dev \
     libpq-dev \
@@ -85,7 +86,6 @@ RUN apt-get install --yes --no-install-recommends \
     librasterlite2-dev \
     && echo TODO
     # libspatialite-dev \
-    # libmongoclient-dev \ # doesn't work; why?
 
 # # gdal builds without this, but test suite fails without, why?
 RUN apt-get install --yes --no-install-recommends \
@@ -208,6 +208,9 @@ RUN apt-get install --yes --no-install-recommends \
     libheif1 \
     libimath-3-1-29 \
     libjson-c5 \
+    libkmlbase1 \
+    libkmldom1 \
+    libkmlengine1 \
     libmariadb3 \
     libopenexr-3-1-30 \
     libpng16-16 \

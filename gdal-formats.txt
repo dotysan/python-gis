@@ -88,11 +88,13 @@ PCRaster
 PDF
 PDS
 PDS
+PG
 PGDump
 PLMOSAIC
 PLSCENES
 PMTiles
 PNG
+PostGISRaster
 PRF
 R
 Rasterlite

@@ -78,6 +78,7 @@ RUN apt-get install --yes --no-install-recommends \
     libjson-c-dev \
     libpng-dev \
     libpoppler-dev \
+    libpq-dev \
     libqhull-dev \
     && echo TODO
 
@@ -199,6 +200,7 @@ RUN apt-get install --yes --no-install-recommends \
     libheif1 \
     libjson-c5 \
     libpng16-16 \
+    libpq5 \
     libproj25 \
     libqhull-r8.0 \
     libtiff6 \
@@ -232,6 +234,7 @@ RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
     fi
 
 # show what we got
+RUN cat /ffinfo.txt
 RUN cat /gdal-cmake.txt
 RUN gdal-config --formats |tr ' ' '\n' |sort --ignore-case |tee /gdal-formats.txt
 RUN pip list --verbose |tee /pip-list.txt

@@ -229,7 +229,7 @@
 -- Failed to find XercesC (missing: XercesC_LIBRARY XercesC_INCLUDE_DIR XercesC_VERSION) 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
--- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR SSL Crypto) 
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.11") found components: SSL Crypto 
 -- Performing Test CRYPTOPP_TEST_KNOWNBUG
 -- Performing Test CRYPTOPP_TEST_KNOWNBUG - Success
 -- Found CryptoPP: /usr/lib/x86_64-linux-gnu/libcryptopp.so  
@@ -291,7 +291,7 @@
 -- Looking for CL_VERSION_1_0
 -- Looking for CL_VERSION_1_0 - not found
 -- Could NOT find OpenCL (missing: OpenCL_LIBRARY OpenCL_INCLUDE_DIR) 
--- Could NOT find PostgreSQL (missing: PostgreSQL_LIBRARY PostgreSQL_INCLUDE_DIR) 
+-- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.6")  
 -- Could NOT find FYBA (missing: FYBA_FYBA_LIBRARY FYBA_FYGM_LIBRARY FYBA_FYUT_LIBRARY FYBA_INCLUDE_DIR) 
 -- Found LibLZMA: /usr/lib/x86_64-linux-gnu/liblzma.so (found version "5.4.1") 
 -- Could NOT find LZ4 (missing: LZ4_LIBRARY LZ4_INCLUDE_DIR LZ4_VERSION) 
@@ -435,6 +435,7 @@
  * gdal_WEBP, WebP
  * gdal_RASTERLITE, Rasterlite - Rasters in SQLite DB
  * gdal_MBTILES, MBTile
+ * gdal_POSTGISRASTER, PostGIS Raster driver
  * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
  * ogr_MEM, Read/write driver for MEMORY virtual files
  * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
@@ -483,6 +484,7 @@
  * ogr_PMTILES, PMTiles
  * ogr_AMIGOCLOUD, AMIGOCLOUD
  * ogr_CARTO, CARTO
+ * ogr_PG, PostGIS
  * ogr_XLSX, Microsoft Office Excel(xlsx)
  * ogr_CAD, OpenCAD
  * ogr_GTFS, GTFS
@@ -498,6 +500,8 @@
    Character set recoding (used in GDAL portability library)
  * Deflate
    Enable libdeflate compression library (complement to ZLib)
+ * OpenSSL
+   Use OpenSSL library
  * CryptoPP
    Use crypto++ library for CPL.
  * ZSTD
@@ -510,6 +514,7 @@
    json-c library (external)
  * WebP
    WebP compression
+ * PostgreSQL
  * LibLZMA
    LZMA compression
  * HEIF
@@ -551,7 +556,6 @@
  * gdal_HDF5, Hierarchical Data Format Release 5 (HDF5)
  * gdal_GTA, Generic Tagged Arrays
  * gdal_HDF4, Hierarchical Data Format Release 4 (HDF4)
- * gdal_POSTGISRASTER, PostGIS Raster driver
  * gdal_DDS, DirectDraw Surface
  * gdal_KEA, Kea
  * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
@@ -575,7 +579,6 @@
  * ogr_SOSI, SOSI:Systematic Organization of Spatial Information
  * ogr_ILI, ILI
  * ogr_MYSQL, MySQL
- * ogr_PG, PostGIS
  * ogr_MSSQLSPATIAL, MSSQLSPATIAL
  * ogr_ODBC, ODBC
  * ogr_PGEO, PGEO
@@ -604,8 +607,6 @@
    Read and write XML formats
  * XercesC
    Read and write XML formats (needed for GMLAS and ILI drivers)
- * OpenSSL
-   Use OpenSSL library
  * SFCGAL
    gdal core supports ISO 19107:2013 and OGC Simple Features Access 1.2 for 3D operations
  * OpenCAD
@@ -648,7 +649,6 @@
    Enable ogr_OGDI driver
  * OpenCL
    Enable OpenCL (may be used for warping)
- * PostgreSQL
  * FYBA
    enable ogr_SOSI driver
  * LZ4

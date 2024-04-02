@@ -1,6 +1,6 @@
 ffmpeg version 6.1.1 Copyright (c) 2000-2023 the FFmpeg developers
 built with gcc 12 (Debian 12.2.0-14)
-configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240401 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240401/include --extra-ldflags=-L/ffmpeg-static/build/20240401/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240401/bin --disable-autodetect --disable-ffprobe --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='h264,mp2,pcm_u8' --enable-parser=h264 --enable-demuxer='mp3,rtsp' --enable-filter='anullsrc,aresample' --enable-encoder=aac --enable-muxer='data,fifo,flv,hls,h264' --enable-protocol='file,pipe,rtmp' --enable-bsf=extract_extradata --enable-indev=lavfi
+configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240402 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240402/include --extra-ldflags=-L/ffmpeg-static/build/20240402/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240402/bin --disable-autodetect --disable-ffprobe --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='h264,mp2,pcm_u8' --enable-parser=h264 --enable-demuxer='mp3,rtsp' --enable-filter='anullsrc,aresample' --enable-encoder=aac --enable-muxer='data,fifo,flv,hls,h264' --enable-protocol='file,pipe,rtmp' --enable-bsf=extract_extradata --enable-indev=lavfi
 libavutil      58. 29.100 / 58. 29.100
 libavcodec     60. 31.102 / 60. 31.102
 libavformat    60. 16.100 / 60. 16.100

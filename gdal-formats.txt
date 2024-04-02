@@ -30,6 +30,7 @@ Elastic
 Envisat
 ERS
 ESRIC
+EXR
 FIT
 FlatGeobuf
 Geoconcept
@@ -58,6 +59,7 @@ ILWIS
 IRIS
 JDEM
 JML
+JP2OpenJPEG
 JPEG
 JSONFG
 KML
@@ -73,6 +75,7 @@ MEM
 MRF
 MSGN
 MVT
+MySQL
 NGSGEOID
 NGW
 NITF

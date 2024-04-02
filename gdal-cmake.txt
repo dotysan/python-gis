@@ -216,7 +216,7 @@
 -- Could NOT find ODBC (missing: ODBC_LIBRARY ODBC_INCLUDE_DIR ODBCINST) 
 -- Could NOT find ODBCCPP (missing: ODBCCPP_LIBRARY ODBCCPP_INCLUDE_DIR) 
 -- Could NOT find MSSQL_ODBC (missing: MSSQL_ODBC_LIBRARY MSSQL_ODBC_INCLUDE_DIR MSSQL_ODBC_VERSION) 
--- Could NOT find MySQL (missing: MYSQL_LIBRARY MYSQL_INCLUDE_DIR) 
+-- Found MySQL: /usr/lib/x86_64-linux-gnu/libmysqlclient.so (found version "") 
 -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
 -- Performing Test Iconv_IS_BUILT_IN
 -- Performing Test Iconv_IS_BUILT_IN - Success
@@ -225,7 +225,7 @@
 -- Performing Test _ICONV_SECOND_ARGUMENT_IS_NOT_CONST - Success
 -- Performing Test ICONV_HAS_EXTRA_CHARSETS
 -- Performing Test ICONV_HAS_EXTRA_CHARSETS - Success
--- Could NOT find LibXml2 (missing: LIBXML2_LIBRARY LIBXML2_INCLUDE_DIR) 
+-- Found LibXml2: /usr/lib/x86_64-linux-gnu/libxml2.so (found version "2.9.14") 
 -- Failed to find XercesC (missing: XercesC_LIBRARY XercesC_INCLUDE_DIR XercesC_VERSION) 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
@@ -248,8 +248,7 @@
 -- Could NOT find BRUNSLI (missing: BRUNSLI_ENC_LIB BRUNSLI_DEC_LIB BRUNSLI_INCLUDE_DIR) 
 -- Could NOT find libQB3 (missing: libQB3_DIR)
 -- Could NOT find Shapelib (missing: Shapelib_INCLUDE_DIR Shapelib_LIBRARY) 
--- Could NOT find PCRE2 (missing: PCRE2-8_LIBRARY PCRE2_INCLUDE_DIR) 
--- Could NOT find PCRE (missing: PCRE_LIBRARY PCRE_INCLUDE_DIR) 
+-- Found PCRE2: /usr/lib/x86_64-linux-gnu/libpcre2-8.so  
 -- Looking for sqlite3_mutex_alloc
 -- Looking for sqlite3_mutex_alloc - found
 -- Looking for sqlite3_column_table_name
@@ -267,7 +266,7 @@
 -- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
 -- Could NOT find LibKML (missing: LIBKML_BASE_LIBRARY LIBKML_INCLUDE_DIR LIBKML_DOM_LIBRARY LIBKML_ENGINE_LIBRARY) 
 -- Found HDF5: /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so (found version "1.10.8") found components: C 
--- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so  
+-- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so (found version "1.2.4") 
 -- Found FreeXL: /usr/lib/x86_64-linux-gnu/libfreexl.so  
 -- Could NOT find MRSID (missing: MRSID_LIBRARY MRSID_INCLUDE_DIR) 
 -- Could NOT find Armadillo (missing: ARMADILLO_INCLUDE_DIR) 
@@ -300,12 +299,12 @@
 -- Could NOT find IDB (missing: IDB_INCLUDE_DIR IDB_IFCPP_LIBRARY IDB_IFDMI_LIBRARY IDB_IFSQL_LIBRARY IDB_IFCLI_LIBRARY) 
 -- Could NOT find rdb (missing: rdb_DIR)
 -- Could NOT find TileDB (missing: TileDB_DIR)
--- Could NOT find OpenEXR (missing: OpenEXR_LIBRARY OpenEXR_UTIL_LIBRARY OpenEXR_HALF_LIBRARY OpenEXR_IEX_LIBRARY OpenEXR_INCLUDE_DIR Imath_INCLUDE_DIR) 
+-- Found OpenEXR: /usr/lib/x86_64-linux-gnu/libOpenEXR.so (found version "3.1.5") 
 -- Could NOT find MONGOCXX (missing: MONGOCXX_INCLUDE_DIR BSONCXX_INCLUDE_DIR MONGOCXX_LIBRARY BSONCXX_LIBRARY) 
--- Could NOT find OpenJPEG (missing: OPENJPEG_LIBRARY OPENJPEG_INCLUDE_DIR) 
+-- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found version "2.5.0") 
 -- Could NOT find JNI (missing: JAVA_INCLUDE_PATH JAVA_INCLUDE_PATH2 AWT JVM) 
 -- Could NOT find HDFS (missing: HDFS_LIBRARY HDFS_INCLUDE_DIR) 
--- Could NOT find Poppler (missing: Poppler_INCLUDE_DIR) 
+-- Could NOT find Poppler (missing: Poppler_INCLUDE_DIR) (found version "22.12.0")
 -- Could NOT find Podofo (missing: PODOFO_LIBRARY PODOFO_INCLUDE_DIR) 
 -- Could NOT find Oracle (missing: Oracle_LIBRARY Oracle_INCLUDE_DIR) 
 -- Could NOT find FileGDB (missing: FileGDB_LIBRARY FileGDB_INCLUDE_DIR) 
@@ -437,6 +436,8 @@
  * gdal_RASTERLITE, Rasterlite - Rasters in SQLite DB
  * gdal_MBTILES, MBTile
  * gdal_POSTGISRASTER, PostGIS Raster driver
+ * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
+ * gdal_EXR, EXR support via OpenEXR library
  * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
  * ogr_MEM, Read/write driver for MEMORY virtual files
  * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
@@ -485,6 +486,7 @@
  * ogr_PMTILES, PMTiles
  * ogr_AMIGOCLOUD, AMIGOCLOUD
  * ogr_CARTO, CARTO
+ * ogr_MYSQL, MySQL
  * ogr_PG, PostGIS
  * ogr_XLSX, Microsoft Office Excel(xlsx)
  * ogr_XLS, Microsoft Office Excel(xls)
@@ -498,8 +500,12 @@
  * Python (required version >= 3.6)
    SWIG_PYTHON: Python binding
  * Threads
+ * MySQL
+   MySQL
  * Iconv
    Character set recoding (used in GDAL portability library)
+ * LibXml2
+   Read and write XML formats
  * Deflate
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
@@ -514,6 +520,8 @@
    GIF compression library (external)
  * JSONC
    json-c library (external)
+ * PCRE2
+   Enable PCRE2 support for sqlite3
  * RASTERLITE2 (required version >= 1.1.0)
    Enable RasterLite2 support for sqlite3
  * HDF5
@@ -527,8 +535,11 @@
    LZMA compression
  * LIBAEC
    Adaptive Entropy Coding implementing Golomb-Rice algorithm (used by GRIB)
+ * OpenEXR
+   OpenEXR >=2.2
  * HEIF
    HEIF >= 1.1
+ * OpenJPEG
  * BISON
 
 -- The following RECOMMENDED packages have been found:
@@ -567,9 +578,7 @@
  * gdal_HDF4, Hierarchical Data Format Release 4 (HDF4)
  * gdal_DDS, DirectDraw Surface
  * gdal_KEA, Kea
- * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
  * gdal_TILEDB, TileDB tiledb.io
- * gdal_EXR, EXR support via OpenEXR library
  * gdal_RDB, RIEGL RDB Map Pixel (.mpx) driver
  * gdal_JPEGXL, JPEG-XL
  * gdal_BASISU_KTX2, Basis Universal and KTX2 texture formats
@@ -587,7 +596,6 @@
  * ogr_NAS, NAS/ALKIS
  * ogr_SOSI, SOSI:Systematic Organization of Spatial Information
  * ogr_ILI, ILI
- * ogr_MYSQL, MySQL
  * ogr_MSSQLSPATIAL, MSSQLSPATIAL
  * ogr_ODBC, ODBC
  * ogr_PGEO, PGEO
@@ -609,10 +617,6 @@
    MSSQL Native Client to enable bulk copy
  * MSSQL_ODBC
    MSSQL ODBC driver to enable bulk copy
- * MySQL
-   MySQL
- * LibXml2
-   Read and write XML formats
  * XercesC
    Read and write XML formats (needed for GMLAS and ILI drivers)
  * SFCGAL
@@ -623,10 +627,6 @@
    Enable BRUNSLI for JPEG packing in MRF
  * libQB3
    Enable QB3 compression in MRF
- * PCRE2
-   Enable PCRE2 support for sqlite3
- * PCRE
-   Enable PCRE support for sqlite3
  * SPATIALITE (required version >= 4.1.2)
    Enable spatialite support for sqlite3
  * LibKML
@@ -673,11 +673,8 @@
    enable RIEGL RDB library
  * TileDB
    enable TileDB driver
- * OpenEXR
-   OpenEXR >=2.2
  * MONGOCXX
    Enable MongoDBV3 driver
- * OpenJPEG
  * HDFS
    Enable Hadoop File System through native library
  * Poppler, A PDF rendering library, <http://poppler.freedesktop.org>

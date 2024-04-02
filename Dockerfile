@@ -12,7 +12,7 @@ ARG FIONAVER=1.9.*
 ARG DEBVER=bookworm
 ARG FFREF=6652531122d8ee34e9b926c8a110ab1892d6382c
 #======================================================================
-FROM debian:$DEBVER-slim AS build-ffmpeg
+FROM debian:$DEBVER AS build-ffmpeg
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes
@@ -47,7 +47,7 @@ RUN ./ffinfo.sh |tee /ffinfo.txt
 #======================================================================
 ARG PYVER
 ARG DEBVER
-FROM python:$PYVER-slim-$DEBVER as build-gdal
+FROM python:$PYVER-$DEBVER as build-gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes
@@ -84,9 +84,8 @@ RUN apt-get install --yes --no-install-recommends \
     libqhull-dev \
     librasterlite2-dev \
     && echo TODO
-    # libmariadb-dev \ # this doesn't work; they still want only MySQL
-    # sqlite3-pcre \
     # libspatialite-dev \
+    # libmongoclient-dev \ # doesn't work; why?
 
 # # gdal builds without this, but test suite fails without, why?
 RUN apt-get install --yes --no-install-recommends \
@@ -196,6 +195,7 @@ RUN apt-get install --yes --no-install-recommends \
     g++
 
 # runtime dependencies
+# TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
     libcrypto++8 \
     libcurl3-gnutls \
@@ -206,7 +206,10 @@ RUN apt-get install --yes --no-install-recommends \
     libgif7 \
     libhdf5-103 \
     libheif1 \
+    libimath-3-1-29 \
     libjson-c5 \
+    libmariadb3 \
+    libopenexr-3-1-30 \
     libpng16-16 \
     libpq5 \
     libproj25 \

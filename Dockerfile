@@ -59,6 +59,7 @@ RUN apt-get install --yes --no-install-recommends \
 
 # core GDAL build requirements
 RUN apt-get install --yes --no-install-recommends \
+    bison \
     cmake \
     g++ \
     libproj-dev \
@@ -106,6 +107,14 @@ RUN pip install --upgrade pip setuptools wheel \
 #    https://github.com/TileDB-Inc/TileDB/releases/download/$TDBVER/tiledb-linux-x86_64-$TDBVER-$TDBREF.tar.gz \
 #    |tar -xz
 # RUN ls -doh /usr/local/include/* /usr/local/lib/*
+
+# # ESRI File Geodatabase (FileGDB)
+# RUN cd /opt && curl --location \
+#     http://appsforms.esri.com/storage/apps/downloads/software/filegdb_api_1_4-64.tar.gz \
+#     |tar -xz && \
+#     mv FileGDB_API-64/include/*.h /usr/local/include/ && \
+#     mv FileGDB_API-64/lib/*.so /usr/local/lib/
+# not sure why above doesn't work; see alterative here: https://github.com/todorus/openkaart-data/blob/develop/geodatabase_conversion/Dockerfile#L22
 
 # fetch/prep GDAL source
 ARG GDVER
@@ -169,6 +178,8 @@ COPY --from=build-gdal /usr/local/gdal/include /usr/local/include
 COPY --from=build-gdal /usr/local/gdal/share /usr/local/share
 COPY --from=build-gdal /gdal-cmake.txt /
 # COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
+# COPY --from=build-gdal /usr/local/lib/libFileGDBAPI.so /usr/local/lib/
+# COPY --from=build-gdal /usr/local/lib/libfgdbunixrtl.so /usr/local/lib/
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes

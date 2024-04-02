@@ -321,10 +321,9 @@
 -- Performing Test COMPILER_SUPPORTS_CXX17 - Success
 -- Looking for linux/fs.h
 -- Looking for linux/fs.h - found
--- Could NOT find BISON (missing: BISON_EXECUTABLE) 
+-- Found BISON: /usr/bin/bison (found version "3.8.2") 
 -- Looking for sqlite3ext.h
 -- Looking for sqlite3ext.h - found
--- Could NOT find BISON (missing: BISON_EXECUTABLE) 
 --   Target system:             Linux
 --   Installation directory:    /usr/local
 --   C++ Compiler type:         GNU
@@ -515,6 +514,7 @@
    LZMA compression
  * HEIF
    HEIF >= 1.1
+ * BISON
 
 -- The following RECOMMENDED packages have been found:
 
@@ -702,7 +702,6 @@
  * Dotnet
  * CSharp
    SWIG_CSharp: CSharp binding
- * BISON
 
 -- Internal libraries enabled:
 

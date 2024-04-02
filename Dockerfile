@@ -80,7 +80,7 @@ RUN apt-get install --yes --no-install-recommends \
     libjson-c-dev \
     libkml-dev \
     libpng-dev \
-    libpoppler-dev \
+    libpoppler-private-dev \
     libpq-dev \
     libqhull-dev \
     librasterlite2-dev \
@@ -214,6 +214,7 @@ RUN apt-get install --yes --no-install-recommends \
     libmariadb3 \
     libopenexr-3-1-30 \
     libpng16-16 \
+    libpoppler126 \
     libpq5 \
     libproj25 \
     libqhull-r8.0 \
@@ -222,7 +223,6 @@ RUN apt-get install --yes --no-install-recommends \
     libtiff6 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
-    # libspatialite7 \
 
 ARG PIP_NO_CACHE_DIR=1
 # and disable the warning about running as root without a venv

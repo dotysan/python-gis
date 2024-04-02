@@ -304,7 +304,7 @@
 -- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found version "2.5.0") 
 -- Could NOT find JNI (missing: JAVA_INCLUDE_PATH JAVA_INCLUDE_PATH2 AWT JVM) 
 -- Could NOT find HDFS (missing: HDFS_LIBRARY HDFS_INCLUDE_DIR) 
--- Could NOT find Poppler (missing: Poppler_INCLUDE_DIR) (found version "22.12.0")
+-- Found Poppler: /usr/lib/x86_64-linux-gnu/libpoppler.so (found version "22.12.0")  
 -- Could NOT find Podofo (missing: PODOFO_LIBRARY PODOFO_INCLUDE_DIR) 
 -- Could NOT find Oracle (missing: Oracle_LIBRARY Oracle_INCLUDE_DIR) 
 -- Could NOT find FileGDB (missing: FileGDB_LIBRARY FileGDB_INCLUDE_DIR) 
@@ -545,6 +545,8 @@
  * HEIF
    HEIF >= 1.1
  * OpenJPEG
+ * Poppler, A PDF rendering library, <http://poppler.freedesktop.org>
+   Enable PDF driver with Poppler (read side)
  * BISON
 
 -- The following RECOMMENDED packages have been found:
@@ -677,8 +679,6 @@
    Enable MongoDBV3 driver
  * HDFS
    Enable Hadoop File System through native library
- * Poppler, A PDF rendering library, <http://poppler.freedesktop.org>
-   Enable PDF driver with Poppler (read side)
  * PDFIUM
    Enable PDF driver with Pdfium (read side)
  * Oracle

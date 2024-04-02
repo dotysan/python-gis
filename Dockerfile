@@ -81,6 +81,7 @@ RUN apt-get install --yes --no-install-recommends \
     libpoppler-dev \
     libpq-dev \
     libqhull-dev \
+    librasterlite2-dev \
     && echo TODO
     # libmariadb-dev \ # this doesn't work; they still want only MySQL
     # sqlite3-pcre \
@@ -208,6 +209,7 @@ RUN apt-get install --yes --no-install-recommends \
     libpq5 \
     libproj25 \
     libqhull-r8.0 \
+    librasterlite2-1 \
     libtiff6 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \

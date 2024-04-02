@@ -264,7 +264,7 @@
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
 -- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
 -- Could NOT find SPATIALITE (missing: SPATIALITE_LIBRARY SPATIALITE_INCLUDE_DIR) (Required is at least version "4.1.2")
--- Could NOT find RASTERLITE2 (missing: RASTERLITE2_LIBRARY RASTERLITE2_INCLUDE_DIR) (Required is at least version "1.1.0")
+-- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
 -- Could NOT find LibKML (missing: LIBKML_BASE_LIBRARY LIBKML_INCLUDE_DIR LIBKML_DOM_LIBRARY LIBKML_ENGINE_LIBRARY) 
 -- Could NOT find HDF5 (missing: HDF5_LIBRARIES HDF5_INCLUDE_DIRS C) (found version "")
 -- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so  
@@ -513,6 +513,8 @@
    GIF compression library (external)
  * JSONC
    json-c library (external)
+ * RASTERLITE2 (required version >= 1.1.0)
+   Enable RasterLite2 support for sqlite3
  * WebP
    WebP compression
  * FreeXL
@@ -623,8 +625,6 @@
    Enable PCRE support for sqlite3
  * SPATIALITE (required version >= 4.1.2)
    Enable spatialite support for sqlite3
- * RASTERLITE2 (required version >= 1.1.0)
-   Enable RasterLite2 support for sqlite3
  * LibKML
    Use LIBKML library
  * KEA

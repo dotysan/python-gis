@@ -74,6 +74,7 @@ RUN apt-get install --yes --no-install-recommends \
     libgeos-dev \
     libgeotiff-dev \
     libgif-dev \
+    libhdf5-dev \
     libheif-dev \
     libjpeg-dev \
     libjson-c-dev \
@@ -203,6 +204,7 @@ RUN apt-get install --yes --no-install-recommends \
     libgeos-c1v5 \
     libgeotiff5 \
     libgif7 \
+    libhdf5-103 \
     libheif1 \
     libjson-c5 \
     libpng16-16 \
@@ -238,7 +240,7 @@ RUN apt-get --yes purge \
 # make sure we didn't remove anything still needed
 RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
     if echo "$lddout" |grep -q 'not found'; then \
-       echo "$lddout" |awk '/^[^ \t]/{f=$0}/not found/{print f;print$0}'; \
+       echo "$lddout" |grep 'not found' |sort |uniq -c; \
        exit 1; \
     fi
 

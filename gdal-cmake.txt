@@ -321,6 +321,24 @@
 -- Looking for linux/fs.h
 -- Looking for linux/fs.h - found
 -- Found BISON: /usr/bin/bison (found version "3.8.2") 
+-- Looking for JxlEncoderFrameSettingsSetOption
+-- Looking for JxlEncoderFrameSettingsSetOption - found
+-- Looking for JxlEncoderFrameSettingsCreate
+-- Looking for JxlEncoderFrameSettingsCreate - found
+-- Looking for JxlEncoderSetFrameDistance
+-- Looking for JxlEncoderSetFrameDistance - found
+-- Looking for JxlEncoderSetFrameLossless
+-- Looking for JxlEncoderSetFrameLossless - found
+-- Looking for JxlEncoderSetCodestreamLevel
+-- Looking for JxlEncoderSetCodestreamLevel - found
+-- Looking for JxlEncoderInitExtraChannelInfo
+-- Looking for JxlEncoderInitExtraChannelInfo - found
+-- Looking for JxlDecoderSetDecompressBoxes
+-- Looking for JxlDecoderSetDecompressBoxes - found
+-- Looking for JxlEncoderSetExtraChannelDistance
+-- Looking for JxlEncoderSetExtraChannelDistance - not found
+-- Looking for JxlDecoderDefaultPixelFormat
+-- Looking for JxlDecoderDefaultPixelFormat - found
 -- Looking for sqlite3ext.h
 -- Looking for sqlite3ext.h - found
 --   Target system:             Linux
@@ -439,6 +457,7 @@
  * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
  * gdal_EXR, EXR support via OpenEXR library
  * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
+ * gdal_JPEGXL, JPEG-XL
  * ogr_MEM, Read/write driver for MEMORY virtual files
  * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
  * ogr_TAB, MapInfo TAB and MIF/MID
@@ -540,6 +559,10 @@
    LZMA compression
  * LIBAEC
    Adaptive Entropy Coding implementing Golomb-Rice algorithm (used by GRIB)
+ * JXL
+   JPEG-XL compression
+ * JXL_THREADS
+   JPEG-XL threading
  * OpenEXR
    OpenEXR >=2.2
  * HEIF
@@ -587,7 +610,6 @@
  * gdal_KEA, Kea
  * gdal_TILEDB, TileDB tiledb.io
  * gdal_RDB, RIEGL RDB Map Pixel (.mpx) driver
- * gdal_JPEGXL, JPEG-XL
  * gdal_BASISU_KTX2, Basis Universal and KTX2 texture formats
  * gdal_JP2KAK, JPEG-2000 (based on Kakadu)
  * gdal_JPIPKAK, JPIP Streaming
@@ -661,10 +683,6 @@
    Blosc compression
  * ARCHIVE
    Multi-format archive and compression library library (used for /vsi7z/
- * JXL
-   JPEG-XL compression
- * JXL_THREADS
-   JPEG-XL threading
  * Crnlib
    enable gdal_DDS driver
  * basisu

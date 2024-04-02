@@ -78,6 +78,7 @@ RUN apt-get install --yes --no-install-recommends \
     libheif-dev \
     libjpeg-dev \
     libjson-c-dev \
+    libjxl-dev \
     libkml-dev \
     libpng-dev \
     libpoppler-private-dev \
@@ -208,6 +209,7 @@ RUN apt-get install --yes --no-install-recommends \
     libheif1 \
     libimath-3-1-29 \
     libjson-c5 \
+    libjxl0.7 \
     libkmlbase1 \
     libkmldom1 \
     libkmlengine1 \

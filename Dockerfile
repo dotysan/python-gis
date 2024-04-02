@@ -84,8 +84,8 @@ RUN apt-get install --yes --no-install-recommends \
     libpq-dev \
     libqhull-dev \
     librasterlite2-dev \
+    libspatialite-dev \
     && echo TODO
-    # libspatialite-dev \
 
 # # gdal builds without this, but test suite fails without, why?
 RUN apt-get install --yes --no-install-recommends \
@@ -218,6 +218,7 @@ RUN apt-get install --yes --no-install-recommends \
     libproj25 \
     libqhull-r8.0 \
     librasterlite2-1 \
+    libspatialite7 \
     libtiff6 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \

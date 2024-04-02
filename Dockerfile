@@ -224,11 +224,16 @@ RUN apt-get --yes purge \
    g++ \
    && apt-get --yes autoremove
 
+# make sure we didn't remove anything still needed
+RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
+    if echo "$lddout" |grep -q 'not found'; then \
+       echo "$lddout" |awk '/^[^ \t]/{f=$0}/not found/{print f;print$0}'; \
+       exit 1; \
+    fi
+
 # show what we got
 RUN cat /gdal-cmake.txt
-RUN ldd /usr/local/bin/gdal* |grep 'not found' |sort |uniq -c ||:
-RUN ldd /usr/local/bin/ogr* |grep 'not found' |sort |uniq -c ||:
-RUN gdal-config --formats
+RUN gdal-config --formats |tr ' ' '\n' |sort --ignore-case |tee /gdal-formats.txt
 RUN pip list --verbose |tee /pip-list.txt
 
 # see docker output line-by-line

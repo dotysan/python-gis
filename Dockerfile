@@ -87,6 +87,7 @@ RUN apt-get install --yes --no-install-recommends \
     librasterlite2-dev \
     libspatialite-dev \
     libxerces-c-dev \
+    ocl-icd-opencl-dev \
     && echo TODO
 
 # # gdal builds without this, but test suite fails without, why?
@@ -225,6 +226,7 @@ RUN apt-get install --yes --no-install-recommends \
     libspatialite7 \
     libtiff6 \
     libxerces-c3.2 \
+    ocl-icd-libopencl1 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 

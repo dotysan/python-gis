@@ -276,20 +276,8 @@
 -- Could NOT find NetCDF (missing: NETCDF_LIBRARY NETCDF_INCLUDE_DIR) 
 -- Could NOT find OGDI (missing: OGDI_LIBRARY OGDI_INCLUDE_DIRS) 
 -- Looking for CL_VERSION_3_0
--- Looking for CL_VERSION_3_0 - not found
--- Looking for CL_VERSION_2_2
--- Looking for CL_VERSION_2_2 - not found
--- Looking for CL_VERSION_2_1
--- Looking for CL_VERSION_2_1 - not found
--- Looking for CL_VERSION_2_0
--- Looking for CL_VERSION_2_0 - not found
--- Looking for CL_VERSION_1_2
--- Looking for CL_VERSION_1_2 - not found
--- Looking for CL_VERSION_1_1
--- Looking for CL_VERSION_1_1 - not found
--- Looking for CL_VERSION_1_0
--- Looking for CL_VERSION_1_0 - not found
--- Could NOT find OpenCL (missing: OpenCL_LIBRARY OpenCL_INCLUDE_DIR) 
+-- Looking for CL_VERSION_3_0 - found
+-- Found OpenCL: /usr/lib/x86_64-linux-gnu/libOpenCL.so (found version "3.0") 
 -- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.6")  
 -- Could NOT find FYBA (missing: FYBA_FYBA_LIBRARY FYBA_FYGM_LIBRARY FYBA_FYUT_LIBRARY FYBA_INCLUDE_DIR) 
 -- Found LibLZMA: /usr/lib/x86_64-linux-gnu/liblzma.so (found version "5.4.1") 
@@ -559,6 +547,8 @@
    WebP compression
  * FreeXL
    Enable XLS driver
+ * OpenCL
+   Enable OpenCL (may be used for warping)
  * PostgreSQL
  * LibLZMA
    LZMA compression
@@ -673,8 +663,6 @@
    Enable netCDF driver
  * OGDI
    Enable ogr_OGDI driver
- * OpenCL
-   Enable OpenCL (may be used for warping)
  * FYBA
    enable ogr_SOSI driver
  * LZ4

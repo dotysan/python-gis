@@ -226,7 +226,7 @@
 -- Performing Test ICONV_HAS_EXTRA_CHARSETS
 -- Performing Test ICONV_HAS_EXTRA_CHARSETS - Success
 -- Found LibXml2: /usr/lib/x86_64-linux-gnu/libxml2.so (found version "2.9.14") 
--- Failed to find XercesC (missing: XercesC_LIBRARY XercesC_INCLUDE_DIR XercesC_VERSION) 
+-- Found XercesC: /usr/lib/x86_64-linux-gnu/libxerces-c.so (found version "3.2.4") 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
 -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.11") found components: SSL Crypto 
@@ -489,9 +489,11 @@
  * ogr_JSONFG, JSONFG
  * ogr_SDTS, SDTS
  * ogr_GPX, GPX - GPS Exchange Format
+ * ogr_GMLAS, GMLAS
  * ogr_SVG, Scalable Vector Graphics
  * ogr_CSW, CSW
  * ogr_LIBKML, LibKML
+ * ogr_NAS, NAS/ALKIS
  * ogr_PLSCENES, PLSCENES
  * ogr_WFS, OGC WFS service
  * ogr_NGW, NextGIS Web
@@ -506,6 +508,7 @@
  * ogr_PMTILES, PMTiles
  * ogr_AMIGOCLOUD, AMIGOCLOUD
  * ogr_CARTO, CARTO
+ * ogr_ILI, ILI
  * ogr_MYSQL, MySQL
  * ogr_PG, PostGIS
  * ogr_XLSX, Microsoft Office Excel(xlsx)
@@ -526,6 +529,8 @@
    Character set recoding (used in GDAL portability library)
  * LibXml2
    Read and write XML formats
+ * XercesC
+   Read and write XML formats (needed for GMLAS and ILI drivers)
  * Deflate
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
@@ -618,12 +623,9 @@
  * gdal_MRSID, Multi-resolution Seamless Image Database
  * gdal_GEOR, Oracle Spatial GeoRaster
  * gdal_ECW, ERDAS JPEG2000 (.jp2)
- * ogr_GMLAS, GMLAS
  * ogr_DWG, DWG
  * ogr_FILEGDB, FileGDB
- * ogr_NAS, NAS/ALKIS
  * ogr_SOSI, SOSI:Systematic Organization of Spatial Information
- * ogr_ILI, ILI
  * ogr_MSSQLSPATIAL, MSSQLSPATIAL
  * ogr_ODBC, ODBC
  * ogr_PGEO, PGEO
@@ -645,8 +647,6 @@
    MSSQL Native Client to enable bulk copy
  * MSSQL_ODBC
    MSSQL ODBC driver to enable bulk copy
- * XercesC
-   Read and write XML formats (needed for GMLAS and ILI drivers)
  * SFCGAL
    gdal core supports ISO 19107:2013 and OGC Simple Features Access 1.2 for 3D operations
  * OpenCAD

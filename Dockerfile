@@ -86,6 +86,7 @@ RUN apt-get install --yes --no-install-recommends \
     libqhull-dev \
     librasterlite2-dev \
     libspatialite-dev \
+    libxerces-c-dev \
     && echo TODO
 
 # # gdal builds without this, but test suite fails without, why?
@@ -223,6 +224,7 @@ RUN apt-get install --yes --no-install-recommends \
     librasterlite2-1 \
     libspatialite7 \
     libtiff6 \
+    libxerces-c3.2 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 

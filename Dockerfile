@@ -176,6 +176,7 @@ ARG PYVER
 ARG DEBVER
 FROM python:$PYVER-slim-$DEBVER
 
+ARG HERE
 LABEL org.opencontainers.image.source=$HERE
 
 COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/

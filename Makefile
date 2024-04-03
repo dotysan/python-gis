@@ -17,8 +17,12 @@ bash: build
 push: build tag
 	docker tag $(TAG) dotysan/$(TAG)
 	docker tag $(REL) dotysan/$(REL)
+	docker tag $(TAG) ghcr.io/dotysan/$(TAG)
+	docker tag $(TAG) ghcr.io/dotysan/$(REL)
 	docker push dotysan/$(TAG)
 	docker push dotysan/$(REL)
+	docker push ghcr.io/dotysan/$(TAG)
+	docker push ghcr.io/dotysan/$(REL)
 
 tag: build
 	docker tag $(TAG) $(REL)

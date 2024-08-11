@@ -2,7 +2,7 @@
 ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
-ARG GDVER=3.8.4
+ARG GDVER=3.9.1
 ARG NPVER=1.26.*
 ARG FIONAVER=1.9.*
 

@@ -3,6 +3,7 @@ ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
 ARG GDVER=3.9.1
+ARG PDFREV=6309
 ARG NPVER=1.26.*
 ARG FIONAVER=1.9.*
 
@@ -81,7 +82,6 @@ RUN apt-get install --yes --no-install-recommends \
     libjxl-dev \
     libkml-dev \
     libpng-dev \
-    libpoppler-private-dev \
     libpq-dev \
     libqhull-dev \
     librasterlite2-dev \
@@ -125,14 +125,19 @@ RUN pip install --upgrade pip setuptools wheel \
 #     mv FileGDB_API-64/lib/*.so /usr/local/lib/
 # not sure why above doesn't work; see alterative here: https://github.com/todorus/openkaart-data/blob/develop/geodatabase_conversion/Dockerfile#L22
 
+# Build against PDFium instead of using slow system Poppler
+ARG PDFREV
+# TODO: take PDFREPO '3_9' from GDVER=3.9.1
+ARG PDFREPO=rouault/pdfium_build_gdal_3_9
+ARG PDFTAG=pdfium_${PDFREV}_v1
+ARG PDFINSTALL=https://github.com/${PDFREPO}/releases/download/${PDFTAG}/install-ubuntu2004-rev${PDFREV}.tar.gz
+RUN curl --location ${PDFINSTALL} |tar xz
+
 # fetch/prep GDAL source
 ARG GDVER
 ARG GDPATH=https://github.com/OSGeo/gdal/releases/download/v$GDVER/gdal
-RUN curl --location ${GDPATH}-$GDVER.tar.gz \
-      |tar -xz && \
-    curl --location ${GDPATH}autotest-$GDVER.tar.gz \
-      |tar -xz && \
-    mv gdalautotest-$GDVER gdal-$GDVER/autotest
+RUN curl --location ${GDPATH}-$GDVER.tar.gz |tar -xz
+# this creates /install/{include,lib}/
 RUN mkdir gdal-$GDVER/build
 WORKDIR /gdal-$GDVER/build
 
@@ -140,6 +145,14 @@ WORKDIR /gdal-$GDVER/build
 ARG PYVER
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
+      -DBUILD_TESTING=OFF \
+      \
+      -DGDAL_ENABLE_DRIVER_PDF=ON \
+      -DGDAL_USE_POPPLER=OFF \
+      -DGDAL_USE_PDFIUM=ON \
+      -DPDFIUM_INCLUDE_DIR=/install/include/pdfium \
+      -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
+      \
       |tee /gdal-cmake.txt
     #   -DGDAL_USE_INTERNAL_LIBS=OFF \
     #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
@@ -219,7 +232,6 @@ RUN apt-get install --yes --no-install-recommends \
     libmariadb3 \
     libopenexr-3-1-30 \
     libpng16-16 \
-    libpoppler126 \
     libpq5 \
     libproj25 \
     libqhull-r8.0 \

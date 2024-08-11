@@ -10,7 +10,7 @@ ARG FIONAVER=1.9.*
 # ARG TDBREF=29ceb3e7
 
 ARG DEBVER=bookworm
-ARG FFREF=6652531122d8ee34e9b926c8a110ab1892d6382c
+ARG FFREF=a78f2b8677bed1b8130deb46af137ada1d0070d5
 #======================================================================
 FROM debian:$DEBVER AS build-ffmpeg
 

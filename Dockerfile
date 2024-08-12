@@ -87,11 +87,6 @@ RUN apt-get install --yes --no-install-recommends \
     ocl-icd-opencl-dev \
     && echo TODO
 
-# # gdal builds without this, but test suite fails without, why?
-RUN apt-get install --yes --no-install-recommends \
-    libcrypto++-dev \
-    libgtest-dev
-#     # libcrypto++8
 
 # for GDAL test suite and Python bindings
 RUN apt-get install --yes --no-install-recommends \

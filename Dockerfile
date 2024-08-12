@@ -48,7 +48,7 @@ RUN ./ffinfo.sh |tee /ffinfo.txt
 #======================================================================
 ARG PYVER
 ARG DEBVER
-FROM python:$PYVER-$DEBVER as build-gdal
+FROM python:$PYVER-$DEBVER AS build-gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes
@@ -73,7 +73,6 @@ RUN apt-get install --yes --no-install-recommends \
     libexpat-dev \
     libfreexl-dev \
     libgeos-dev \
-    libgeotiff-dev \
     libgif-dev \
     libhdf5-dev \
     libheif-dev \
@@ -84,8 +83,6 @@ RUN apt-get install --yes --no-install-recommends \
     libpng-dev \
     libpq-dev \
     libqhull-dev \
-    librasterlite2-dev \
-    libspatialite-dev \
     libxerces-c-dev \
     ocl-icd-opencl-dev \
     && echo TODO
@@ -218,7 +215,6 @@ RUN apt-get install --yes --no-install-recommends \
     libdeflate0 \
     libfreexl1 \
     libgeos-c1v5 \
-    libgeotiff5 \
     libgif7 \
     libhdf5-103 \
     libheif1 \
@@ -230,14 +226,14 @@ RUN apt-get install --yes --no-install-recommends \
     libkmlengine1 \
     libmariadb3 \
     libopenexr-3-1-30 \
+    libopenjp2-7 \
     libpng16-16 \
     libpq5 \
     libproj25 \
     libqhull-r8.0 \
-    librasterlite2-1 \
-    libspatialite7 \
     libtiff6 \
     libxerces-c3.2 \
+    libxml2 \
     ocl-icd-libopencl1 \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \

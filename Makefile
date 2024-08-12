@@ -19,9 +19,17 @@ push: build tag
 	docker tag $(REL) dotysan/$(REL)
 	docker tag $(TAG) ghcr.io/dotysan/$(TAG)
 	docker tag $(TAG) ghcr.io/dotysan/$(REL)
-	docker push dotysan/$(TAG)
+	docker push dotysan/$(TAG) || \
+	  docker login --username dotysan \
+	  && docker push dotysan/$(TAG)
 	docker push dotysan/$(REL)
-	docker push ghcr.io/dotysan/$(TAG)
+	docker push ghcr.io/dotysan/$(TAG) || \
+	  if [[ "$$GITHUB_TOKEN" ]]; then \
+		docker login --username dotysan --password-stdin ghcr.io <<<"$$GITHUB_TOKEN" \
+		&& docker push ghcr.io/dotysan/$(TAG); \
+	  else \
+	    echo "ERROR: Missing GITHUB_TOKEN in .envrc or environment." >&2; exit 1; \
+	  fi
 	docker push ghcr.io/dotysan/$(REL)
 
 tag: build

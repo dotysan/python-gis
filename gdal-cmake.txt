@@ -233,21 +233,8 @@
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
 -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13") found components: SSL Crypto 
 -- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
--- Looking for sqlite3_mutex_alloc
--- Looking for sqlite3_mutex_alloc - found
--- Looking for sqlite3_column_table_name
--- Looking for sqlite3_column_table_name - found
--- Looking for sqlite3_rtree_query_callback
--- Looking for sqlite3_rtree_query_callback - found
--- Looking for sqlite3_load_extension
--- Looking for sqlite3_load_extension - found
--- Looking for sqlite3_progress_handler
--- Looking for sqlite3_progress_handler - found
--- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION
--- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
--- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.5.0")  
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Found PROJ: /usr/local/proj/lib/libproj.so (found version "9.4.1") 
+-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
 -- Could NOT find GeoTIFF (missing: GEOTIFF_LIBRARY GEOTIFF_INCLUDE_DIR) 
@@ -263,6 +250,19 @@
 -- Could NOT find libQB3 (missing: libQB3_DIR)
 -- Could NOT find Shapelib (missing: Shapelib_INCLUDE_DIR Shapelib_LIBRARY) 
 -- Found PCRE2: /usr/lib/x86_64-linux-gnu/libpcre2-8.so  
+-- Looking for sqlite3_mutex_alloc
+-- Looking for sqlite3_mutex_alloc - found
+-- Looking for sqlite3_column_table_name
+-- Looking for sqlite3_column_table_name - found
+-- Looking for sqlite3_rtree_query_callback
+-- Looking for sqlite3_rtree_query_callback - found
+-- Looking for sqlite3_load_extension
+-- Looking for sqlite3_load_extension - found
+-- Looking for sqlite3_progress_handler
+-- Looking for sqlite3_progress_handler - found
+-- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION
+-- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
+-- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found suitable version "3.40.1", minimum required is "3.31") 
 -- Could NOT find SPATIALITE (missing: SPATIALITE_LIBRARY SPATIALITE_INCLUDE_DIR) (Required is at least version "4.1.2")
 -- Could NOT find RASTERLITE2 (missing: RASTERLITE2_LIBRARY RASTERLITE2_INCLUDE_DIR) (Required is at least version "1.1.0")
 -- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
@@ -524,7 +524,6 @@
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
    Use OpenSSL library
- * PROJ
  * ZSTD
    ZSTD compression library
  * ZLIB
@@ -566,10 +565,14 @@
 
 -- The following RECOMMENDED packages have been found:
 
+ * CURL (required version >= 7.68)
+   Enable drivers to use web API
  * EXPAT
    Read and write XML formats
- * CURL
-   Enable drivers to use web API
+ * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
+   Support for the Tag Image File Format (TIFF).
+   gdal_GTIFF: GeoTIFF image format
+   gdal_CALS: CALS type 1 driver
  * PNG (required version >= 1.6)
    PNG compression library (external)
  * JPEG
@@ -578,11 +581,14 @@
    Enable QHULL (external)
  * LERC
    Enable LERC (external)
+ * SQLite3 (required version >= 3.31)
+   Enable SQLite3 support (used by SQLite/Spatialite, GPKG, Rasterlite, MBTiles, etc.)
  * GEOS
    Geometry Engine - Open Source (GDAL core dependency)
 
 -- The following REQUIRED packages have been found:
 
+ * PROJ
  * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
 
 -- The following features have been disabled:

@@ -70,7 +70,7 @@
   GTX -raster- (rw+v): NOAA Vertical Datum .GTX (*.gtx)
   GTiff -raster- (rw+vs): GeoTIFF (*.tif, *.tiff)
   GXF -raster- (rov): GeoSoft Grid Exchange Format (*.gxf)
-  GenBin -raster-Supported Formats:
+  GenBin -raster- (rov): Generic Binary (.hdr Labelled)
   GeoJSON -vector- (rw+v): GeoJSON (*.json, *.geojson)
   GeoJSONSeq -vector- (rw+v): GeoJSON Sequence (*.geojsonl, *.geojsons)
   GeoRSS -vector- (rw+v): GeoRSS
@@ -185,7 +185,7 @@
   SXF -vector- (rov): Storage and eXchange Format (*.sxf)
   Selafin -vector- (rw+v): Selafin
   TGA -raster- (rov): TGA/TARGA Image File Format (*.tga)
-  TIGER -v (rov): Generic Binary (.hdr Labelled)
+  TIGER -vector- (rov): U.S. Census TIGER/Line
   TIL -raster- (rov): EarthWatch .TIL
   TSX -raster- (rov): TerraSAR-X Product
   Terragen -raster- (rw+v): Terragen heightfield (*.ter)
@@ -208,4 +208,3 @@
   XYZ -raster- (rwv): ASCII Gridded XYZ (*.xyz)
   ZMap -raster- (rwv): ZMap Plus Grid (*.dat)
   Zarr -raster,multidimensional raster- (rw+vs): Zarr
-ector- (rov): U.S. Census TIGER/Line

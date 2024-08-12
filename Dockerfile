@@ -162,8 +162,21 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
       -DBUILD_TESTING=OFF \
       \
+      -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
       -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
       -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
+      \
+      -DGDAL_ENABLE_DRIVER_GIF=ON \
+      -DGDAL_USE_GIF=ON \
+      -DGDAL_USE_GIF_INTERNAL=OFF \
+      -DGDAL_ENABLE_DRIVER_PNG=ON \
+      -DGDAL_USE_PNG_INTERNAL=OFF \
+      -DGDAL_ENABLE_DRIVER_JPEG=ON \
+      -DGDAL_USE_JPEG_INTERNAL=OFF \
+      -DGDAL_USE_OPENJPEG=ON \
+      -DGDAL_USE_GEOTIFF_INTERNAL=ON \
+      \
+      -DGDAL_USE_CURL=ON \
       \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
@@ -172,7 +185,6 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
       \
       |tee /gdal-cmake.txt
-    #   -DGDAL_FIND_PACKAGE_PROJ_MODE=CUSTOM \
     #   -DGDAL_USE_INTERNAL_LIBS=OFF \
     #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
     #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
@@ -209,26 +221,6 @@ FROM python:$PYVER-slim-$DEBVER
 
 ARG HERE
 LABEL org.opencontainers.image.source=$HERE
-
-COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
-COPY --from=build-ffmpeg /ffinfo.txt /
-
-COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
-COPY --from=build-gdal /usr/local/proj/share /usr/local/share
-
-COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
-COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib
-
-COPY --from=build-gdal /usr/local/gdal/include /usr/local/include
-# gdal headers are needed to install fiona below
-
-COPY --from=build-gdal /usr/local/gdal/share /usr/local/share
-
-COPY --from=build-gdal /*.txt /
-
-# COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
-# COPY --from=build-gdal /usr/local/lib/libFileGDBAPI.so /usr/local/lib/
-# COPY --from=build-gdal /usr/local/lib/libfgdbunixrtl.so /usr/local/lib/
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes
@@ -267,6 +259,26 @@ RUN apt-get install --yes --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 
+COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
+COPY --from=build-ffmpeg /ffinfo.txt /
+
+COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
+COPY --from=build-gdal /usr/local/proj/share /usr/local/share
+
+COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
+COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib
+
+COPY --from=build-gdal /usr/local/gdal/include /usr/local/include
+# gdal headers are needed to install fiona below
+
+COPY --from=build-gdal /usr/local/gdal/share /usr/local/share
+
+COPY --from=build-gdal /*.txt /
+
+# COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
+# COPY --from=build-gdal /usr/local/lib/libFileGDBAPI.so /usr/local/lib/
+# COPY --from=build-gdal /usr/local/lib/libfgdbunixrtl.so /usr/local/lib/
+
 ARG PIP_NO_CACHE_DIR=1
 # and disable the warning about running as root without a venv
 ARG PIP_ROOT_USER_ACTION=ignore
@@ -285,7 +297,7 @@ RUN pip install --requirement require.pip \
 # now remove fiona build deps
 RUN apt-get --yes purge \
    g++ \
-   && apt-get --yes autoremove
+   && apt-get --yes autopurge
 
 # make sure we didn't remove anything still needed
 RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
@@ -298,9 +310,8 @@ RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
 RUN cat /ffinfo.txt
 RUN cat /gdal-cmake.txt
 RUN gdal-config --formats |tr ' ' '\n' |sort --ignore-case |tee /gdal-formats.txt
-RUN (gdalinfo --formats & \
-     ogrinfo --formats & \
-     wait) |sort -u |grep -v ^Supported |tee /all-formats.txt
+RUN (gdalinfo --formats && ogrinfo --formats) \
+      |sort -u |grep -v ^Supported |tee /all-formats.txt
 RUN pip list --verbose |tee /pip-list.txt
 
 # see docker output line-by-line

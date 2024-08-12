@@ -1,6 +1,6 @@
 ffmpeg version 6.1.1 Copyright (c) 2000-2023 the FFmpeg developers
 built with gcc 12 (Debian 12.2.0-14)
-configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240402 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240402/include --extra-ldflags=-L/ffmpeg-static/build/20240402/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240402/bin --disable-autodetect --disable-ffprobe --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='h264,mp2,pcm_u8' --enable-parser=h264 --enable-demuxer='mp3,rtsp' --enable-filter='anullsrc,aresample' --enable-encoder=aac --enable-muxer='data,fifo,flv,hls,h264' --enable-protocol='file,pipe,rtmp' --enable-bsf=extract_extradata --enable-indev=lavfi
+configuration: --ld=g++ --prefix=/ffmpeg-static/build/20240812 --pkg-config-flags=--static --extra-cflags=-I/ffmpeg-static/build/20240812/include --extra-ldflags=-L/ffmpeg-static/build/20240812/lib --extra-libs='-lpthread -lm' --bindir=/ffmpeg-static/build/20240812/bin --disable-autodetect --disable-everything --disable-doc --enable-gpl --enable-libx264 --enable-decoder='h264,aac,mp2,mp3,pcm_u8' --enable-parser=h264 --enable-demuxer='mp3,rtsp' --enable-filter='anullsrc,aresample' --enable-encoder='aac,mp3' --enable-muxer='data,fifo,flv,hls,h264' --enable-protocol='file,pipe,rtmp' --enable-bsf=extract_extradata --enable-indev=lavfi
 libavutil      58. 29.100 / 58. 29.100
 libavcodec     60. 31.102 / 60. 31.102
 libavformat    60. 16.100 / 60. 16.100
@@ -361,7 +361,7 @@ Codecs:
  ..AIL. 4gv                  4GV (Fourth Generation Vocoder)
  ..AIL. 8svx_exp             8SVX exponential
  ..AIL. 8svx_fib             8SVX fibonacci
- .EAIL. aac                  AAC (Advanced Audio Coding)
+ DEAIL. aac                  AAC (Advanced Audio Coding)
  ..AIL. aac_latm             AAC LATM (Advanced Audio Coding LATM syntax)
  ..AIL. ac3                  ATSC A/52A (AC-3)
  ..A.L. ac4                  AC-4
@@ -478,7 +478,7 @@ Codecs:
  ..A..S mlp                  MLP (Meridian Lossless Packing)
  ..AIL. mp1                  MP1 (MPEG audio layer 1)
  D.AIL. mp2                  MP2 (MPEG audio layer 2)
- ..AIL. mp3                  MP3 (MPEG audio layer 3)
+ D.AIL. mp3                  MP3 (MPEG audio layer 3)
  ..AIL. mp3adu               ADU (Application Data Unit) MP3 (MPEG audio layer 3)
  ..AIL. mp3on4               MP3onMP4
  ..AI.S mp4als               MPEG-4 Audio Lossless Coding (ALS)

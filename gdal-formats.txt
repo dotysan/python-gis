@@ -3,7 +3,6 @@ ADRG
 AIGrid
 AirSAR
 AmigoCloud
-ARG
 AVC
 BLX
 BMP
@@ -76,6 +75,7 @@ MapML
 MBTiles
 MEM
 MEM
+MiraMon
 MRF
 MSGN
 MVT

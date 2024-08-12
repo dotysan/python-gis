@@ -33,7 +33,7 @@
 -- Performing Test test_avx2
 -- Performing Test test_avx2 - Success
 -- Found SWIG: /usr/bin/swig4.0 (found version "4.1.0")  
--- Found Python: /usr/local/bin/python3 (found suitable version "3.11.8", minimum required is "3.6") found components: Interpreter Development NumPy Development.Module Development.Embed 
+-- Found Python: /usr/local/bin/python3 (found suitable version "3.11.9", minimum required is "3.8") found components: Interpreter Development NumPy Development.Module Development.Embed 
 -- Performing Test HAVE_WFLAG_ALL
 -- Performing Test HAVE_WFLAG_ALL - Success
 -- Performing Test HAVE_WFLAG_EXTRA
@@ -181,8 +181,8 @@
 -- Looking for fseeko64 - found
 -- Looking for stat64
 -- Looking for stat64 - found
--- Performing Test NO_UNIX_STDIO_64
--- Performing Test NO_UNIX_STDIO_64 - Failed
+-- Performing Test WINDOWS_STAT64
+-- Performing Test WINDOWS_STAT64 - Failed
 -- Looking for fopen64
 -- Looking for fopen64 - found
 -- Check size of off_t
@@ -208,16 +208,18 @@
 -- checking if sprintf can be overloaded for GDAL compilation
 -- Performing Test DEPRECATE_SPRINTF
 -- Performing Test DEPRECATE_SPRINTF - Failed
+-- Performing Test HAVE_SHARED_MUTEX
+-- Performing Test HAVE_SHARED_MUTEX - Success
 -- Looking for linux/userfaultfd.h
 -- Looking for linux/userfaultfd.h - found
--- GDAL_VERSION          = 3.8.4
--- GDAL_ABI_FULL_VERSION = 34.3.8.4
--- GDAL_SOVERSION        = 34
+-- GDAL_VERSION          = 3.9.1
+-- GDAL_ABI_FULL_VERSION = 35.3.9.1
+-- GDAL_SOVERSION        = 35
 -- Could NOT find ODBC (missing: ODBC_LIBRARY ODBC_INCLUDE_DIR ODBCINST) 
 -- Could NOT find ODBCCPP (missing: ODBCCPP_LIBRARY ODBCCPP_INCLUDE_DIR) 
 -- Could NOT find MSSQL_ODBC (missing: MSSQL_ODBC_LIBRARY MSSQL_ODBC_INCLUDE_DIR MSSQL_ODBC_VERSION) 
 -- Found MySQL: /usr/lib/x86_64-linux-gnu/libmysqlclient.so (found version "") 
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found suitable version "7.88.1", minimum required is "7.68")  
 -- Performing Test Iconv_IS_BUILT_IN
 -- Performing Test Iconv_IS_BUILT_IN - Success
 -- Found Iconv: /usr/lib/x86_64-linux-gnu/libc.so  
@@ -229,15 +231,16 @@
 -- Found XercesC: /usr/lib/x86_64-linux-gnu/libxerces-c.so (found version "3.2.4") 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
--- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.11") found components: SSL Crypto 
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13") found components: SSL Crypto 
 -- Performing Test CRYPTOPP_TEST_KNOWNBUG
 -- Performing Test CRYPTOPP_TEST_KNOWNBUG - Success
 -- Found CryptoPP: /usr/lib/x86_64-linux-gnu/libcryptopp.so  
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.0")  
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
 -- Found GeoTIFF: /usr/lib/x86_64-linux-gnu/libgeotiff.so (found version "1.7.1.0") 
--- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found version "1.6.39") 
+-- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found suitable version "1.6.39", minimum required is "1.6") 
 -- Found JPEG: /usr/lib/x86_64-linux-gnu/libjpeg.so (found version "62") 
 -- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12
 -- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12 - Failed
@@ -261,7 +264,7 @@
 -- Looking for sqlite3_progress_handler - found
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
--- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
+-- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found suitable version "3.40.1", minimum required is "3.31") 
 -- Found SPATIALITE: /usr/lib/x86_64-linux-gnu/libspatialite.so (found suitable version "5.0.1", minimum required is "4.1.2") 
 -- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
 -- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
@@ -273,12 +276,12 @@
 -- Could NOT find HDF4 (missing: HDF4_df_LIBRARY HDF4_mfhdf_LIBRARY HDF4_INCLUDE_DIR) 
 -- Could NOT find ECW (missing: ECW_LIBRARY ECWnet_LIBRARY ECWC_LIBRARY NCSUtil_LIBRARY ECW_INCLUDE_DIR) 
 -- Could NOT find NetCDF (missing: NetCDF_DIR)
--- Could NOT find NetCDF (missing: NETCDF_LIBRARY NETCDF_INCLUDE_DIR) 
+-- Could NOT find NetCDF (missing: NETCDF_LIBRARY NETCDF_INCLUDE_DIR) (Required is at least version "4.7")
 -- Could NOT find OGDI (missing: OGDI_LIBRARY OGDI_INCLUDE_DIRS) 
 -- Looking for CL_VERSION_3_0
 -- Looking for CL_VERSION_3_0 - found
 -- Found OpenCL: /usr/lib/x86_64-linux-gnu/libOpenCL.so (found version "3.0") 
--- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.6")  
+-- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.8")  
 -- Could NOT find FYBA (missing: FYBA_FYBA_LIBRARY FYBA_FYGM_LIBRARY FYBA_FYUT_LIBRARY FYBA_INCLUDE_DIR) 
 -- Found LibLZMA: /usr/lib/x86_64-linux-gnu/liblzma.so (found version "5.4.1") 
 -- Could NOT find LZ4 (missing: LZ4_LIBRARY LZ4_INCLUDE_DIR LZ4_VERSION) 
@@ -289,10 +292,10 @@
 -- Could NOT find TileDB (missing: TileDB_DIR)
 -- Found OpenEXR: /usr/lib/x86_64-linux-gnu/libOpenEXR.so (found version "3.1.5") 
 -- Could NOT find MONGOCXX (missing: MONGOCXX_INCLUDE_DIR BSONCXX_INCLUDE_DIR MONGOCXX_LIBRARY BSONCXX_LIBRARY) 
--- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found version "2.5.0") 
+-- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found suitable version "2.5.0", minimum required is "2.3.1") 
 -- Could NOT find JNI (missing: JAVA_INCLUDE_PATH JAVA_INCLUDE_PATH2 AWT JVM) 
 -- Could NOT find HDFS (missing: HDFS_LIBRARY HDFS_INCLUDE_DIR) 
--- Found Poppler: /usr/lib/x86_64-linux-gnu/libpoppler.so (found version "22.12.0")  
+-- Could NOT find Poppler (missing: Poppler_LIBRARY Poppler_INCLUDE_DIR) (Required is at least version "0.86")
 -- Could NOT find Podofo (missing: PODOFO_LIBRARY PODOFO_INCLUDE_DIR) 
 -- Could NOT find Oracle (missing: Oracle_LIBRARY Oracle_INCLUDE_DIR) 
 -- Could NOT find FileGDB (missing: FileGDB_LIBRARY FileGDB_INCLUDE_DIR) 
@@ -418,7 +421,6 @@
  * gdal_STACTA, STACTA
  * gdal_BSB, Maptech/NOAA BSB Nautical Chart Format
  * gdal_AIGRID, Arc/Info Binary Grid Format
- * gdal_ARG, ARG: Azavea Raster Grid
  * gdal_USGSDEM, USGS ASCII DEM (and CDED)
  * gdal_AIRSAR, AirSAR Polarimetric Format
  * gdal_OZI, OZF2/OZFX3 raster
@@ -475,6 +477,7 @@
  * ogr_FLATGEOBUF, FlatGeobuf
  * ogr_MAPML, MapML
  * ogr_JSONFG, JSONFG
+ * ogr_MIRAMON, MiraMonVector
  * ogr_SDTS, SDTS
  * ogr_GPX, GPX - GPS Exchange Format
  * ogr_GMLAS, GMLAS
@@ -508,7 +511,7 @@
 
 -- The following OPTIONAL packages have been found:
 
- * Python (required version >= 3.6)
+ * Python (required version >= 3.8)
    SWIG_PYTHON: Python binding
  * Threads
  * MySQL
@@ -525,6 +528,7 @@
    Use OpenSSL library
  * CryptoPP
    Use crypto++ library for CPL.
+ * PROJ
  * ZSTD
    ZSTD compression library
  * ZLIB
@@ -562,22 +566,25 @@
    OpenEXR >=2.2
  * HEIF
    HEIF >= 1.1
- * OpenJPEG
- * Poppler, A PDF rendering library, <http://poppler.freedesktop.org>
-   Enable PDF driver with Poppler (read side)
+ * OpenJPEG (required version >= 2.3.1)
+   Enable JPEG2000 support with OpenJPEG library
+ * PDFIUM
+   Enable PDF driver with Pdfium (read side)
  * BISON
 
 -- The following RECOMMENDED packages have been found:
 
  * EXPAT
    Read and write XML formats
- * TIFF (required version >= 4.0), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
+ * CURL
+   Enable drivers to use web API
+ * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
    Support for the Tag Image File Format (TIFF).
    gdal_GTIFF: GeoTIFF image format
    gdal_CALS: CALS type 1 driver
  * GeoTIFF
    libgeotiff library (external)
- * PNG
+ * PNG (required version >= 1.6)
    PNG compression library (external)
  * JPEG
    JPEG compression library (external)
@@ -585,7 +592,7 @@
    Enable QHULL (external)
  * LERC
    Enable LERC (external)
- * SQLite3
+ * SQLite3 (required version >= 3.31)
    Enable SQLite3 support (used by SQLite/Spatialite, GPKG, Rasterlite, MBTiles, etc.)
  * GEOS
    Geometry Engine - Open Source (GDAL core dependency)
@@ -659,7 +666,7 @@
    Enable HDF4 driver
  * ECW
    Enable ECW driver
- * NetCDF
+ * NetCDF (required version >= 4.7)
    Enable netCDF driver
  * OGDI
    Enable ogr_OGDI driver
@@ -685,8 +692,8 @@
    Enable MongoDBV3 driver
  * HDFS
    Enable Hadoop File System through native library
- * PDFIUM
-   Enable PDF driver with Pdfium (read side)
+ * Poppler (required version >= 0.86), A PDF rendering library, <http://poppler.freedesktop.org>
+   Enable PDF driver with Poppler (read side)
  * Oracle
    Enable Oracle OCI driver
  * TEIGHA
@@ -711,8 +718,6 @@
  * OPENCAD internal library enabled
 
 
--- Found GTest: /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake (found suitable version "1.12.1", minimum required is "1.10.0")  
--- Using external GTest
 -- Configuring done
 -- Generating done
--- Build files have been written to: /gdal-3.8.4/build
+-- Build files have been written to: /gdal-3.9.1/build

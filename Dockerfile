@@ -4,7 +4,7 @@ ARG HERE=https://github.com/dotysan/python-gis
 ARG PYVER=3.11
 ARG GDVER=3.9.1
 ARG PDFREV=6309
-ARG NPVER=1.26.*
+ARG NPVER=2.0.*
 ARG FIONAVER=1.9.*
 
 # ARG TDBVER=2.19.1
@@ -159,7 +159,6 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
     #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
     #   -DGDAL_ENABLE_DRIVER_JPEG=ON \
     #   -DGDAL_ENABLE_DRIVER_RAW=ON \
-    #   -DBUILD_TESTING=ON \
     #   ...
 
 # build GDAL
@@ -268,12 +267,15 @@ RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
     if echo "$lddout" |grep -q 'not found'; then \
        echo "$lddout" |grep 'not found' |sort |uniq -c; \
        exit 1; \
-    fi
+    fi |tee /gdal-ldd-sanity.txt
 
 # show what we got
 RUN cat /ffinfo.txt
 RUN cat /gdal-cmake.txt
 RUN gdal-config --formats |tr ' ' '\n' |sort --ignore-case |tee /gdal-formats.txt
+RUN (gdalinfo --formats & \
+     ogrinfo --formats & \
+     wait) |sort -u |grep -v ^Supported |tee /all-formats.txt
 RUN pip list --verbose |tee /pip-list.txt
 
 # see docker output line-by-line

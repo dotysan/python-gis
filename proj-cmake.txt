@@ -1,0 +1,43 @@
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Requiring C++11
+-- Requiring C++11 - done
+-- Requiring C99
+-- Requiring C99 - done
+-- Configuring PROJ:
+-- PROJ_VERSION                   = 9.4.1
+-- Looking for localeconv
+-- Looking for localeconv - found
+-- Looking for strerror
+-- Looking for strerror - found
+-- Looking for dladdr in dl
+-- Looking for dladdr in dl - found
+-- Looking for exp in m
+-- Looking for exp in m - found
+-- nlohmann/json: internal
+-- Found SQLite3: /usr/include (found version "3.40.1") 
+-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.5.0")  
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Testing disabled
+-- Configuring proj library:
+-- ENABLE_IPO                     = OFF
+-- PROJ_CORE_TARGET_OUTPUT_NAME   = proj
+-- BUILD_SHARED_LIBS              = ON
+-- PROJ_LIBRARIES                 = proj
+-- PROJ: Configured 'dist' target
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /proj-9.4.1/build

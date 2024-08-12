@@ -70,7 +70,7 @@
   GTX -raster- (rw+v): NOAA Vertical Datum .GTX (*.gtx)
   GTiff -raster- (rw+vs): GeoTIFF (*.tif, *.tiff)
   GXF -raster- (rov): GeoSoft Grid Exchange Format (*.gxf)
-  GenBin -raster- (rov): Generic Binary (.hdr Labelled)
+  GenBin -raster-Supported Formats:
   GeoJSON -vector- (rw+v): GeoJSON (*.json, *.geojson)
   GeoJSONSeq -vector- (rw+v): GeoJSON Sequence (*.geojsonl, *.geojsons)
   GeoRSS -vector- (rw+v): GeoRSS
@@ -176,7 +176,7 @@
   SGI -raster- (rw+v): SGI Image File Format 1.0 (*.rgb)
   SIGDEM -raster- (rwv): Scaled Integer Gridded DEM .sigdem (*.sigdem)
   SNODAS -raster- (rov): Snow Data Assimilation System (*.hdr)
-  SQLite -raster,vector- (rw+v): SQLite / Spatialite / RasterLite2 (*.sqlite, *.db)
+  SQLite -vector- (rw+v): SQLite / Spatialite (*.sqlite, *.db)
   SRP -raster- (rovs): Standard Raster Product (ASRP/USRP) (*.img)
   SRTMHGT -raster- (rwv): SRTMHGT File Format (*.hgt)
   STACIT -raster- (rovs): Spatio-Temporal Asset Catalog Items
@@ -185,7 +185,7 @@
   SXF -vector- (rov): Storage and eXchange Format (*.sxf)
   Selafin -vector- (rw+v): Selafin
   TGA -raster- (rov): TGA/TARGA Image File Format (*.tga)
-  TIGER -vector- (rov): U.S. Census TIGER/Line
+  TIGER -v (rov): Generic Binary (.hdr Labelled)
   TIL -raster- (rov): EarthWatch .TIL
   TSX -raster- (rov): TerraSAR-X Product
   Terragen -raster- (rw+v): Terragen heightfield (*.ter)
@@ -208,3 +208,4 @@
   XYZ -raster- (rwv): ASCII Gridded XYZ (*.xyz)
   ZMap -raster- (rwv): ZMap Plus Grid (*.dat)
   Zarr -raster,multidimensional raster- (rw+vs): Zarr
+ector- (rov): U.S. Census TIGER/Line

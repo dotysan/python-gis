@@ -3,6 +3,7 @@ ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
 ARG GDVER=3.9.1
+ARG PROJVER=9.4.1
 ARG PDFREV=6309
 ARG NPVER=2.0.*
 ARG FIONAVER=1.9.*
@@ -63,7 +64,6 @@ RUN apt-get install --yes --no-install-recommends \
     bison \
     cmake \
     g++ \
-    libproj-dev \
     make \
     && echo TODO
 
@@ -87,6 +87,10 @@ RUN apt-get install --yes --no-install-recommends \
     ocl-icd-opencl-dev \
     && echo TODO
 
+# PROD build dependencies
+RUN apt-get install --yes --no-install-recommends \
+sqlite3 \
+&& echo TODO: any other PROJ dependencies?
 
 # for GDAL test suite and Python bindings
 RUN apt-get install --yes --no-install-recommends \
@@ -100,6 +104,25 @@ ARG PIP_ROOT_USER_ACTION=ignore
 ARG NPVER
 RUN pip install --upgrade pip setuptools wheel \
     && pip install numpy==$NPVER
+
+# Let's build PROJ from source with much newer version
+ARG PROJVER
+ARG PROJ_TARBALL=https://github.com/OSGeo/PROJ/releases/download/${PROJVER}/proj-${PROJVER}.tar.gz
+RUN curl --location ${PROJ_TARBALL} |tar xz
+RUN mkdir /proj-${PROJVER}/build
+WORKDIR /proj-${PROJVER}/build
+
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/proj \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_TESTING=OFF \
+    -DBUILD_APPS=OFF \
+    \
+    |tee /proj-cmake.txt
+
+RUN cmake --build . --parallel $(nproc)
+RUN cmake --install .
+WORKDIR /
 
 # # install TileDB (BEWARE! this assumes x86_64 arch)
 # ARG TDBVER
@@ -139,6 +162,9 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
       -DBUILD_TESTING=OFF \
       \
+      -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
+      -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
+      \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
       -DGDAL_USE_PDFIUM=ON \
@@ -146,6 +172,7 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
       \
       |tee /gdal-cmake.txt
+    #   -DGDAL_FIND_PACKAGE_PROJ_MODE=CUSTOM \
     #   -DGDAL_USE_INTERNAL_LIBS=OFF \
     #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
     #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
@@ -186,11 +213,19 @@ LABEL org.opencontainers.image.source=$HERE
 COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
 COPY --from=build-ffmpeg /ffinfo.txt /
 
+COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
+COPY --from=build-gdal /usr/local/proj/share /usr/local/share
+
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
 COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib
+
 COPY --from=build-gdal /usr/local/gdal/include /usr/local/include
+# gdal headers are needed to install fiona below
+
 COPY --from=build-gdal /usr/local/gdal/share /usr/local/share
-COPY --from=build-gdal /gdal-cmake.txt /
+
+COPY --from=build-gdal /*.txt /
+
 # COPY --from=build-gdal /usr/local/lib/libtiledb* /usr/local/lib/
 # COPY --from=build-gdal /usr/local/lib/libFileGDBAPI.so /usr/local/lib/
 # COPY --from=build-gdal /usr/local/lib/libfgdbunixrtl.so /usr/local/lib/
@@ -224,7 +259,6 @@ RUN apt-get install --yes --no-install-recommends \
     libopenjp2-7 \
     libpng16-16 \
     libpq5 \
-    libproj25 \
     libqhull-r8.0 \
     libtiff6 \
     libxerces-c3.2 \

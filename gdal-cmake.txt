@@ -232,26 +232,7 @@
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
 -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13") found components: SSL Crypto 
--- Performing Test CRYPTOPP_TEST_KNOWNBUG
--- Performing Test CRYPTOPP_TEST_KNOWNBUG - Success
--- Found CryptoPP: /usr/lib/x86_64-linux-gnu/libcryptopp.so  
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
--- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
--- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
--- Found GeoTIFF: /usr/lib/x86_64-linux-gnu/libgeotiff.so (found version "1.7.1.0") 
--- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found suitable version "1.6.39", minimum required is "1.6") 
--- Found JPEG: /usr/lib/x86_64-linux-gnu/libjpeg.so (found version "62") 
--- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12
--- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12 - Failed
--- Found GIF: /usr/lib/x86_64-linux-gnu/libgif.so (found version "5.2.1") 
--- Could NOT find OpenCAD (missing: OPENCAD_LIBRARY OPENCAD_INCLUDE_DIR) 
--- Found QHULL: /usr/lib/x86_64-linux-gnu/libqhull_r.so  
--- Found LERC: /usr/lib/x86_64-linux-gnu/libLerc.so  
--- Could NOT find BRUNSLI (missing: BRUNSLI_ENC_LIB BRUNSLI_DEC_LIB BRUNSLI_INCLUDE_DIR) 
--- Could NOT find libQB3 (missing: libQB3_DIR)
--- Could NOT find Shapelib (missing: Shapelib_INCLUDE_DIR Shapelib_LIBRARY) 
--- Found PCRE2: /usr/lib/x86_64-linux-gnu/libpcre2-8.so  
+-- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
 -- Looking for sqlite3_mutex_alloc
 -- Looking for sqlite3_mutex_alloc - found
 -- Looking for sqlite3_column_table_name
@@ -264,9 +245,26 @@
 -- Looking for sqlite3_progress_handler - found
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
--- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found suitable version "3.40.1", minimum required is "3.31") 
--- Found SPATIALITE: /usr/lib/x86_64-linux-gnu/libspatialite.so (found suitable version "5.0.1", minimum required is "4.1.2") 
--- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
+-- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
+-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.5.0")  
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
+-- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
+-- Could NOT find GeoTIFF (missing: GEOTIFF_LIBRARY GEOTIFF_INCLUDE_DIR) 
+-- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found suitable version "1.6.39", minimum required is "1.6") 
+-- Found JPEG: /usr/lib/x86_64-linux-gnu/libjpeg.so (found version "62") 
+-- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12
+-- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12 - Failed
+-- Found GIF: /usr/lib/x86_64-linux-gnu/libgif.so (found version "5.2.1") 
+-- Could NOT find OpenCAD (missing: OPENCAD_LIBRARY OPENCAD_INCLUDE_DIR) 
+-- Found QHULL: /usr/lib/x86_64-linux-gnu/libqhull_r.so  
+-- Found LERC: /usr/lib/x86_64-linux-gnu/libLerc.so  
+-- Could NOT find BRUNSLI (missing: BRUNSLI_ENC_LIB BRUNSLI_DEC_LIB BRUNSLI_INCLUDE_DIR) 
+-- Could NOT find libQB3 (missing: libQB3_DIR)
+-- Could NOT find Shapelib (missing: Shapelib_INCLUDE_DIR Shapelib_LIBRARY) 
+-- Found PCRE2: /usr/lib/x86_64-linux-gnu/libpcre2-8.so  
+-- Could NOT find SPATIALITE (missing: SPATIALITE_LIBRARY SPATIALITE_INCLUDE_DIR) (Required is at least version "4.1.2")
+-- Could NOT find RASTERLITE2 (missing: RASTERLITE2_LIBRARY RASTERLITE2_INCLUDE_DIR) (Required is at least version "1.1.0")
 -- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
 -- Found HDF5: /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so (found version "1.10.8") found components: C 
 -- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so (found version "1.2.4") 
@@ -526,8 +524,6 @@
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
    Use OpenSSL library
- * CryptoPP
-   Use crypto++ library for CPL.
  * PROJ
  * ZSTD
    ZSTD compression library
@@ -539,10 +535,6 @@
    json-c library (external)
  * PCRE2
    Enable PCRE2 support for sqlite3
- * SPATIALITE (required version >= 4.1.2)
-   Enable spatialite support for sqlite3
- * RASTERLITE2 (required version >= 1.1.0)
-   Enable RasterLite2 support for sqlite3
  * LibKML
    Use LIBKML library
  * HDF5
@@ -578,12 +570,6 @@
    Read and write XML formats
  * CURL
    Enable drivers to use web API
- * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
-   Support for the Tag Image File Format (TIFF).
-   gdal_GTIFF: GeoTIFF image format
-   gdal_CALS: CALS type 1 driver
- * GeoTIFF
-   libgeotiff library (external)
  * PNG (required version >= 1.6)
    PNG compression library (external)
  * JPEG
@@ -592,8 +578,6 @@
    Enable QHULL (external)
  * LERC
    Enable LERC (external)
- * SQLite3 (required version >= 3.31)
-   Enable SQLite3 support (used by SQLite/Spatialite, GPKG, Rasterlite, MBTiles, etc.)
  * GEOS
    Geometry Engine - Open Source (GDAL core dependency)
 
@@ -644,6 +628,8 @@
    MSSQL Native Client to enable bulk copy
  * MSSQL_ODBC
    MSSQL ODBC driver to enable bulk copy
+ * CryptoPP
+   Use crypto++ library for CPL.
  * SFCGAL
    gdal core supports ISO 19107:2013 and OGC Simple Features Access 1.2 for 3D operations
  * OpenCAD
@@ -652,6 +638,10 @@
    Enable BRUNSLI for JPEG packing in MRF
  * libQB3
    Enable QB3 compression in MRF
+ * SPATIALITE (required version >= 4.1.2)
+   Enable spatialite support for sqlite3
+ * RASTERLITE2 (required version >= 1.1.0)
+   Enable RasterLite2 support for sqlite3
  * KEA
    Enable KEA driver
  * GTA
@@ -713,8 +703,14 @@
  * CSharp
    SWIG_CSharp: CSharp binding
 
+-- The following RECOMMENDED packages have not been found:
+
+ * GeoTIFF
+   libgeotiff library (external)
+
 -- Internal libraries enabled:
 
+ * GEOTIFF internal library enabled
  * OPENCAD internal library enabled
 
 

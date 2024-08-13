@@ -19,14 +19,14 @@ FROM debian:$DEBVER-slim AS build-ffmpeg
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends \
-    bzip2 \
-    ca-certificates \
-    g++ \
-    git \
-    make \
-    patch \
-    pkgconf \
-    wget \
+        bzip2 \
+        ca-certificates \
+        g++ \
+        git \
+        make \
+        patch \
+        pkgconf \
+        wget \
     && apt-get autopurge --yes \
     && apt-get upgrade --yes
 
@@ -47,55 +47,46 @@ RUN find build \( -name ffmpeg -o -name ffprobe \) \
 RUN ./ffinfo.sh |tee /ffinfo.txt
 # END build-ffmpeg-----------------------------------------------------
 
-#======================================================================
 ARG PYVER
 ARG DEBVER
-FROM python:$PYVER-$DEBVER AS build-gdal
+#======================================================================
+FROM python:$PYVER-slim-$DEBVER AS build-gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get upgrade --yes
-
-# needed for bootstrap; good to keep around too
-RUN apt-get install --yes --no-install-recommends \
-    curl \
-    && echo TODO
-
-# core GDAL build requirements
-RUN apt-get install --yes --no-install-recommends \
-    bison \
-    cmake \
-    g++ \
-    make \
-    && echo TODO
-
-# GDAL external driver dependencies
-#  * OPENCAD internal library enabled
-RUN apt-get install --yes --no-install-recommends \
-    libexpat-dev \
-    libfreexl-dev \
-    libgeos-dev \
-    libgif-dev \
-    libhdf5-dev \
-    libheif-dev \
-    libjpeg-dev \
-    libjson-c-dev \
-    libjxl-dev \
-    libkml-dev \
-    libpng-dev \
-    libpq-dev \
-    libqhull-dev \
-    libxerces-c-dev \
-    ocl-icd-opencl-dev \
-    && echo TODO
-
-# PROD build dependencies
-RUN apt-get install --yes --no-install-recommends \
-sqlite3 \
-&& echo TODO: any other PROJ dependencies?
-
-# for GDAL test suite and Python bindings
-RUN apt-get install --yes --no-install-recommends \
-    swig
+RUN apt-get update && \
+    apt-get --yes install --no-install-recommends \
+        bison \
+        cmake \
+        curl \
+        g++ \
+        make \
+        libexpat-dev \
+        libfreexl-dev \
+        libgeos-dev \
+        libgif-dev \
+        libhdf5-dev \
+        libheif-dev \
+        libjpeg-dev \
+        libjson-c-dev \
+        libjxl-dev \
+        libkml-dev \
+        liblcms2-dev \
+        libmariadb-dev-compat \
+        libopenexr-dev \
+        libopenjp2-7-dev \
+        libpcre2-dev \
+        libpng-dev \
+        libpq-dev \
+        libqhull-dev \
+        libsqlite3-dev \
+        libtiff-dev \
+        libxerces-c-dev \
+        libxml2-dev \
+        ocl-icd-opencl-dev \
+        sqlite3 \
+        swig \
+    && apt-get --yes autopurge \
+    && apt-get --yes upgrade
 
 ARG PIP_NO_CACHE_DIR=1
 # and disable the warning about running as root without a venv
@@ -148,15 +139,14 @@ ARG PDFREPO=rouault/pdfium_build_gdal_3_9
 ARG PDFTAG=pdfium_${PDFREV}_v1
 ARG PDFINSTALL=https://github.com/${PDFREPO}/releases/download/${PDFTAG}/install-ubuntu2004-rev${PDFREV}.tar.gz
 RUN curl --location ${PDFINSTALL} |tar xz
+# this creates /install/{include,lib}/
 
 # fetch/prep GDAL source
 ARG GDVER
 ARG GDPATH=https://github.com/OSGeo/gdal/releases/download/v$GDVER/gdal
-RUN curl --location ${GDPATH}-$GDVER.tar.gz |tar -xz
-# this creates /install/{include,lib}/
+RUN curl --location ${GDPATH}-$GDVER.tar.gz |tar xz
 RUN mkdir gdal-$GDVER/build
 WORKDIR /gdal-$GDVER/build
-
 # configure GDAL
 ARG PYVER
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
@@ -214,6 +204,7 @@ RUN cmake --build . --parallel $(nproc)
 
 # install GDAL
 RUN cmake --install . --prefix /usr/local/gdal
+# END build-gdal-------------------------------------------------------
 
 #======================================================================
 ARG PYVER

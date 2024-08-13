@@ -14,13 +14,11 @@ ARG FIONAVER=1.9.*
 ARG DEBVER=bookworm
 ARG FFREF=a78f2b8677bed1b8130deb46af137ada1d0070d5
 #======================================================================
-FROM debian:$DEBVER AS build-ffmpeg
+FROM debian:$DEBVER-slim AS build-ffmpeg
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get upgrade --yes
-
-# dependencies for fetching & building ffmpeg-static
-RUN apt-get install --yes --no-install-recommends \
+RUN apt-get update && \
+    apt-get install --yes --no-install-recommends \
     bzip2 \
     ca-certificates \
     g++ \
@@ -28,7 +26,9 @@ RUN apt-get install --yes --no-install-recommends \
     make \
     patch \
     pkgconf \
-    wget
+    wget \
+    && apt-get autopurge --yes \
+    && apt-get upgrade --yes
 
 ARG FFREF
 RUN git clone --depth 1 --branch fireview --single-branch \
@@ -45,6 +45,7 @@ RUN ./build.sh ffmpeg
 RUN find build \( -name ffmpeg -o -name ffprobe \) \
     -type f |xargs cp --target-directory /usr/local/bin
 RUN ./ffinfo.sh |tee /ffinfo.txt
+# END build-ffmpeg-----------------------------------------------------
 
 #======================================================================
 ARG PYVER

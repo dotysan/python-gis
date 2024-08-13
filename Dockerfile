@@ -68,7 +68,6 @@ RUN apt-get update && \
         libheif-dev \
         libjpeg-dev \
         libjson-c-dev \
-        libjxl-dev \
         libkml-dev \
         liblcms2-dev \
         libmariadb-dev-compat \
@@ -141,6 +140,38 @@ ARG PDFINSTALL=https://github.com/${PDFREPO}/releases/download/${PDFTAG}/install
 RUN curl --location ${PDFINSTALL} |tar xz
 # this creates /install/{include,lib}/
 
+#----------------------------------------------------------------------
+# JPEG XL
+ARG JXL_TARBALL=https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.3.tar.gz
+RUN curl --location ${JXL_TARBALL} |tar xz
+
+# RUN mkdir /libjxl-0.10.3/third_party/{highway,brotli}
+RUN curl --location https://github.com/google/highway/releases/download/1.2.0/highway-1.2.0.tar.gz \
+    |tar xvz -C /libjxl-0.10.3/third_party/highway --strip-components=1
+RUN curl --location https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz \
+    |tar xvz -C /libjxl-0.10.3/third_party/brotli --strip-components=1
+# the e5ab130 commit is from Jun 8, 2023 and
+# the newest is 4578abf dated Jun 26, 2024
+# RUN curl --location https://github.com/webmproject/sjpeg/tarball/e5ab13008bb214deb66d5f3e17ca2f8dbff150bf \
+RUN curl --location https://github.com/webmproject/sjpeg/tarball/4578abf18ed8b81290c6fe5c23eb7a58c8f38212 \
+    |tar xvz -C /libjxl-0.10.3/third_party/sjpeg --strip-components=1
+RUN curl --location https://skia.googlesource.com/skcms/+archive/42030a771244ba67f86b1c1c76a6493f873c5f91.tar.gz \
+    |tar xvz -C /libjxl-0.10.3/third_party/skcms --strip-components=0
+# RUN bash -x /libjxl-0.10.3/deps.sh
+
+RUN mkdir /libjxl-0.10.3/build
+WORKDIR /libjxl-0.10.3/build
+RUN cmake ..  -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF
+    # -DBUILD_SHARED_LIBS=ON \
+    # -DCMAKE_INSTALL_PREFIX=/usr/local/libjxl \
+RUN cmake --build . --parallel $(nproc)
+RUN cmake --install .
+# RUN find /usr/local/libjxl
+# RUN find NOTHERE
+WORKDIR /
+#----------------------------------------------------------------------
+
 # fetch/prep GDAL source
 ARG GDVER
 ARG GDPATH=https://github.com/OSGeo/gdal/releases/download/v$GDVER/gdal
@@ -157,16 +188,24 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
       -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
       \
+      -DGDAL_ENABLE_DRIVER_BMP=ON \
       -DGDAL_ENABLE_DRIVER_GIF=ON \
       -DGDAL_USE_GIF=ON \
       -DGDAL_USE_GIF_INTERNAL=OFF \
       -DGDAL_ENABLE_DRIVER_PNG=ON \
       -DGDAL_USE_PNG_INTERNAL=OFF \
       -DGDAL_ENABLE_DRIVER_JPEG=ON \
+      -DGDAL_ENABLE_DRIVER_JP2OPENJPEG=ON \
       -DGDAL_USE_JPEG_INTERNAL=OFF \
       -DGDAL_USE_OPENJPEG=ON \
+      -DGDAL_ENABLE_DRIVER_HEIF=ON \
       -DGDAL_USE_GEOTIFF_INTERNAL=ON \
       \
+      -DGDAL_ENABLE_DRIVER_JPEGXL=ON \
+      -DGDAL_USE_JXL=ON \
+      \
+      -DGDAL_ENABLE_DRIVER_HTP=ON \
+      -DGDAL_ENABLE_DRIVER_WMS=ON \
       -DGDAL_USE_CURL=ON \
       \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
@@ -175,11 +214,22 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPDFIUM_INCLUDE_DIR=/install/include/pdfium \
       -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
       \
+      -DGDAL_ENABLE_DRIVER_ESRIC=ON \
+      \
+      -DOGR_ENABLE_DRIVER_GPX=ON \
+      -DOGR_ENABLE_DRIVER_JSONFG=ON \
+      -DOGR_ENABLE_DRIVER_MYSQL=ON \
+      -DOGR_ENABLE_DRIVER_OSM=ON \
+      -DOGR_ENABLE_DRIVER_PG=ON \
+      -DOGR_ENABLE_DRIVER_PGDUMP=ON \
+      -DOGR_ENABLE_DRIVER_SQLITE=ON \
+      -DOGR_ENABLE_DRIVER_XLS=ON \
+      -DOGR_ENABLE_DRIVER_XLSX=ON \
+      \
       |tee /gdal-cmake.txt
     #   -DGDAL_USE_INTERNAL_LIBS=OFF \
     #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
     #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
-    #   -DGDAL_ENABLE_DRIVER_JPEG=ON \
     #   -DGDAL_ENABLE_DRIVER_RAW=ON \
     #   ...
 
@@ -234,10 +284,10 @@ RUN apt-get install --yes --no-install-recommends \
     libheif1 \
     libimath-3-1-29 \
     libjson-c5 \
-    libjxl0.7 \
     libkmlbase1 \
     libkmldom1 \
     libkmlengine1 \
+    liblcms2-2 \
     libmariadb3 \
     libopenexr-3-1-30 \
     libopenjp2-7 \
@@ -256,6 +306,8 @@ COPY --from=build-ffmpeg /ffinfo.txt /
 
 COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
 COPY --from=build-gdal /usr/local/proj/share /usr/local/share
+
+COPY --from=build-gdal /usr/local/lib /usr/local/lib
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
 COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib

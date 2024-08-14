@@ -179,6 +179,9 @@ WORKDIR /gdal-$GDVER/build
 ARG PYVER
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
+      -DGDAL_USE_INTERNAL_LIBS=OFF \
+      -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
+      -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
       -DBUILD_TESTING=OFF \
       \
       -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
@@ -251,9 +254,6 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_XLSX=ON \
       \
       2>&1 |tee /gdal-cmake.txt
-    #   -DGDAL_USE_INTERNAL_LIBS=OFF \
-    #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
-    #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
     # compile from source with --enable-threadsafe and then -DGDAL_ENABLE_DRIVER_HDF5=ON \
 
 # build GDAL

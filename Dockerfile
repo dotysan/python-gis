@@ -60,11 +60,12 @@ RUN apt-get update && \
         curl \
         g++ \
         make \
+        libbrotli-dev \
+        libcurl4-openssl-dev \
         libexpat-dev \
         libfreexl-dev \
         libgeos-dev \
         libgif-dev \
-        libhdf5-dev \
         libheif-dev \
         libjpeg-dev \
         libjson-c-dev \
@@ -141,15 +142,13 @@ RUN curl --location ${PDFINSTALL} |tar xz
 # this creates /install/{include,lib}/
 
 #----------------------------------------------------------------------
-# JPEG XL
+# JPEG XL (note it requires libtiff; how does this conflict with GDAL internal libtiff?)
 ARG JXL_TARBALL=https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.3.tar.gz
 RUN curl --location ${JXL_TARBALL} |tar xz
 
 # RUN mkdir /libjxl-0.10.3/third_party/{highway,brotli}
 RUN curl --location https://github.com/google/highway/releases/download/1.2.0/highway-1.2.0.tar.gz \
     |tar xvz -C /libjxl-0.10.3/third_party/highway --strip-components=1
-RUN curl --location https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz \
-    |tar xvz -C /libjxl-0.10.3/third_party/brotli --strip-components=1
 # the e5ab130 commit is from Jun 8, 2023 and
 # the newest is 4578abf dated Jun 26, 2024
 # RUN curl --location https://github.com/webmproject/sjpeg/tarball/e5ab13008bb214deb66d5f3e17ca2f8dbff150bf \
@@ -167,8 +166,6 @@ RUN cmake ..  -DCMAKE_BUILD_TYPE=Release \
     # -DCMAKE_INSTALL_PREFIX=/usr/local/libjxl \
 RUN cmake --build . --parallel $(nproc)
 RUN cmake --install .
-# RUN find /usr/local/libjxl
-# RUN find NOTHERE
 WORKDIR /
 #----------------------------------------------------------------------
 
@@ -199,14 +196,25 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DGDAL_USE_JPEG_INTERNAL=OFF \
       -DGDAL_USE_OPENJPEG=ON \
       -DGDAL_ENABLE_DRIVER_HEIF=ON \
+      -DGDAL_USE_TIFF_INTERNAL=ON \
       -DGDAL_USE_GEOTIFF_INTERNAL=ON \
       \
       -DGDAL_ENABLE_DRIVER_JPEGXL=ON \
       -DGDAL_USE_JXL=ON \
       \
-      -DGDAL_ENABLE_DRIVER_HTP=ON \
+      -DGDAL_ENABLE_DRIVER_KMLSUPEROVERLAY=ON \
+      -DOGR_ENABLE_DRIVER_LIBKML=ON \
+      \
+      -DGDAL_ENABLE_DRIVER_HTTP=ON \
+      -DGDAL_ENABLE_DRIVER_RAW=ON \
+      -DGDAL_ENABLE_DRIVER_WCS=ON \
       -DGDAL_ENABLE_DRIVER_WMS=ON \
+      -DGDAL_ENABLE_DRIVER_WMTS=ON \
       -DGDAL_USE_CURL=ON \
+      -DOGR_ENABLE_DRIVER_WFS=ON \
+      -DGDAL_ENABLE_DRIVER_EEDA=ON \
+      -DGDAL_ENABLE_DRIVER_OGCAPI=ON \
+      -DOGR_ENABLE_DRIVER_OGCAPI=ON \
       \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
@@ -214,24 +222,39 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPDFIUM_INCLUDE_DIR=/install/include/pdfium \
       -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
       \
-      -DGDAL_ENABLE_DRIVER_ESRIC=ON \
-      \
-      -DOGR_ENABLE_DRIVER_GPX=ON \
-      -DOGR_ENABLE_DRIVER_JSONFG=ON \
       -DOGR_ENABLE_DRIVER_MYSQL=ON \
-      -DOGR_ENABLE_DRIVER_OSM=ON \
       -DOGR_ENABLE_DRIVER_PG=ON \
       -DOGR_ENABLE_DRIVER_PGDUMP=ON \
+      -DGDAL_ENABLE_DRIVER_POSTGISRASTER=ON \
       -DOGR_ENABLE_DRIVER_SQLITE=ON \
+      -DGDAL_ENABLE_DRIVER_RASTERLITE=ON \
+      \
+      -DGDAL_ENABLE_DRIVER_ESRIC=ON \
+      -DOGR_ENABLE_DRIVER_CAD=ON \
+      -DGDAL_USE_OPENCAD_INTERNAL=ON \
+      -DOGR_ENABLE_DRIVER_CSV=ON \
+      -DOGR_ENABLE_DRIVER_CSW=ON \
+      -DOGR_ENABLE_DRIVER_DXF=ON \
+      -DOGR_ENABLE_DRIVER_ELASTIC=ON \
+      -DOGR_ENABLE_DRIVER_GML=ON \
+      -DOGR_ENABLE_DRIVER_GMLAS=ON \
+      -DOGR_ENABLE_DRIVER_GPKG=ON \
+      -DOGR_ENABLE_DRIVER_GPX=ON \
+      -DOGR_ENABLE_DRIVER_JSONFG=ON \
+      -DOGR_ENABLE_DRIVER_MAPML=ON \
+      -DOGR_ENABLE_DRIVER_MVT=ON \
+      -DOGR_ENABLE_DRIVER_OPENFILEGDB=ON \
+      -DOGR_ENABLE_DRIVER_OSM=ON \
+      -DOGR_ENABLE_DRIVER_SVG=ON \
+      -DOGR_ENABLE_DRIVER_TIGER=ON \
       -DOGR_ENABLE_DRIVER_XLS=ON \
       -DOGR_ENABLE_DRIVER_XLSX=ON \
       \
-      |tee /gdal-cmake.txt
+      2>&1 |tee /gdal-cmake.txt
     #   -DGDAL_USE_INTERNAL_LIBS=OFF \
     #   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
     #   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
-    #   -DGDAL_ENABLE_DRIVER_RAW=ON \
-    #   ...
+    # compile from source with --enable-threadsafe and then -DGDAL_ENABLE_DRIVER_HDF5=ON \
 
 # build GDAL
 RUN cmake --build . --parallel $(nproc)
@@ -274,13 +297,13 @@ RUN apt-get install --yes --no-install-recommends \
 # runtime dependencies
 # TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
+    libbrotli1 \
     libcrypto++8 \
-    libcurl3-gnutls \
+    libcurl4 \
     libdeflate0 \
     libfreexl1 \
     libgeos-c1v5 \
     libgif7 \
-    libhdf5-103 \
     libheif1 \
     libimath-3-1-29 \
     libjson-c5 \
@@ -307,7 +330,7 @@ COPY --from=build-ffmpeg /ffinfo.txt /
 COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
 COPY --from=build-gdal /usr/local/proj/share /usr/local/share
 
-COPY --from=build-gdal /usr/local/lib /usr/local/lib
+COPY --from=build-gdal /usr/local/lib/libjxl* /usr/local/lib
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
 COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib

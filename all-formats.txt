@@ -6,7 +6,6 @@
   AVCE00 -vector- (rov): Arc/Info E00 (ASCII) Coverage (*.e00)
   AirSAR -raster- (rov): AirSAR Polarimetric Image
   AmigoCloud -vector- (rw+): AmigoCloud
-  BAG -raster,multidimensional raster,vector- (rw+v): Bathymetry Attributed Grid (*.bag)
   BIGGIF -raster- (rov): Graphics Interchange Format (.gif) (*.gif)
   BLX -raster- (rwv): Magellan topo (.blx) (*.blx)
   BMP -raster- (rw+v): MS Windows Device Independent Bitmap (*.bmp)
@@ -75,8 +74,6 @@
   GeoJSONSeq -vector- (rw+v): GeoJSON Sequence (*.geojsonl, *.geojsons)
   GeoRSS -vector- (rw+v): GeoRSS
   Geoconcept -vector- (rw+v): Geoconcept (*.gxt, *.txt)
-  HDF5 -raster,multidimensional raster- (rovs): Hierarchical Data Format Release 5 (*.h5, *.hdf5)
-  HDF5Image -raster- (rov): HDF5 Dataset
   HEIF -raster- (rov): ISO/IEC 23008-12:2017 High Efficiency Image File Format (*.heic)
   HF2 -raster- (rwv): HF2/HFZ heightfield raster (*.hf2)
   HFA -raster- (rw+v): Erdas Imagine Images (.img) (*.img)
@@ -164,9 +161,6 @@
   RS2 -raster- (rovs): RadarSat 2 XML Product
   RST -raster- (rw+v): Idrisi Raster A.1 (*.rst)
   Rasterlite -raster- (rwvs): Rasterlite (*.sqlite)
-  S102 -raster,multidimensional raster- (rovs): S-102 Bathymetric Surface Product (*.h5)
-  S104 -raster,multidimensional raster- (rov): S-104 Water Level Information for Surface Navigation Product (*.h5)
-  S111 -raster,multidimensional raster- (rov): Surface Currents Product (*.h5)
   S57 -vector- (rw+v): IHO S-57 (ENC) (*.000)
   SAFE -raster- (rov): Sentinel-1 SAR SAFE Product
   SAGA -raster- (rw+v): SAGA GIS Binary Grid (.sdat, .sg-grd-z) (*.sdat, *.sg-grd-z)

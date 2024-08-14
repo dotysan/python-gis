@@ -297,6 +297,7 @@ RUN apt-get install --yes --no-install-recommends \
 # runtime dependencies
 # TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
+    gawk \
     libbrotli1 \
     libcrypto++8 \
     libcurl4 \

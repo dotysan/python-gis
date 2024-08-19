@@ -149,6 +149,8 @@ RUN curl --location ${JXL_TARBALL} |tar xz
 # RUN mkdir /libjxl-0.10.3/third_party/{highway,brotli}
 RUN curl --location https://github.com/google/highway/releases/download/1.2.0/highway-1.2.0.tar.gz \
     |tar xvz -C /libjxl-0.10.3/third_party/highway --strip-components=1
+# RUN curl --location https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz \
+#     |tar xvz -C /libjxl-0.10.3/third_party/brotli --strip-components=1
 # the e5ab130 commit is from Jun 8, 2023 and
 # the newest is 4578abf dated Jun 26, 2024
 # RUN curl --location https://github.com/webmproject/sjpeg/tarball/e5ab13008bb214deb66d5f3e17ca2f8dbff150bf \
@@ -174,6 +176,9 @@ ARG GDVER
 ARG GDPATH=https://github.com/OSGeo/gdal/releases/download/v$GDVER/gdal
 RUN curl --location ${GDPATH}-$GDVER.tar.gz |tar xz
 RUN mkdir gdal-$GDVER/build
+# RUN mkdir --parents gdal-$GDVER/build
+# RUN curl --location https://github.com/OSGeo/gdal/tarball/6339b46c60e2ef8c408fe33eb38a9ecbb9f1e131 \
+#     |tar xz -C /gdal-$GDVER --strip-components=1
 WORKDIR /gdal-$GDVER/build
 # configure GDAL
 ARG PYVER

@@ -303,6 +303,7 @@ RUN apt-get install --yes --no-install-recommends \
 # TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
     gawk \
+    git-lfs \
     libbrotli1 \
     libcrypto++8 \
     libcurl4 \

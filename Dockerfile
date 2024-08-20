@@ -326,7 +326,9 @@ RUN apt-get install --yes --no-install-recommends \
     libtiff6 \
     libxerces-c3.2 \
     libxml2 \
+    mc \
     ocl-icd-libopencl1 \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 
@@ -392,5 +394,11 @@ ENV PYTHONUNBUFFERED=yessir
 
 # in ephemeral containers creating .pyc files after build is a waste of time
 ENV PYTHONDONTWRITEBYTECODE=aye
+
+# for devcontainer
+RUN useradd --create-home --shell=/bin/bash gisuser
+# should be UID:GID == 1000:1000
+RUN echo 'gisuser ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/gisuser
+USER gisuser
 
 # TODO: install PostGIS now with a bunch of cool FDWs!

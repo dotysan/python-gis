@@ -42,7 +42,6 @@
   ISCE -raster- (rw+v): ISCE raster
   JP2OpenJPEG -raster,vector- (rwv): JPEG-2000 driver based on JP2OpenJPEG library (*.jp2, *.j2k)
   JPEG -raster- (rwv): JPEG JFIF (*.jpg, *.jpeg)
-  JPEGXL -raster- (rwv): JPEG-XL (*.jxl)
   JSONFG -vector- (rw+v): OGC Features and Geometries JSON (*.json)
   KML -vector- (rw+v): Keyhole Markup Language (KML) (*.kml)
   KMLSUPEROVERLAY -raster- (rwv): Kml Super Overlay (*.kml, *.kmz)

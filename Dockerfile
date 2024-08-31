@@ -12,43 +12,9 @@ ARG FIONAVER=1.9.*
 # ARG TDBREF=29ceb3e7
 
 ARG DEBVER=bookworm
-ARG FFREF=a78f2b8677bed1b8130deb46af137ada1d0070d5
-#======================================================================
-FROM debian:$DEBVER-slim AS build-ffmpeg
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && \
-    apt-get install --yes --no-install-recommends \
-        bzip2 \
-        ca-certificates \
-        g++ \
-        git \
-        make \
-        patch \
-        pkgconf \
-        wget \
-    && apt-get autopurge --yes \
-    && apt-get upgrade --yes
+# END ARGs ------------------------------------------------------------
 
-ARG FFREF
-RUN git clone --depth 1 --branch fireview --single-branch \
-    https://github.com/dotysan/ffmpeg-static && \
-    cd ffmpeg-static && git fetch --depth 1 origin $FFREF \
-    && git checkout FETCH_HEAD
-
-WORKDIR /ffmpeg-static
-
-RUN ./build.sh nasm
-RUN ./build.sh x264
-RUN ./build.sh ffmpeg
-
-RUN find build \( -name ffmpeg -o -name ffprobe \) \
-    -type f |xargs cp --target-directory /usr/local/bin
-RUN ./ffinfo.sh |tee /ffinfo.txt
-# END build-ffmpeg-----------------------------------------------------
-
-ARG PYVER
-ARG DEBVER
 #======================================================================
 FROM python:$PYVER-slim-$DEBVER AS build-gdal
 
@@ -333,9 +299,6 @@ RUN apt-get install --yes --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 
-COPY --from=build-ffmpeg /usr/local/bin/ff* /usr/local/bin/
-COPY --from=build-ffmpeg /ffinfo.txt /
-
 COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
 COPY --from=build-gdal /usr/local/proj/share /usr/local/share
 
@@ -383,7 +346,6 @@ RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \
     fi |tee /gdal-ldd-sanity.txt
 
 # show what we got
-RUN cat /ffinfo.txt
 RUN cat /gdal-cmake.txt
 RUN gdal-config --formats |tr ' ' '\n' |sort --ignore-case |tee /gdal-formats.txt
 RUN (gdalinfo --formats && ogrinfo --formats) \

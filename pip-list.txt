@@ -9,9 +9,9 @@ click              8.1.7       /usr/local/lib/python3.11/site-packages pip
 click-plugins      1.1.1       /usr/local/lib/python3.11/site-packages pip
 cligj              0.7.2       /usr/local/lib/python3.11/site-packages pip
 fiona              1.9.6       /usr/local/lib/python3.11/site-packages pip
-folium             0.16.0      /usr/local/lib/python3.11/site-packages pip
+folium             0.17.0      /usr/local/lib/python3.11/site-packages pip
 GDAL               3.9.1       /usr/local/lib/python3.11/site-packages
-geopandas          0.14.4      /usr/local/lib/python3.11/site-packages pip
+geopandas          1.0.1       /usr/local/lib/python3.11/site-packages pip
 idna               3.8         /usr/local/lib/python3.11/site-packages pip
 Jinja2             3.1.4       /usr/local/lib/python3.11/site-packages pip
 MarkupSafe         2.1.5       /usr/local/lib/python3.11/site-packages pip
@@ -19,6 +19,7 @@ numpy              2.1.0       /usr/local/lib/python3.11/site-packages pip
 packaging          24.1        /usr/local/lib/python3.11/site-packages pip
 pandas             2.2.2       /usr/local/lib/python3.11/site-packages pip
 pip                24.2        /usr/local/lib/python3.11/site-packages pip
+pyogrio            0.9.0       /usr/local/lib/python3.11/site-packages pip
 pyparsing          3.1.4       /usr/local/lib/python3.11/site-packages pip
 pyproj             3.6.1       /usr/local/lib/python3.11/site-packages pip
 python-dateutil    2.9.0.post0 /usr/local/lib/python3.11/site-packages pip

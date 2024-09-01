@@ -1,13 +1,13 @@
--- The C compiler identification is GNU 12.2.0
--- The CXX compiler identification is GNU 12.2.0
+-- The C compiler identification is GNU 11.3.0
+-- The CXX compiler identification is GNU 11.3.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
+-- Check for working C compiler: /usr/local/bin/gcc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Check for working CXX compiler: /usr/local/bin/g++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Performing Test test_sse
@@ -231,9 +231,9 @@
 -- Found XercesC: /usr/lib/x86_64-linux-gnu/libxerces-c.so (found version "3.2.4") 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
--- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13") found components: SSL Crypto 
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.14") found components: SSL Crypto 
 -- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
--- Found PROJ: /usr/local/proj/lib/libproj.so (found version "9.4.1") 
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
 -- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
@@ -267,7 +267,7 @@
 -- Could NOT find RASTERLITE2 (missing: RASTERLITE2_LIBRARY RASTERLITE2_INCLUDE_DIR) (Required is at least version "1.1.0")
 -- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
 -- Could NOT find HDF5 (missing: HDF5_LIBRARIES HDF5_INCLUDE_DIRS C) (found version "")
--- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so  
+-- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so (found version "1.2.4") 
 -- Found FreeXL: /usr/lib/x86_64-linux-gnu/libfreexl.so  
 -- Could NOT find MRSID (missing: MRSID_LIBRARY MRSID_INCLUDE_DIR) 
 -- Could NOT find Armadillo (missing: ARMADILLO_INCLUDE_DIR) 
@@ -309,14 +309,28 @@
 -- Performing Test COMPILER_SUPPORTS_CXX17 - Success
 -- Looking for linux/fs.h
 -- Looking for linux/fs.h - found
--- Found BISON: /usr/bin/bison (found version "3.8.2") 
+-- Could NOT find BISON (missing: BISON_EXECUTABLE) 
+-- Looking for JxlEncoderFrameSettingsSetOption
+-- Looking for JxlEncoderFrameSettingsSetOption - found
+-- Looking for JxlEncoderFrameSettingsCreate
+-- Looking for JxlEncoderFrameSettingsCreate - found
+-- Looking for JxlEncoderSetFrameLossless
+-- Looking for JxlEncoderSetFrameLossless - found
+-- Looking for JxlEncoderSetFrameDistance
+-- Looking for JxlEncoderSetFrameDistance - found
+-- Looking for JxlEncoderSetCodestreamLevel
+-- Looking for JxlEncoderSetCodestreamLevel - found
+-- Looking for JxlEncoderInitExtraChannelInfo
+-- Looking for JxlEncoderInitExtraChannelInfo - found
+-- Looking for JxlEncoderSetExtraChannelDistance
+-- Looking for JxlEncoderSetExtraChannelDistance - not found
 -- Looking for sqlite3ext.h
 -- Looking for sqlite3ext.h - found
 --   Target system:             Linux
 --   Installation directory:    /usr/local
 --   C++ Compiler type:         GNU
---   C compile command line:     /usr/bin/cc
---   C++ compile command line:   /usr/bin/c++
+--   C compile command line:     /usr/local/bin/gcc
+--   C++ compile command line:   /usr/local/bin/g++
 -- 
 --   CMAKE_C_FLAGS:               -fvisibility=hidden
 --   CMAKE_CXX_FLAGS:               -fvisibility=hidden
@@ -406,6 +420,7 @@
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
    Use OpenSSL library
+ * PROJ
  * ZSTD
    ZSTD compression library
  * ZLIB
@@ -427,6 +442,10 @@
  * PostgreSQL
  * LibLZMA
    LZMA compression
+ * JXL
+   JPEG-XL compression
+ * JXL_THREADS
+   JPEG-XL threading
  * OpenEXR
    OpenEXR >=2.2
  * HEIF
@@ -435,14 +454,13 @@
    Enable JPEG2000 support with OpenJPEG library
  * PDFIUM
    Enable PDF driver with Pdfium (read side)
- * BISON
 
 -- The following RECOMMENDED packages have been found:
 
- * CURL (required version >= 7.68)
-   Enable drivers to use web API
  * EXPAT
    Read and write XML formats
+ * CURL
+   Enable drivers to use web API
  * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
    Support for the Tag Image File Format (TIFF).
    gdal_GTIFF: GeoTIFF image format
@@ -462,7 +480,6 @@
 
 -- The following REQUIRED packages have been found:
 
- * PROJ
  * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
 
 -- The following features have been disabled:
@@ -652,10 +669,6 @@
    Multi-format archive and compression library library (used for /vsi7z/
  * LIBAEC
    Adaptive Entropy Coding implementing Golomb-Rice algorithm (used by GRIB)
- * JXL
-   JPEG-XL compression
- * JXL_THREADS
-   JPEG-XL threading
  * Crnlib
    enable gdal_DDS driver
  * basisu
@@ -690,6 +703,7 @@
  * Dotnet
  * CSharp
    SWIG_CSharp: CSharp binding
+ * BISON
 
 -- The following RECOMMENDED packages have not been found:
 

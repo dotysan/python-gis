@@ -1,10 +1,11 @@
-# TODO: add dockerfile version here; require BuildKit
 ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
 ARG GDVER=3.9.1
-ARG PROJVER=9.4.1
-ARG PDFREV=6309
+ARG GDREPO=OSGeo/gdal
+
+# ARG PROJVER=9.4.1
+
 ARG NPVER=2.1.*
 ARG FIONAVER=1.9.*
 
@@ -20,67 +21,80 @@ FROM python:$PYVER-slim-$DEBVER AS build-gdal
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get --yes install --no-install-recommends \
-        bison \
+    apt-get install --yes --no-install-recommends \
+        ca-certificates \
         cmake \
         curl \
-        g++ \
-        make \
-        libbrotli-dev \
+        g++-11 \
+        git \
         libcurl4-openssl-dev \
         libexpat-dev \
         libfreexl-dev \
         libgeos-dev \
         libgif-dev \
+        libglib2.0-dev \
         libheif-dev \
         libjpeg-dev \
         libjson-c-dev \
-        libkml-dev \
+        libjxl-dev \
         liblcms2-dev \
         libmariadb-dev-compat \
         libopenexr-dev \
         libopenjp2-7-dev \
-        libpcre2-dev \
         libpng-dev \
         libpq-dev \
+        libproj-dev \
         libqhull-dev \
-        libsqlite3-dev \
-        libtiff-dev \
         libxerces-c-dev \
         libxml2-dev \
+        make \
         ocl-icd-opencl-dev \
-        sqlite3 \
+        patch \
         swig \
-    && apt-get --yes autopurge \
-    && apt-get --yes upgrade
+    && apt-get upgrade --yes
+#         file \
+#         libbrotli-dev \
+#         libopenexr-dev \
+#         libpcre2-dev \
+#         libsqlite3-dev \
+#         libtiff-dev \
+#         lsb-release \
+#         sqlite3 \
+#         sudo \
+#         xz-utils \
+
+RUN ln --symbolic /usr/bin/gcc-11 /usr/local/bin/gcc
+RUN ln --symbolic /usr/bin/g++-11 /usr/local/bin/g++
+
+#----------------------------------------------------------------------
 
 ARG PIP_NO_CACHE_DIR=1
 # and disable the warning about running as root without a venv
 ARG PIP_ROOT_USER_ACTION=ignore
+RUN pip install --upgrade pip setuptools wheel
 
 # DGAL wants NumPy *before compiling
 ARG NPVER
-RUN pip install --upgrade pip setuptools wheel \
-    && pip install numpy==$NPVER
+RUN pip install numpy==$NPVER
 
-# Let's build PROJ from source with much newer version
-ARG PROJVER
-ARG PROJ_TARBALL=https://github.com/OSGeo/PROJ/releases/download/${PROJVER}/proj-${PROJVER}.tar.gz
-RUN curl --location ${PROJ_TARBALL} |tar xz
-RUN mkdir /proj-${PROJVER}/build
-WORKDIR /proj-${PROJVER}/build
+# # Let's build PROJ from source with much newer version
+# ARG PROJVER
+# ARG PROJ_TARBALL=https://github.com/OSGeo/PROJ/releases/download/${PROJVER}/proj-${PROJVER}.tar.gz
+# RUN curl --location ${PROJ_TARBALL} |tar xz
+# RUN mkdir /proj-${PROJVER}/build
+# WORKDIR /proj-${PROJVER}/build
 
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local/proj \
-    -DBUILD_SHARED_LIBS=ON \
-    -DBUILD_TESTING=OFF \
-    -DBUILD_APPS=OFF \
-    \
-    |tee /proj-cmake.txt
+# RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
+#     -DCMAKE_INSTALL_PREFIX=/usr/local/proj \
+#     -DBUILD_SHARED_LIBS=ON \
+#     -DBUILD_TESTING=OFF \
+#     -DBUILD_APPS=OFF \
+#     \
+#     |tee /proj-cmake.txt
 
-RUN cmake --build . --parallel $(nproc)
-RUN cmake --install .
-WORKDIR /
+# RUN cmake --build . --parallel $(nproc)
+# RUN cmake --install .
+# WORKDIR /
 
 # # install TileDB (BEWARE! this assumes x86_64 arch)
 # ARG TDBVER
@@ -99,35 +113,44 @@ WORKDIR /
 # not sure why above doesn't work; see alterative here: https://github.com/todorus/openkaart-data/blob/develop/geodatabase_conversion/Dockerfile#L22
 
 # Build against PDFium instead of using slow system Poppler
-ARG PDFREV
-# TODO: take PDFREPO '3_9' from GDVER=3.9.1
-ARG PDFREPO=rouault/pdfium_build_gdal_3_9
-ARG PDFTAG=pdfium_${PDFREV}_v1
-ARG PDFINSTALL=https://github.com/${PDFREPO}/releases/download/${PDFTAG}/install-ubuntu2004-rev${PDFREV}.tar.gz
-RUN curl --location ${PDFINSTALL} |tar xz
-# this creates /install/{include,lib}/
+WORKDIR /pdfium
+COPY build_linux.sh .
+COPY code.patch .
+COPY build_linux.patch .
+COPY args_release_linux.gn .
+RUN bash -x build_linux.sh
+WORKDIR /
+
+#----------------------------------------------------------------------
+
+# ARG DEBIAN_FRONTEND
+RUN apt-get --yes install --no-install-recommends \
+        libkml-dev
+# can't install libkml-dev before pdfium is built, since it drags in libstdc++-12-dev and poisons our libstdc++-11-dev build
+
+#----------------------------------------------------------------------
 
 # fetch/prep GDAL source
 ARG GDVER
-ARG GDPATH=https://github.com/OSGeo/gdal/releases/download/v$GDVER/gdal
-RUN curl --location ${GDPATH}-$GDVER.tar.gz |tar xz
-RUN mkdir gdal-$GDVER/build
-# RUN mkdir --parents gdal-$GDVER/build
-# RUN curl --location https://github.com/OSGeo/gdal/tarball/6339b46c60e2ef8c408fe33eb38a9ecbb9f1e131 \
-#     |tar xz -C /gdal-$GDVER --strip-components=1
+ARG GDREPO
+ARG GHDL="https://github.com/$GDREPO/releases/download"
+ARG GDARCH="$GHDL/v$GDVER/gdal-$GDVER.tar.gz"
+RUN curl --location "$GDARCH" |tar xz
+
+WORKDIR /gdal-$GDVER
+COPY 2024-0*.patch ./
+RUN patch --verbose -p1 <2024-05-22T17:23.fe08ea1b31.PDF-split-import-of-SDK-headers.patch
+RUN patch --verbose -p1 <2024-08-25T12:37.5ba7acc4ce.PDF-update-to-PDFium-6677.patch ||:
+
+RUN mkdir build
 WORKDIR /gdal-$GDVER/build
 # configure GDAL
 ARG PYVER
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
-      -DGDAL_USE_INTERNAL_LIBS=OFF \
       -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
       -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
       -DBUILD_TESTING=OFF \
-      \
-      -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
-      -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
-      -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
       \
       -DGDAL_ENABLE_DRIVER_BMP=ON \
       -DGDAL_ENABLE_DRIVER_GIF=ON \
@@ -160,8 +183,8 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
       -DGDAL_USE_PDFIUM=ON \
-      -DPDFIUM_INCLUDE_DIR=/install/include/pdfium \
-      -DPDFIUM_LIBRARY=/install/lib/libpdfium.a \
+      -DPDFIUM_INCLUDE_DIR=/pdfium/install/include/pdfium \
+      -DPDFIUM_LIBRARY=/pdfium/install/lib/libpdfium.a \
       \
       -DOGR_ENABLE_DRIVER_MYSQL=ON \
       -DOGR_ENABLE_DRIVER_PG=ON \
@@ -192,6 +215,9 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_XLSX=ON \
       \
       2>&1 |tee /gdal-cmake.txt
+#       -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
+#       -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
+#       -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
     # compile from source with --enable-threadsafe and then -DGDAL_ENABLE_DRIVER_HDF5=ON \
 
 # build GDAL
@@ -228,7 +254,7 @@ LABEL org.opencontainers.image.source=$HERE
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade --yes
 
-# neede to build fiona against GDAL
+# needed to build fiona against GDAL
 RUN apt-get install --yes --no-install-recommends \
     g++
 
@@ -262,12 +288,12 @@ RUN apt-get install --yes --no-install-recommends \
     libxml2 \
     mc \
     ocl-icd-libopencl1 \
-    sudo \
-    && rm -rf /var/lib/apt/lists/*
+    sudo
+    # && rm -rf /var/lib/apt/lists/*
     # libpcre3 \
 
-COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
-COPY --from=build-gdal /usr/local/proj/share /usr/local/share
+# COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
+# COPY --from=build-gdal /usr/local/proj/share /usr/local/share
 
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
@@ -285,11 +311,8 @@ COPY --from=build-gdal /*.txt /
 # COPY --from=build-gdal /usr/local/lib/libfgdbunixrtl.so /usr/local/lib/
 
 ARG PIP_NO_CACHE_DIR=1
-# and disable the warning about running as root without a venv
 ARG PIP_ROOT_USER_ACTION=ignore
-
 RUN pip install --upgrade pip setuptools
-
 # build/install fiona against new GDAL
 ARG FIONAVER
 RUN pip install --no-binary fiona fiona==$FIONAVER
@@ -300,9 +323,14 @@ RUN pip install --requirement require.pip \
     && rm require.pip
 
 # now remove fiona build deps
-RUN apt-get --yes purge \
+RUN apt-get purge --yes \
    g++ \
-   && apt-get --yes autopurge
+   && apt-get autopurge --yes
+
+RUN apt-get install --yes --no-install-recommends \
+        libjxl0.7 \
+        libproj25 \
+    && rm -rf /var/lib/apt/lists/*
 
 # make sure we didn't remove anything still needed
 RUN lddout=$(bash -c '2>&1 ldd /usr/local/bin/{gdal,ogr}*'); \

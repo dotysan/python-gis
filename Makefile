@@ -6,7 +6,7 @@ GDVER:=$(shell grep -oP 'ARG GDVER=\K.*' Dockerfile)
 REL=$(TAG):$(PYVER)-gdal$(GDVER)
 GID=$(shell id -g)
 
-.PHONY: run bash push tag build force
+.PHONY: run bash push push-docker push-github tag build force
 
 run: build
 	docker run --rm -it $(TAG)
@@ -14,15 +14,19 @@ run: build
 bash: build
 	docker run --rm -it $(TAG) bash
 
-push: build tag
+push: push-docker push-github
+
+push-docker: build tag
 	docker tag $(TAG) dotysan/$(TAG)
 	docker tag $(REL) dotysan/$(REL)
-	docker tag $(TAG) ghcr.io/dotysan/$(TAG)
-	docker tag $(TAG) ghcr.io/dotysan/$(REL)
 	docker push dotysan/$(TAG) || \
 	  docker login --username dotysan \
 	  && docker push dotysan/$(TAG)
 	docker push dotysan/$(REL)
+
+push-github: build tag
+	docker tag $(TAG) ghcr.io/dotysan/$(TAG)
+	docker tag $(TAG) ghcr.io/dotysan/$(REL)
 	docker push ghcr.io/dotysan/$(TAG) || \
 	  if [[ "$$GITHUB_TOKEN" ]]; then \
 		docker login --username dotysan --password-stdin ghcr.io <<<"$$GITHUB_TOKEN" \

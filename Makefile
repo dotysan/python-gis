@@ -17,24 +17,41 @@ bash: build
 push: push-docker push-github
 
 push-docker: build tag
-	docker tag $(TAG) dotysan/$(TAG)
-	docker tag $(REL) dotysan/$(REL)
-	docker push dotysan/$(TAG) || \
-	  docker login --username dotysan \
-	  && docker push dotysan/$(TAG)
-	docker push dotysan/$(REL)
+	DOCKER_HUBUSER=$$(jq --raw-output '.auths["https://index.docker.io/v1/"].auth' \
+		~/.docker/config.json |base64 --decode |cut -d: -f1); \
+	if [[ -z "$$DOCKER_HUBUSER" ]]; then \
+		read -p "Enter your Docker Hub username: " DOCKER_HUBUSER; \
+		if [[ -z "$$DOCKER_HUBUSER" ]]; then \
+			echo "ERROR: Docker Hub username not provided. Exiting." >&2; \
+			exit 1; \
+		fi; \
+		docker login --username $$DOCKER_HUBUSER; \
+	fi; \
+	docker tag $(TAG):latest $$DOCKER_HUBUSER/$(TAG):latest; \
+	docker tag $(REL) $$DOCKER_HUBUSER/$(REL); \
+	docker push $$DOCKER_HUBUSER/$(TAG):latest; \
+	docker push $$DOCKER_HUBUSER/$(REL)
 
 push-github: build tag
-	docker tag $(TAG) ghcr.io/dotysan/$(TAG)
-	docker tag $(TAG) ghcr.io/dotysan/$(REL)
-	docker push ghcr.io/dotysan/$(TAG) || \
-	  if [[ "$$GITHUB_TOKEN" ]]; then \
-		docker login --username dotysan --password-stdin ghcr.io <<<"$$GITHUB_TOKEN" \
-		&& docker push ghcr.io/dotysan/$(TAG); \
-	  else \
-	    echo "ERROR: Missing GITHUB_TOKEN in .envrc or environment." >&2; exit 1; \
-	  fi
-	docker push ghcr.io/dotysan/$(REL)
+	DOCKER_GHUSER=$$(jq --raw-output '.auths["ghcr.io"].auth' \
+		~/.docker/config.json |base64 --decode |cut -d: -f1); \
+	if [[ -z "$$DOCKER_GHUSER" ]]; then \
+		if [[ -z "$$GITHUB_TOKEN" ]]; then \
+			echo "ERROR: Missing GITHUB_TOKEN in environment. Please set it or log in manually." >&2; \
+			exit 1; \
+		fi; \
+		GH_USERID=$$(gh api user --jq .login); \
+		if [[ -z "$$GH_USERID" ]]; then \
+			echo "ERROR: Unable to retrieve GitHub username using 'gh' CLI. Ensure 'gh auth login' is completed." >&2; \
+			exit 1; \
+		fi; \
+		echo "$GITHUB_TOKEN" |docker login --username "$$GH_USERID" --password-stdin ghcr.io; \
+		DOCKER_GHUSER="$$GH_USERID"; \
+	fi; \
+	docker tag $(TAG):latest ghcr.io/$$DOCKER_GHUSER/$(TAG):latest; \
+	docker tag $(REL) ghcr.io/$$DOCKER_GHUSER/$(REL); \
+	docker push ghcr.io/$$DOCKER_GHUSER/$(TAG):latest; \
+	docker push ghcr.io/$$DOCKER_GHUSER/$(REL)
 
 tag: build
 	docker tag $(TAG) $(REL)

@@ -13,6 +13,7 @@
   DIPEx -raster- (rov): DIPEx
   DOQ1 -raster- (rov): USGS DOQ (Old Style)
   DOQ2 -raster- (rov): USGS DOQ (New Style)
+  DTED -raster- (rwv): DTED Elevation Raster (*.dt0, *.dt1, *.dt2)
   DXF -vector- (rw+v): AutoCAD DXF (*.dxf)
   EEDA -vector- (ro): Earth Engine Data API
   EEDAI -raster- (ros): Earth Engine Data API Image
@@ -40,8 +41,11 @@
   HFA -raster- (rw+v): Erdas Imagine Images (.img) (*.img)
   HTTP -raster,vector- (ro): HTTP Fetching Wrapper
   ISCE -raster- (rw+v): ISCE raster
+  ISIS2 -raster- (rw+v): USGS Astrogeology ISIS cube (Version 2)
+  ISIS3 -raster- (rw+v): USGS Astrogeology ISIS cube (Version 3) (*.lbl, *.cub)
   JP2OpenJPEG -raster,vector- (rwv): JPEG-2000 driver based on JP2OpenJPEG library (*.jp2, *.j2k)
   JPEG -raster- (rwv): JPEG JFIF (*.jpg, *.jpeg)
+  JPEGXL -raster- (rwv): JPEG-XL (*.jxl)
   JSONFG -vector- (rw+v): OGC Features and Geometries JSON (*.json)
   KML -vector- (rw+v): Keyhole Markup Language (KML) (*.kml)
   KMLSUPEROVERLAY -raster- (rwv): Kml Super Overlay (*.kml, *.kmz)
@@ -64,11 +68,14 @@
   NTv2 -raster- (rw+vs): NTv2 Datum Grid Shift (*.gsb, *.gvb)
   OAPIF -vector- (ro): OGC API - Features
   OGCAPI -raster,vector- (rov): OGCAPI
+  OGR_SDTS -vector- (rov): SDTS
   OGR_VRT -vector- (rov): VRT - Virtual Datasource (*.vrt)
   OSM -vector- (rov): OpenStreetMap XML and PBF (*.osm, *.pbf)
   OpenFileGDB -raster,vector- (rw+v): ESRI FileGDB (*.gdb)
   PAux -raster- (rw+v): PCI .aux Labelled
   PDF -raster,vector- (rw+vs): Geospatial PDF (*.pdf)
+  PDS -raster- (rov): NASA Planetary Data System
+  PDS4 -raster,vector- (rw+vs): NASA Planetary Data System 4 (*.xml)
   PGDUMP -vector- (w+v): PostgreSQL SQL dump (*.sql)
   PNG -raster- (rwv): Portable Network Graphics (*.png)
   PNM -raster- (rw+v): Portable Pixmap Format (netpbm) (*.pgm, *.ppm, *.pnm)
@@ -77,11 +84,14 @@
   ROI_PAC -raster- (rw+v): ROI_PAC raster
   RRASTER -raster- (rw+v): R Raster (*.grd)
   Rasterlite -raster- (rwvs): Rasterlite (*.sqlite)
+  SDTS -raster- (rov): SDTS Raster (*.ddf)
   SNODAS -raster- (rov): Snow Data Assimilation System (*.hdr)
   SQLite -vector- (rw+v): SQLite / Spatialite (*.sqlite, *.db)
   SVG -vector- (rov): Scalable Vector Graphics (*.svg)
   TIGER -vector- (rov): U.S. Census TIGER/Line
   TopoJSON -vector- (rov): TopoJSON (*.json, *.topojson)
+  USGSDEM -raster- (rwv): USGS Optional ASCII DEM (and CDED) (*.dem)
+  VICAR -raster,vector- (rw+v): MIPL VICAR file
   VRT -raster,multidimensional raster- (rw+v): Virtual Raster (*.vrt)
   WCS -raster- (rovs): OGC Web Coverage Service
   WFS -vector- (rov): OGC WFS (Web Feature Service)

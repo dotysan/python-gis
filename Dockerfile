@@ -177,6 +177,9 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DGDAL_USE_TIFF_INTERNAL=ON \
       -DGDAL_USE_GEOTIFF_INTERNAL=ON \
       \
+      -DGDAL_ENABLE_DRIVER_JPEGXL=ON \
+      -DGDAL_USE_JXL=ON \
+      \
       -DGDAL_ENABLE_DRIVER_KMLSUPEROVERLAY=ON \
       -DOGR_ENABLE_DRIVER_LIBKML=ON \
       \
@@ -204,7 +207,12 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_SQLITE=ON \
       -DGDAL_ENABLE_DRIVER_RASTERLITE=ON \
       \
+      -DGDAL_ENABLE_DRIVER_USGSDEM=ON \
+      -DGDAL_ENABLE_DRIVER_DTED=ON \
+      -DGDAL_ENABLE_DRIVER_SDTS=ON \
+      -DOGR_ENABLE_DRIVER_SDTS=ON \
       -DGDAL_ENABLE_DRIVER_ESRIC=ON \
+      -DGDAL_ENABLE_DRIVER_PDS=ON \
       -DOGR_ENABLE_DRIVER_CAD=ON \
       -DGDAL_USE_OPENCAD_INTERNAL=ON \
       -DOGR_ENABLE_DRIVER_CSV=ON \
@@ -270,19 +278,17 @@ RUN apt-get update && apt-get upgrade --yes
 # needed to build fiona against GDAL
 RUN apt-get install --yes --no-install-recommends \
     g++
+# -11 or -12?
 
 # runtime dependencies
 # TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
-        libbrotli1 \
-        libcrypto++8 \
         libcurl4 \
         libdeflate0 \
         libfreexl1 \
         libgeos-c1v5 \
         libgif7 \
         libheif1 \
-        libimath-3-1-29 \
         libjson-c5 \
         libjxl0.7 \
         libkmlbase1 \
@@ -290,13 +296,11 @@ RUN apt-get install --yes --no-install-recommends \
         libkmlengine1 \
         liblcms2-2 \
         libmariadb3 \
-        libopenexr-3-1-30 \
         libopenjp2-7 \
         libpng16-16 \
         libpq5 \
         libproj25 \
         libqhull-r8.0 \
-        libtiff6 \
         libxerces-c3.2 \
         libxml2 \
         ocl-icd-libopencl1

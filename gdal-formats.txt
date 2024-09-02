@@ -3,6 +3,7 @@ CAD
 CSV
 CSW
 Derived
+DTED
 DXF
 EEDA
 Elastic
@@ -19,6 +20,7 @@ HFA
 HTTP
 JP2OpenJPEG
 JPEG
+JPEGXL
 JSONFG
 KML
 KMLSUPEROVERLAY
@@ -32,17 +34,21 @@ OGCAPI
 OpenFileGDB
 OSM
 PDF
+PDS
 PG
 PGDump
 PNG
 PostGISRaster
 Rasterlite
 raw
+SDTS
+SDTS
 Shape
 SQLite
 SVG
 TAB
 Tiger
+USGSDEM
 VRT
 vrt
 WCS

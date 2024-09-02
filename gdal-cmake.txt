@@ -212,8 +212,8 @@
 -- Performing Test HAVE_SHARED_MUTEX - Success
 -- Looking for linux/userfaultfd.h
 -- Looking for linux/userfaultfd.h - found
--- GDAL_VERSION          = 3.9.1
--- GDAL_ABI_FULL_VERSION = 35.3.9.1
+-- GDAL_VERSION          = 3.9.2
+-- GDAL_ABI_FULL_VERSION = 35.3.9.2
 -- GDAL_SOVERSION        = 35
 -- Could NOT find ODBC (missing: ODBC_LIBRARY ODBC_INCLUDE_DIR ODBCINST) 
 -- Could NOT find ODBCCPP (missing: ODBCCPP_LIBRARY ODBCCPP_INCLUDE_DIR) 
@@ -719,4 +719,4 @@
 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /gdal-3.9.1/build
+-- Build files have been written to: /gdal-3.9.2/build

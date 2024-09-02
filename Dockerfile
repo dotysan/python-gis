@@ -1,8 +1,11 @@
 ARG HERE=https://github.com/dotysan/python-gis
 
 ARG PYVER=3.11
-ARG GDVER=3.9.1
+
+ARG GDVER=3.9.2
 ARG GDREPO=OSGeo/gdal
+
+ARG PDREV=6684
 
 # ARG PROJVER=9.4.1
 
@@ -28,7 +31,6 @@ RUN apt-get update && \
         g++-11 \
         git \
         libcurl4-openssl-dev \
-        libexpat-dev \
         libfreexl-dev \
         libgeos-dev \
         libgif-dev \
@@ -49,10 +51,8 @@ RUN apt-get update && \
         libxml2-dev \
         make \
         ocl-icd-opencl-dev \
-        patch \
         swig \
     && apt-get upgrade --yes
-#         file \
 #         libbrotli-dev \
 #         libopenexr-dev \
 #         libpcre2-dev \
@@ -60,7 +60,6 @@ RUN apt-get update && \
 #         libtiff-dev \
 #         lsb-release \
 #         sqlite3 \
-#         sudo \
 #         xz-utils \
 
 RUN ln --symbolic /usr/bin/gcc-11 /usr/local/bin/gcc
@@ -104,21 +103,31 @@ RUN pip install numpy==$NPVER
 #    |tar -xz
 # RUN ls -doh /usr/local/include/* /usr/local/lib/*
 
-# # ESRI File Geodatabase (FileGDB)
-# RUN cd /opt && curl --location \
-#     http://appsforms.esri.com/storage/apps/downloads/software/filegdb_api_1_4-64.tar.gz \
-#     |tar -xz && \
-#     mv FileGDB_API-64/include/*.h /usr/local/include/ && \
-#     mv FileGDB_API-64/lib/*.so /usr/local/lib/
-# not sure why above doesn't work; see alterative here: https://github.com/todorus/openkaart-data/blob/develop/geodatabase_conversion/Dockerfile#L22
+#----------------------------------------------------------------------
 
 # Build against PDFium instead of using slow system Poppler
-WORKDIR /pdfium
-COPY build_linux.sh .
+WORKDIR /gclient
+RUN git clone --depth 1 --branch=main --single-branch \
+        https://chromium.googlesource.com/chromium/tools/depot_tools.git
+ARG PATH="/gclient/depot_tools:$PATH"
+
+ARG DEPOT_TOOLS_UPDATE=0
+RUN gclient config --verbose --verbose --unmanaged \
+        --custom-var=checkout_configuration=minimal \
+        https://pdfium.googlesource.com/pdfium.git
+ARG PDREV
+RUN gclient sync --verbose --shallow --no-history --revision="chromium/$PDREV"
+
+WORKDIR /gclient/pdfium
 COPY code.patch .
-COPY build_linux.patch .
-COPY args_release_linux.gn .
-RUN bash -x build_linux.sh
+RUN git apply --verbose code.patch
+COPY build_linux.patch build/
+RUN cd build && git apply --verbose build_linux.patch
+
+COPY args_release_linux.gn out/Release/args.gn
+RUN gn gen out/Release --color --verbose
+
+RUN ninja -C out/Release
 WORKDIR /
 
 #----------------------------------------------------------------------
@@ -139,14 +148,16 @@ RUN curl --location "$GDARCH" |tar xz
 
 WORKDIR /gdal-$GDVER
 COPY 2024-0*.patch ./
-RUN patch --verbose -p1 <2024-05-22T17:23.fe08ea1b31.PDF-split-import-of-SDK-headers.patch
-RUN patch --verbose -p1 <2024-08-25T12:37.5ba7acc4ce.PDF-update-to-PDFium-6677.patch ||:
+RUN git apply --verbose 2024-05-22T17:23.fe08ea1b31.PDF-split-import-of-SDK-headers.patch
+RUN git apply --verbose 2024-08-25T12:37.PDF-update-to-PDFium-6677.patch
 
 RUN mkdir build
 WORKDIR /gdal-$GDVER/build
 # configure GDAL
 ARG PYVER
+ARG CLICOLOR_FORCE=1
 RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_COLOR_DIAGNOSTICS=ON \
       -DPython_ROOT=/usr/local/lib/python$PYVER \
       -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
       -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
@@ -183,8 +194,8 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
       -DGDAL_USE_PDFIUM=ON \
-      -DPDFIUM_INCLUDE_DIR=/pdfium/install/include/pdfium \
-      -DPDFIUM_LIBRARY=/pdfium/install/lib/libpdfium.a \
+      -DPDFIUM_INCLUDE_DIR=/gclient/pdfium \
+      -DPDFIUM_LIBRARY=/gclient/pdfium/out/Release/obj/libpdfium.a \
       \
       -DOGR_ENABLE_DRIVER_MYSQL=ON \
       -DOGR_ENABLE_DRIVER_PG=ON \
@@ -219,6 +230,8 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
 #       -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
 #       -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
     # compile from source with --enable-threadsafe and then -DGDAL_ENABLE_DRIVER_HDF5=ON \
+
+RUN cp --recursive /gclient/pdfium/third_party/abseil-cpp/absl /gclient/pdfium/
 
 # build GDAL
 RUN cmake --build . --parallel $(nproc)
@@ -261,36 +274,33 @@ RUN apt-get install --yes --no-install-recommends \
 # runtime dependencies
 # TODO: create this list dynamically in build-gdal above
 RUN apt-get install --yes --no-install-recommends \
-    gawk \
-    git-lfs \
-    libbrotli1 \
-    libcrypto++8 \
-    libcurl4 \
-    libdeflate0 \
-    libfreexl1 \
-    libgeos-c1v5 \
-    libgif7 \
-    libheif1 \
-    libimath-3-1-29 \
-    libjson-c5 \
-    libkmlbase1 \
-    libkmldom1 \
-    libkmlengine1 \
-    liblcms2-2 \
-    libmariadb3 \
-    libopenexr-3-1-30 \
-    libopenjp2-7 \
-    libpng16-16 \
-    libpq5 \
-    libqhull-r8.0 \
-    libtiff6 \
-    libxerces-c3.2 \
-    libxml2 \
-    mc \
-    ocl-icd-libopencl1 \
-    sudo
-    # && rm -rf /var/lib/apt/lists/*
-    # libpcre3 \
+        libbrotli1 \
+        libcrypto++8 \
+        libcurl4 \
+        libdeflate0 \
+        libfreexl1 \
+        libgeos-c1v5 \
+        libgif7 \
+        libheif1 \
+        libimath-3-1-29 \
+        libjson-c5 \
+        libjxl0.7 \
+        libkmlbase1 \
+        libkmldom1 \
+        libkmlengine1 \
+        liblcms2-2 \
+        libmariadb3 \
+        libopenexr-3-1-30 \
+        libopenjp2-7 \
+        libpng16-16 \
+        libpq5 \
+        libproj25 \
+        libqhull-r8.0 \
+        libtiff6 \
+        libxerces-c3.2 \
+        libxml2 \
+        ocl-icd-libopencl1
+        # libpcre3 \
 
 # COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
 # COPY --from=build-gdal /usr/local/proj/share /usr/local/share
@@ -327,9 +337,13 @@ RUN apt-get purge --yes \
    g++ \
    && apt-get autopurge --yes
 
+# and finaly handy stuff to have in a devcontainer TODO: create separate -devcon image
 RUN apt-get install --yes --no-install-recommends \
-        libjxl0.7 \
-        libproj25 \
+        file \
+        gawk \
+        git-lfs \
+        mc \
+        sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # make sure we didn't remove anything still needed

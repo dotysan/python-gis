@@ -1,5 +1,6 @@
 BMP
 CAD
+CALS
 CSV
 CSW
 Derived

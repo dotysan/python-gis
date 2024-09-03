@@ -233,8 +233,8 @@
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
 -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.14") found components: SSL Crypto 
 -- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
+-- Found PROJ: /usr/local/proj/lib/libproj.so (found version "9.4.1") 
+-- Could NOT find TIFF (missing: TIFF_LIBRARY TIFF_INCLUDE_DIR) (Required is at least version "4.1")
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
 -- Could NOT find GeoTIFF (missing: GEOTIFF_LIBRARY GEOTIFF_INCLUDE_DIR) 
@@ -366,6 +366,7 @@
  * gdal_HEIF, HEIF
  * gdal_ESRIC, ESRI compact cache
  * gdal_KMLSUPEROVERLAY
+ * gdal_CALS, CALS type 1
  * gdal_WMTS, OGC Web Map Tile Service
  * gdal_BMP, Microsoft Windows Device Independent Bitmap
  * gdal_USGSDEM, USGS ASCII DEM (and CDED)
@@ -430,7 +431,6 @@
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
    Use OpenSSL library
- * PROJ
  * ZSTD
    ZSTD compression library
  * ZLIB
@@ -467,14 +467,10 @@
 
 -- The following RECOMMENDED packages have been found:
 
+ * CURL (required version >= 7.68)
+   Enable drivers to use web API
  * EXPAT
    Read and write XML formats
- * CURL
-   Enable drivers to use web API
- * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
-   Support for the Tag Image File Format (TIFF).
-   gdal_GTIFF: GeoTIFF image format
-   gdal_CALS: CALS type 1 driver
  * PNG (required version >= 1.6)
    PNG compression library (external)
  * JPEG
@@ -490,6 +486,7 @@
 
 -- The following REQUIRED packages have been found:
 
+ * PROJ
  * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
 
 -- The following features have been disabled:
@@ -535,7 +532,6 @@
  * gdal_NGSGEOID, NOAA NGS Geoid Height Grids
  * gdal_IRIS, IRIS driver
  * gdal_MAP, OziExplorer .MAP
- * gdal_CALS, CALS type 1
  * gdal_SAFE, SAFE -- Sentinel-1 SAFE XML Product
  * gdal_SENTINEL2, Driver for Sentinel-2 Level-1B, Level-1C and Level-2A products.
  * gdal_PRF, PHOTOMOD Raster File
@@ -711,6 +707,10 @@
 
 -- The following RECOMMENDED packages have not been found:
 
+ * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
+   Support for the Tag Image File Format (TIFF).
+   gdal_GTIFF: GeoTIFF image format
+   gdal_CALS: CALS type 1 driver
  * GeoTIFF
    libgeotiff library (external)
 

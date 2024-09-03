@@ -5,9 +5,10 @@ ARG PYVER=3.11
 ARG GDVER=3.9.2
 ARG GDREPO=OSGeo/gdal
 
-ARG PDREV=6684
+ARG PROJVER=9.4.1
+ARG PROJREPO=OSGeo/PROJ
 
-# ARG PROJVER=9.4.1
+ARG PDREV=6684
 
 ARG NPVER=2.1.*
 ARG FIONAVER=1.9.*
@@ -31,6 +32,7 @@ RUN apt-get update && \
         g++-11 \
         git \
         libcurl4-openssl-dev \
+        libdeflate-dev \
         libfreexl-dev \
         libgeos-dev \
         libgif-dev \
@@ -40,27 +42,25 @@ RUN apt-get update && \
         libjson-c-dev \
         libjxl-dev \
         liblcms2-dev \
+        liblerc-dev \
+        liblzma-dev \
         libmariadb-dev-compat \
         libopenexr-dev \
         libopenjp2-7-dev \
         libpng-dev \
         libpq-dev \
-        libproj-dev \
         libqhull-dev \
+        libsqlite3-dev \
+        libwebp-dev \
         libxerces-c-dev \
         libxml2-dev \
+        libzstd-dev \
         make \
         ocl-icd-opencl-dev \
+        sqlite3 \
         swig \
     && apt-get upgrade --yes
-#         libbrotli-dev \
 #         libopenexr-dev \
-#         libpcre2-dev \
-#         libsqlite3-dev \
-#         libtiff-dev \
-#         lsb-release \
-#         sqlite3 \
-#         xz-utils \
 
 RUN ln --symbolic /usr/bin/gcc-11 /usr/local/bin/gcc
 RUN ln --symbolic /usr/bin/g++-11 /usr/local/bin/g++
@@ -76,24 +76,32 @@ RUN pip install --upgrade pip setuptools wheel
 ARG NPVER
 RUN pip install numpy==$NPVER
 
+#----------------------------------------------------------------------
+
 # # Let's build PROJ from source with much newer version
-# ARG PROJVER
-# ARG PROJ_TARBALL=https://github.com/OSGeo/PROJ/releases/download/${PROJVER}/proj-${PROJVER}.tar.gz
-# RUN curl --location ${PROJ_TARBALL} |tar xz
-# RUN mkdir /proj-${PROJVER}/build
-# WORKDIR /proj-${PROJVER}/build
+ARG PROJVER
+ARG PROJREPO
+ARG PROJDL="https://github.com/$PROJREPO/releases/download"
+ARG PROJARCH="$PROJDL/$PROJVER/proj-$PROJVER.tar.gz"
+RUN curl --location "$PROJARCH" |tar xz
 
-# RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
-#     -DCMAKE_INSTALL_PREFIX=/usr/local/proj \
-#     -DBUILD_SHARED_LIBS=ON \
-#     -DBUILD_TESTING=OFF \
-#     -DBUILD_APPS=OFF \
-#     \
-#     |tee /proj-cmake.txt
+RUN mkdir /proj-$PROJVER/build
+WORKDIR /proj-$PROJVER/build
+ARG CLICOLOR_FORCE=1
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_COLOR_DIAGNOSTICS=ON \
+        -DCMAKE_INSTALL_PREFIX=/usr/local/proj \
+        -DBUILD_SHARED_LIBS=ON \
+        -DBUILD_TESTING=OFF \
+        -DBUILD_APPS=ON \
+        -DENABLE_CURL=ON \
+        -DENABLE_TIFF=OFF \
+    2>&1 |tee /proj-cmake.txt
 
-# RUN cmake --build . --parallel $(nproc)
-# RUN cmake --install .
-# WORKDIR /
+RUN cmake --build . --parallel $(nproc)
+RUN cmake --install .
+
+#----------------------------------------------------------------------
 
 # # install TileDB (BEWARE! this assumes x86_64 arch)
 # ARG TDBVER
@@ -164,19 +172,32 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DBUILD_TESTING=OFF \
       \
       -DGDAL_ENABLE_DRIVER_BMP=ON \
+      \
       -DGDAL_ENABLE_DRIVER_GIF=ON \
       -DGDAL_USE_GIF=ON \
       -DGDAL_USE_GIF_INTERNAL=OFF \
+      \
       -DGDAL_ENABLE_DRIVER_PNG=ON \
       -DGDAL_USE_PNG_INTERNAL=OFF \
+      \
       -DGDAL_ENABLE_DRIVER_JPEG=ON \
       -DGDAL_ENABLE_DRIVER_JP2OPENJPEG=ON \
       -DGDAL_USE_JPEG_INTERNAL=OFF \
       -DGDAL_USE_OPENJPEG=ON \
+      \
       -DGDAL_ENABLE_DRIVER_HEIF=ON \
+      \
       -DGDAL_USE_TIFF_INTERNAL=ON \
       -DGDAL_USE_GEOTIFF_INTERNAL=ON \
+      -DGDAL_ENABLE_DRIVER_GTIFF=ON \
+      -DGDAL_ENABLE_DRIVER_CALS=ON \
       \
+      -DGDAL_USE_DEFLATE=ON \
+      -DGDAL_USE_ZLIB=ON \
+      -DGDAL_USE_LIBLZMA=ON \
+      -DGDAL_USE_ZSTD=ON \
+      -DGDAL_USE_LERC=ON \
+      -DGDAL_USE_WEBP=ON \
       -DGDAL_ENABLE_DRIVER_JPEGXL=ON \
       -DGDAL_USE_JXL=ON \
       \
@@ -188,11 +209,16 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DGDAL_ENABLE_DRIVER_WCS=ON \
       -DGDAL_ENABLE_DRIVER_WMS=ON \
       -DGDAL_ENABLE_DRIVER_WMTS=ON \
+      \
       -DGDAL_USE_CURL=ON \
       -DOGR_ENABLE_DRIVER_WFS=ON \
       -DGDAL_ENABLE_DRIVER_EEDA=ON \
       -DGDAL_ENABLE_DRIVER_OGCAPI=ON \
       -DOGR_ENABLE_DRIVER_OGCAPI=ON \
+      \
+      -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
+      -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
+      -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
       \
       -DGDAL_ENABLE_DRIVER_PDF=ON \
       -DGDAL_USE_POPPLER=OFF \
@@ -204,6 +230,7 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_PG=ON \
       -DOGR_ENABLE_DRIVER_PGDUMP=ON \
       -DGDAL_ENABLE_DRIVER_POSTGISRASTER=ON \
+      -DGDAL_USE_SQLITE3=ON \
       -DOGR_ENABLE_DRIVER_SQLITE=ON \
       -DGDAL_ENABLE_DRIVER_RASTERLITE=ON \
       \
@@ -213,8 +240,10 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_SDTS=ON \
       -DGDAL_ENABLE_DRIVER_ESRIC=ON \
       -DGDAL_ENABLE_DRIVER_PDS=ON \
+      \
       -DOGR_ENABLE_DRIVER_CAD=ON \
       -DGDAL_USE_OPENCAD_INTERNAL=ON \
+      \
       -DOGR_ENABLE_DRIVER_CSV=ON \
       -DOGR_ENABLE_DRIVER_CSW=ON \
       -DOGR_ENABLE_DRIVER_DXF=ON \
@@ -234,9 +263,7 @@ RUN cmake .. -DCMAKE_BUILD_TYPE=Release \
       -DOGR_ENABLE_DRIVER_XLSX=ON \
       \
       2>&1 |tee /gdal-cmake.txt
-#       -DGDAL_FIND_PACKAGE_PROJ_MODE=MODULE \
-#       -DPROJ_INCLUDE_DIR=/usr/local/proj/include \
-#       -DPROJ_LIBRARY=/usr/local/proj/lib/libproj.so \
+#       -DGDAL_USE_INTERNAL_LIBS=OFF \
     # compile from source with --enable-threadsafe and then -DGDAL_ENABLE_DRIVER_HDF5=ON \
 
 RUN cp --recursive /gclient/pdfium/third_party/abseil-cpp/absl /gclient/pdfium/
@@ -289,26 +316,27 @@ RUN apt-get install --yes --no-install-recommends \
         libgeos-c1v5 \
         libgif7 \
         libheif1 \
+        libjpeg62-turbo \
         libjson-c5 \
         libjxl0.7 \
         libkmlbase1 \
         libkmldom1 \
         libkmlengine1 \
         liblcms2-2 \
+        liblerc4 \
         libmariadb3 \
         libopenjp2-7 \
         libpng16-16 \
         libpq5 \
-        libproj25 \
         libqhull-r8.0 \
+        libwebp7 \
         libxerces-c3.2 \
         libxml2 \
         ocl-icd-libopencl1
         # libpcre3 \
 
-# COPY --from=build-gdal /usr/local/proj/lib /usr/local/lib
-# COPY --from=build-gdal /usr/local/proj/share /usr/local/share
-
+COPY --from=build-gdal /usr/local/proj/lib/libproj* /usr/local/lib/
+COPY --from=build-gdal /usr/local/proj/share /usr/local/share
 
 COPY --from=build-gdal /usr/local/gdal/bin /usr/local/bin
 COPY --from=build-gdal /usr/local/gdal/lib /usr/local/lib

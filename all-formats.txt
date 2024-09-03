@@ -4,6 +4,7 @@
   BT -raster- (rw+v): VTP .bt (Binary Terrain) 1.3 Format (*.bt)
   BYN -raster- (rw+v): Natural Resources Canada's Geoid (*.byn, *.err)
   CAD -raster,vector- (rovs): AutoCAD Driver (*.dwg)
+  CALS -raster- (rwv): CALS (Type 1) (*.cal, *.ct1)
   COG -raster- (wv): Cloud optimized GeoTIFF generator (*.tif, *.tiff)
   CPG -raster- (rov): Convair PolGASP
   CSV -vector- (rw+v): Comma Separated Value (.csv) (*.csv, *.tsv, *.psv)

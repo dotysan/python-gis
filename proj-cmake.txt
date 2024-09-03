@@ -1,13 +1,13 @@
--- The C compiler identification is GNU 12.2.0
--- The CXX compiler identification is GNU 12.2.0
+-- The C compiler identification is GNU 11.3.0
+-- The CXX compiler identification is GNU 11.3.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
+-- Check for working C compiler: /usr/local/bin/gcc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Check for working CXX compiler: /usr/local/bin/g++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Requiring C++11
@@ -26,7 +26,11 @@
 -- Looking for exp in m - found
 -- nlohmann/json: internal
 -- Found SQLite3: /usr/include (found version "3.40.1") 
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.5.0")  
+[33mCMake Warning at CMakeLists.txt:239 (message):
+  TIFF support is not enabled and will result in the inability to read some
+  grids
+
+[0m
 -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success

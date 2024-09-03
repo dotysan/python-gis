@@ -29,7 +29,7 @@ RUN apt-get update && \
         ca-certificates \
         cmake \
         curl \
-        g++-11 \
+        g++ \
         git \
         libcurl4-openssl-dev \
         libdeflate-dev \
@@ -62,8 +62,6 @@ RUN apt-get update && \
     && apt-get upgrade --yes
 #         libopenexr-dev \
 
-RUN ln --symbolic /usr/bin/gcc-11 /usr/local/bin/gcc
-RUN ln --symbolic /usr/bin/g++-11 /usr/local/bin/g++
 
 #----------------------------------------------------------------------
 
@@ -127,15 +125,21 @@ ARG PDREV
 RUN gclient sync --verbose --shallow --no-history --revision="chromium/$PDREV"
 
 WORKDIR /gclient/pdfium
+
 COPY code.patch .
 RUN git apply --verbose code.patch
+
 COPY build_linux.patch build/
 RUN cd build && git apply --verbose build_linux.patch
+
+# don't error on warnings about deprecated declarations
+COPY pdfium-noerror-deprecated.patch .
+RUN git apply --verbose pdfium-noerror-deprecated.patch
 
 COPY args_release_linux.gn out/Release/args.gn
 RUN gn gen out/Release --color --verbose
 
-RUN ninja -C out/Release
+RUN ninja -C out/Release pdfium
 WORKDIR /
 
 #----------------------------------------------------------------------
@@ -375,6 +379,7 @@ RUN apt-get install --yes --no-install-recommends \
         gawk \
         git-lfs \
         mc \
+        psmisc \
         sudo \
     && rm -rf /var/lib/apt/lists/*
 

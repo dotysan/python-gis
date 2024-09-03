@@ -15,7 +15,7 @@ geopandas          1.0.1       /usr/local/lib/python3.11/site-packages pip
 idna               3.8         /usr/local/lib/python3.11/site-packages pip
 Jinja2             3.1.4       /usr/local/lib/python3.11/site-packages pip
 MarkupSafe         2.1.5       /usr/local/lib/python3.11/site-packages pip
-numpy              2.1.0       /usr/local/lib/python3.11/site-packages pip
+numpy              2.1.1       /usr/local/lib/python3.11/site-packages pip
 packaging          24.1        /usr/local/lib/python3.11/site-packages pip
 pandas             2.2.2       /usr/local/lib/python3.11/site-packages pip
 pip                24.2        /usr/local/lib/python3.11/site-packages pip
@@ -26,11 +26,11 @@ python-dateutil    2.9.0.post0 /usr/local/lib/python3.11/site-packages pip
 pytz               2024.1      /usr/local/lib/python3.11/site-packages pip
 rasterio           1.3.10      /usr/local/lib/python3.11/site-packages pip
 requests           2.32.3      /usr/local/lib/python3.11/site-packages pip
-setuptools         74.1.0      /usr/local/lib/python3.11/site-packages pip
+setuptools         74.1.1      /usr/local/lib/python3.11/site-packages pip
 shapely            2.0.6       /usr/local/lib/python3.11/site-packages pip
 six                1.16.0      /usr/local/lib/python3.11/site-packages pip
 snuggs             1.4.7       /usr/local/lib/python3.11/site-packages pip
 tzdata             2024.1      /usr/local/lib/python3.11/site-packages pip
 urllib3            2.2.2       /usr/local/lib/python3.11/site-packages pip
 wheel              0.44.0      /usr/local/lib/python3.11/site-packages pip
-xyzservices        2024.6.0    /usr/local/lib/python3.11/site-packages pip
+xyzservices        2024.9.0    /usr/local/lib/python3.11/site-packages pip

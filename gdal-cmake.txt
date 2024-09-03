@@ -1,13 +1,13 @@
--- The C compiler identification is GNU 11.3.0
--- The CXX compiler identification is GNU 11.3.0
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/local/bin/gcc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/local/bin/g++ - skipped
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Performing Test test_sse
@@ -333,8 +333,8 @@
 --   Target system:             Linux
 --   Installation directory:    /usr/local
 --   C++ Compiler type:         GNU
---   C compile command line:     /usr/local/bin/gcc
---   C++ compile command line:   /usr/local/bin/g++
+--   C compile command line:     /usr/bin/cc
+--   C++ compile command line:   /usr/bin/c++
 -- 
 --   CMAKE_C_FLAGS:               -fvisibility=hidden
 --   CMAKE_CXX_FLAGS:               -fvisibility=hidden

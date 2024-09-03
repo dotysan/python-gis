@@ -1,4 +1,9 @@
-# note fiona==1.9.* is built in Dockerfile against GDAL
-folium==0.16.*
-geopandas==0.14.*
+# notes:
+#  - fiona==1.9.* is built in Dockerfile against GDAL
+#  - numpy=2.1.* is build early in Dockerfile so GDAL can use it
+
+# folium is a wrapper around leflet
+folium==0.17.*
+
+geopandas==1.0.*
 rasterio==1.3.*

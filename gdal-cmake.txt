@@ -1,13 +1,13 @@
--- The C compiler identification is GNU 12.2.0
--- The CXX compiler identification is GNU 12.2.0
+-- The C compiler identification is GNU 11.3.0
+-- The CXX compiler identification is GNU 11.3.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
+-- Check for working C compiler: /usr/local/bin/gcc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Check for working CXX compiler: /usr/local/bin/g++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Performing Test test_sse
@@ -33,7 +33,7 @@
 -- Performing Test test_avx2
 -- Performing Test test_avx2 - Success
 -- Found SWIG: /usr/bin/swig4.0 (found version "4.1.0")  
--- Found Python: /usr/local/bin/python3 (found suitable version "3.11.8", minimum required is "3.6") found components: Interpreter Development NumPy Development.Module Development.Embed 
+-- Found Python: /usr/local/bin/python3 (found suitable version "3.11.9", minimum required is "3.8") found components: Interpreter Development NumPy Development.Module Development.Embed 
 -- Performing Test HAVE_WFLAG_ALL
 -- Performing Test HAVE_WFLAG_ALL - Success
 -- Performing Test HAVE_WFLAG_EXTRA
@@ -181,8 +181,8 @@
 -- Looking for fseeko64 - found
 -- Looking for stat64
 -- Looking for stat64 - found
--- Performing Test NO_UNIX_STDIO_64
--- Performing Test NO_UNIX_STDIO_64 - Failed
+-- Performing Test WINDOWS_STAT64
+-- Performing Test WINDOWS_STAT64 - Failed
 -- Looking for fopen64
 -- Looking for fopen64 - found
 -- Check size of off_t
@@ -208,16 +208,18 @@
 -- checking if sprintf can be overloaded for GDAL compilation
 -- Performing Test DEPRECATE_SPRINTF
 -- Performing Test DEPRECATE_SPRINTF - Failed
+-- Performing Test HAVE_SHARED_MUTEX
+-- Performing Test HAVE_SHARED_MUTEX - Success
 -- Looking for linux/userfaultfd.h
 -- Looking for linux/userfaultfd.h - found
--- GDAL_VERSION          = 3.8.4
--- GDAL_ABI_FULL_VERSION = 34.3.8.4
--- GDAL_SOVERSION        = 34
+-- GDAL_VERSION          = 3.9.1
+-- GDAL_ABI_FULL_VERSION = 35.3.9.1
+-- GDAL_SOVERSION        = 35
 -- Could NOT find ODBC (missing: ODBC_LIBRARY ODBC_INCLUDE_DIR ODBCINST) 
 -- Could NOT find ODBCCPP (missing: ODBCCPP_LIBRARY ODBCCPP_INCLUDE_DIR) 
 -- Could NOT find MSSQL_ODBC (missing: MSSQL_ODBC_LIBRARY MSSQL_ODBC_INCLUDE_DIR MSSQL_ODBC_VERSION) 
 -- Found MySQL: /usr/lib/x86_64-linux-gnu/libmysqlclient.so (found version "") 
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found suitable version "7.88.1", minimum required is "7.68")  
 -- Performing Test Iconv_IS_BUILT_IN
 -- Performing Test Iconv_IS_BUILT_IN - Success
 -- Found Iconv: /usr/lib/x86_64-linux-gnu/libc.so  
@@ -229,15 +231,14 @@
 -- Found XercesC: /usr/lib/x86_64-linux-gnu/libxerces-c.so (found version "3.2.4") 
 -- Found ZLIB: /usr/lib/x86_64-linux-gnu/libz.so (found version "1.2.13") 
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
--- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.11") found components: SSL Crypto 
--- Performing Test CRYPTOPP_TEST_KNOWNBUG
--- Performing Test CRYPTOPP_TEST_KNOWNBUG - Success
--- Found CryptoPP: /usr/lib/x86_64-linux-gnu/libcryptopp.so  
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.0")  
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.14") found components: SSL Crypto 
+-- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
+-- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
+-- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
--- Found GeoTIFF: /usr/lib/x86_64-linux-gnu/libgeotiff.so (found version "1.7.1.0") 
--- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found version "1.6.39") 
+-- Could NOT find GeoTIFF (missing: GEOTIFF_LIBRARY GEOTIFF_INCLUDE_DIR) 
+-- Found PNG: /usr/lib/x86_64-linux-gnu/libpng.so (found suitable version "1.6.39", minimum required is "1.6") 
 -- Found JPEG: /usr/lib/x86_64-linux-gnu/libjpeg.so (found version "62") 
 -- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12
 -- Performing Test HAVE_JPEGTURBO_DUAL_MODE_8_12 - Failed
@@ -261,11 +262,11 @@
 -- Looking for sqlite3_progress_handler - found
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION
 -- Performing Test SQLite3_HAS_NON_DEPRECATED_AUTO_EXTENSION - Success
--- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found version "3.40.1") 
--- Found SPATIALITE: /usr/lib/x86_64-linux-gnu/libspatialite.so (found suitable version "5.0.1", minimum required is "4.1.2") 
--- Found RASTERLITE2: /usr/lib/x86_64-linux-gnu/librasterlite2.so (found suitable version "1.1.0-beta1", minimum required is "1.1.0") 
+-- Found SQLite3: /usr/lib/x86_64-linux-gnu/libsqlite3.so (found suitable version "3.40.1", minimum required is "3.31") 
+-- Could NOT find SPATIALITE (missing: SPATIALITE_LIBRARY SPATIALITE_INCLUDE_DIR) (Required is at least version "4.1.2")
+-- Could NOT find RASTERLITE2 (missing: RASTERLITE2_LIBRARY RASTERLITE2_INCLUDE_DIR) (Required is at least version "1.1.0")
 -- Found LibKML: /usr/lib/x86_64-linux-gnu/libkmlbase.so (found version "1.3.0") 
--- Found HDF5: /usr/lib/x86_64-linux-gnu/hdf5/serial/libhdf5.so;/usr/lib/x86_64-linux-gnu/libcrypto.so;/usr/lib/x86_64-linux-gnu/libcurl.so;/usr/lib/x86_64-linux-gnu/libpthread.a;/usr/lib/x86_64-linux-gnu/libsz.so;/usr/lib/x86_64-linux-gnu/libz.so;/usr/lib/x86_64-linux-gnu/libdl.a;/usr/lib/x86_64-linux-gnu/libm.so (found version "1.10.8") found components: C 
+-- Could NOT find HDF5 (missing: HDF5_LIBRARIES HDF5_INCLUDE_DIRS C) (found version "")
 -- Found WebP: /usr/lib/x86_64-linux-gnu/libwebp.so (found version "1.2.4") 
 -- Found FreeXL: /usr/lib/x86_64-linux-gnu/libfreexl.so  
 -- Could NOT find MRSID (missing: MRSID_LIBRARY MRSID_INCLUDE_DIR) 
@@ -273,12 +274,12 @@
 -- Could NOT find HDF4 (missing: HDF4_df_LIBRARY HDF4_mfhdf_LIBRARY HDF4_INCLUDE_DIR) 
 -- Could NOT find ECW (missing: ECW_LIBRARY ECWnet_LIBRARY ECWC_LIBRARY NCSUtil_LIBRARY ECW_INCLUDE_DIR) 
 -- Could NOT find NetCDF (missing: NetCDF_DIR)
--- Could NOT find NetCDF (missing: NETCDF_LIBRARY NETCDF_INCLUDE_DIR) 
+-- Could NOT find NetCDF (missing: NETCDF_LIBRARY NETCDF_INCLUDE_DIR) (Required is at least version "4.7")
 -- Could NOT find OGDI (missing: OGDI_LIBRARY OGDI_INCLUDE_DIRS) 
 -- Looking for CL_VERSION_3_0
 -- Looking for CL_VERSION_3_0 - found
 -- Found OpenCL: /usr/lib/x86_64-linux-gnu/libOpenCL.so (found version "3.0") 
--- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.6")  
+-- Found PostgreSQL: /usr/lib/x86_64-linux-gnu/libpq.so (found version "15.8")  
 -- Could NOT find FYBA (missing: FYBA_FYBA_LIBRARY FYBA_FYGM_LIBRARY FYBA_FYUT_LIBRARY FYBA_INCLUDE_DIR) 
 -- Found LibLZMA: /usr/lib/x86_64-linux-gnu/liblzma.so (found version "5.4.1") 
 -- Could NOT find LZ4 (missing: LZ4_LIBRARY LZ4_INCLUDE_DIR LZ4_VERSION) 
@@ -289,10 +290,10 @@
 -- Could NOT find TileDB (missing: TileDB_DIR)
 -- Found OpenEXR: /usr/lib/x86_64-linux-gnu/libOpenEXR.so (found version "3.1.5") 
 -- Could NOT find MONGOCXX (missing: MONGOCXX_INCLUDE_DIR BSONCXX_INCLUDE_DIR MONGOCXX_LIBRARY BSONCXX_LIBRARY) 
--- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found version "2.5.0") 
+-- Found OpenJPEG: /usr/lib/x86_64-linux-gnu/libopenjp2.so (found suitable version "2.5.0", minimum required is "2.3.1") 
 -- Could NOT find JNI (missing: JAVA_INCLUDE_PATH JAVA_INCLUDE_PATH2 AWT JVM) 
 -- Could NOT find HDFS (missing: HDFS_LIBRARY HDFS_INCLUDE_DIR) 
--- Found Poppler: /usr/lib/x86_64-linux-gnu/libpoppler.so (found version "22.12.0")  
+-- Could NOT find Poppler (missing: Poppler_LIBRARY Poppler_INCLUDE_DIR) (Required is at least version "0.86")
 -- Could NOT find Podofo (missing: PODOFO_LIBRARY PODOFO_INCLUDE_DIR) 
 -- Could NOT find Oracle (missing: Oracle_LIBRARY Oracle_INCLUDE_DIR) 
 -- Could NOT find FileGDB (missing: FileGDB_LIBRARY FileGDB_INCLUDE_DIR) 
@@ -308,32 +309,28 @@
 -- Performing Test COMPILER_SUPPORTS_CXX17 - Success
 -- Looking for linux/fs.h
 -- Looking for linux/fs.h - found
--- Found BISON: /usr/bin/bison (found version "3.8.2") 
+-- Could NOT find BISON (missing: BISON_EXECUTABLE) 
 -- Looking for JxlEncoderFrameSettingsSetOption
 -- Looking for JxlEncoderFrameSettingsSetOption - found
 -- Looking for JxlEncoderFrameSettingsCreate
 -- Looking for JxlEncoderFrameSettingsCreate - found
--- Looking for JxlEncoderSetFrameDistance
--- Looking for JxlEncoderSetFrameDistance - found
 -- Looking for JxlEncoderSetFrameLossless
 -- Looking for JxlEncoderSetFrameLossless - found
+-- Looking for JxlEncoderSetFrameDistance
+-- Looking for JxlEncoderSetFrameDistance - found
 -- Looking for JxlEncoderSetCodestreamLevel
 -- Looking for JxlEncoderSetCodestreamLevel - found
 -- Looking for JxlEncoderInitExtraChannelInfo
 -- Looking for JxlEncoderInitExtraChannelInfo - found
--- Looking for JxlDecoderSetDecompressBoxes
--- Looking for JxlDecoderSetDecompressBoxes - found
 -- Looking for JxlEncoderSetExtraChannelDistance
 -- Looking for JxlEncoderSetExtraChannelDistance - not found
--- Looking for JxlDecoderDefaultPixelFormat
--- Looking for JxlDecoderDefaultPixelFormat - found
 -- Looking for sqlite3ext.h
 -- Looking for sqlite3ext.h - found
 --   Target system:             Linux
 --   Installation directory:    /usr/local
 --   C++ Compiler type:         GNU
---   C compile command line:     /usr/bin/cc
---   C++ compile command line:   /usr/bin/c++
+--   C compile command line:     /usr/local/bin/gcc
+--   C++ compile command line:   /usr/local/bin/g++
 -- 
 --   CMAKE_C_FLAGS:               -fvisibility=hidden
 --   CMAKE_CXX_FLAGS:               -fvisibility=hidden
@@ -359,6 +356,134 @@
  * gdal_MEM, Read/write data in Memory
  * gdal_VRT, Virtual GDAL Datasets
  * gdal_HFA, Erdas Imagine .img
+ * gdal_HEIF, HEIF
+ * gdal_ESRIC, ESRI compact cache
+ * gdal_KMLSUPEROVERLAY
+ * gdal_WMTS, OGC Web Map Tile Service
+ * gdal_BMP, Microsoft Windows Device Independent Bitmap
+ * gdal_PDF, Geospatial PDF
+ * gdal_PNG, PNG image format
+ * gdal_GIF, Graphics Interchange Format
+ * gdal_WCS, OGC Web Coverage Service
+ * gdal_HTTP, HTTP driver
+ * gdal_EEDA, Earth Engine Data API
+ * gdal_WMS, Web Map Services
+ * gdal_OGCAPI, OGCAPI
+ * gdal_RASTERLITE, Rasterlite - Rasters in SQLite DB
+ * gdal_POSTGISRASTER, PostGIS Raster driver
+ * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
+ * ogr_MEM, Read/write driver for MEMORY virtual files
+ * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
+ * ogr_TAB, MapInfo TAB and MIF/MID
+ * ogr_SHAPE, ESRI shape-file
+ * ogr_KML, KML
+ * ogr_VRT, VRT - Virtual Format
+ * ogr_GML, GML
+ * ogr_CSV, CSV
+ * ogr_TIGER, U.S. Census TIGER/Line
+ * ogr_DXF, DXF
+ * ogr_PGDUMP, PGDump
+ * ogr_OPENFILEGDB, OPENFILEGDB
+ * ogr_MAPML, MapML
+ * ogr_JSONFG, JSONFG
+ * ogr_GPX, GPX - GPS Exchange Format
+ * ogr_GMLAS, GMLAS
+ * ogr_SVG, Scalable Vector Graphics
+ * ogr_CSW, CSW
+ * ogr_LIBKML, LibKML
+ * ogr_WFS, OGC WFS service
+ * ogr_ELASTIC, ElasticSearch
+ * ogr_SQLITE, SQLite3 / Spatialite RDBMS
+ * ogr_GPKG, GeoPackage
+ * ogr_OSM, OpenStreetMap XML and PBF
+ * ogr_MVT, MVT
+ * ogr_MYSQL, MySQL
+ * ogr_PG, PostGIS
+ * ogr_XLSX, Microsoft Office Excel(xlsx)
+ * ogr_XLS, Microsoft Office Excel(xls)
+ * ogr_CAD, OpenCAD
+
+-- The following OPTIONAL packages have been found:
+
+ * Python (required version >= 3.8)
+   SWIG_PYTHON: Python binding
+ * Threads
+ * MySQL
+   MySQL
+ * Iconv
+   Character set recoding (used in GDAL portability library)
+ * LibXml2
+   Read and write XML formats
+ * XercesC
+   Read and write XML formats (needed for GMLAS and ILI drivers)
+ * Deflate
+   Enable libdeflate compression library (complement to ZLib)
+ * OpenSSL
+   Use OpenSSL library
+ * PROJ
+ * ZSTD
+   ZSTD compression library
+ * ZLIB
+   zlib (external)
+ * GIF
+   GIF compression library (external)
+ * JSONC
+   json-c library (external)
+ * PCRE2
+   Enable PCRE2 support for sqlite3
+ * LibKML
+   Use LIBKML library
+ * WebP
+   WebP compression
+ * FreeXL
+   Enable XLS driver
+ * OpenCL
+   Enable OpenCL (may be used for warping)
+ * PostgreSQL
+ * LibLZMA
+   LZMA compression
+ * JXL
+   JPEG-XL compression
+ * JXL_THREADS
+   JPEG-XL threading
+ * OpenEXR
+   OpenEXR >=2.2
+ * HEIF
+   HEIF >= 1.1
+ * OpenJPEG (required version >= 2.3.1)
+   Enable JPEG2000 support with OpenJPEG library
+ * PDFIUM
+   Enable PDF driver with Pdfium (read side)
+
+-- The following RECOMMENDED packages have been found:
+
+ * EXPAT
+   Read and write XML formats
+ * CURL
+   Enable drivers to use web API
+ * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
+   Support for the Tag Image File Format (TIFF).
+   gdal_GTIFF: GeoTIFF image format
+   gdal_CALS: CALS type 1 driver
+ * PNG (required version >= 1.6)
+   PNG compression library (external)
+ * JPEG
+   JPEG compression library (external)
+ * QHULL
+   Enable QHULL (external)
+ * LERC
+   Enable LERC (external)
+ * SQLite3 (required version >= 3.31)
+   Enable SQLite3 support (used by SQLite/Spatialite, GPKG, Rasterlite, MBTiles, etc.)
+ * GEOS
+   Geometry Engine - Open Source (GDAL core dependency)
+
+-- The following REQUIRED packages have been found:
+
+ * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
+
+-- The following features have been disabled:
+
  * gdal_SDTS, SDTS translator
  * gdal_NITF, National Imagery Transmission Format
  * gdal_GXF, GXF
@@ -397,10 +522,7 @@
  * gdal_NORTHWOOD, NWT_GRD/NWT_GRC -- Northwood/Vertical Mapper File Format
  * gdal_SAGA, SAGA GIS Binary Driver
  * gdal_XYZ, ASCII Gridded XYZ
- * gdal_HEIF, HEIF
- * gdal_ESRIC, ESRI compact cache
  * gdal_HF2, HF2/HFZ heightfield raster
- * gdal_KMLSUPEROVERLAY
  * gdal_CTG, CTG driver
  * gdal_ZMAP, ZMAP
  * gdal_NGSGEOID, NOAA NGS Geoid Height Grids
@@ -411,200 +533,36 @@
  * gdal_SENTINEL2, Driver for Sentinel-2 Level-1B, Level-1C and Level-2A products.
  * gdal_PRF, PHOTOMOD Raster File
  * gdal_MRF, Meta raster format
- * gdal_WMTS, OGC Web Map Tile Service
  * gdal_GRIB, WMO General Regularly-distributed Information in Binary form
- * gdal_BMP, Microsoft Windows Device Independent Bitmap
  * gdal_TGA, TGA
  * gdal_STACTA, STACTA
  * gdal_BSB, Maptech/NOAA BSB Nautical Chart Format
  * gdal_AIGRID, Arc/Info Binary Grid Format
- * gdal_ARG, ARG: Azavea Raster Grid
  * gdal_USGSDEM, USGS ASCII DEM (and CDED)
  * gdal_AIRSAR, AirSAR Polarimetric Format
  * gdal_OZI, OZF2/OZFX3 raster
  * gdal_PCIDSK, PCI Geomatics Database File
  * gdal_SIGDEM, Scaled Integer Gridded DEM .sigdem Driver
+ * gdal_MSG, Meteosat Second Generation
  * gdal_RIK, RIK -- Swedish Grid Maps
  * gdal_STACIT, STACIT
- * gdal_PDF, Geospatial PDF
- * gdal_PNG, PNG image format
- * gdal_GIF, Graphics Interchange Format
- * gdal_WCS, OGC Web Coverage Service
- * gdal_HTTP, HTTP driver
+ * gdal_NETCDF, NetCDF network Common Data Form
  * gdal_ZARR, ZARR
  * gdal_DAAS, Airbus DS Intelligence Data As A Service(DAAS)
- * gdal_EEDA, Earth Engine Data API
+ * gdal_FITS, FITS Driver
  * gdal_HDF5, Hierarchical Data Format Release 5 (HDF5)
  * gdal_PLMOSAIC, PLMosaic (Planet Labs Mosaics API)
- * gdal_WMS, Web Map Services
- * gdal_OGCAPI, OGCAPI
- * gdal_WEBP, WebP
- * gdal_RASTERLITE, Rasterlite - Rasters in SQLite DB
- * gdal_MBTILES, MBTile
- * gdal_POSTGISRASTER, PostGIS Raster driver
- * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
- * gdal_EXR, EXR support via OpenEXR library
- * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
- * gdal_JPEGXL, JPEG-XL
- * ogr_MEM, Read/write driver for MEMORY virtual files
- * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
- * ogr_TAB, MapInfo TAB and MIF/MID
- * ogr_SHAPE, ESRI shape-file
- * ogr_KML, KML
- * ogr_VRT, VRT - Virtual Format
- * ogr_AVC, AVC
- * ogr_GML, GML
- * ogr_CSV, CSV
- * ogr_DGN, DGN
- * ogr_GMT, GMT
- * ogr_NTF, NTF
- * ogr_S57, S57
- * ogr_TIGER, U.S. Census TIGER/Line
- * ogr_GEOCONCEPT, GEOCONCEPT
- * ogr_GEORSS, GEORSS
- * ogr_DXF, DXF
- * ogr_PGDUMP, PGDump
- * ogr_GPSBABEL, GPSBABEL
- * ogr_EDIGEO, EDIGEO
- * ogr_SXF, SXF
- * ogr_OPENFILEGDB, OPENFILEGDB
- * ogr_WASP, WAsP .map format
- * ogr_SELAFIN, OSELAFIN
- * ogr_JML, JML
- * ogr_VDV, VDV-451/VDV-452/INTREST Data Format
- * ogr_FLATGEOBUF, FlatGeobuf
- * ogr_MAPML, MapML
- * ogr_JSONFG, JSONFG
- * ogr_SDTS, SDTS
- * ogr_GPX, GPX - GPS Exchange Format
- * ogr_GMLAS, GMLAS
- * ogr_SVG, Scalable Vector Graphics
- * ogr_CSW, CSW
- * ogr_LIBKML, LibKML
- * ogr_NAS, NAS/ALKIS
- * ogr_PLSCENES, PLSCENES
- * ogr_WFS, OGC WFS service
- * ogr_NGW, NextGIS Web
- * ogr_ELASTIC, ElasticSearch
- * ogr_IDRISI, IDRISI
- * ogr_PDS, Planetary Data Systems TABLE
- * ogr_SQLITE, SQLite3 / Spatialite RDBMS
- * ogr_GPKG, GeoPackage
- * ogr_OSM, OpenStreetMap XML and PBF
- * ogr_VFK, Czech Cadastral Exchange Data Format
- * ogr_MVT, MVT
- * ogr_PMTILES, PMTiles
- * ogr_AMIGOCLOUD, AMIGOCLOUD
- * ogr_CARTO, CARTO
- * ogr_ILI, ILI
- * ogr_MYSQL, MySQL
- * ogr_PG, PostGIS
- * ogr_XLSX, Microsoft Office Excel(xlsx)
- * ogr_XLS, Microsoft Office Excel(xls)
- * ogr_CAD, OpenCAD
- * ogr_GTFS, GTFS
- * ogr_ODS, ODS
- * ogr_LVBAG, LVBAG
-
--- The following OPTIONAL packages have been found:
-
- * Python (required version >= 3.6)
-   SWIG_PYTHON: Python binding
- * Threads
- * MySQL
-   MySQL
- * Iconv
-   Character set recoding (used in GDAL portability library)
- * LibXml2
-   Read and write XML formats
- * XercesC
-   Read and write XML formats (needed for GMLAS and ILI drivers)
- * Deflate
-   Enable libdeflate compression library (complement to ZLib)
- * OpenSSL
-   Use OpenSSL library
- * CryptoPP
-   Use crypto++ library for CPL.
- * ZSTD
-   ZSTD compression library
- * ZLIB
-   zlib (external)
- * GIF
-   GIF compression library (external)
- * JSONC
-   json-c library (external)
- * PCRE2
-   Enable PCRE2 support for sqlite3
- * SPATIALITE (required version >= 4.1.2)
-   Enable spatialite support for sqlite3
- * RASTERLITE2 (required version >= 1.1.0)
-   Enable RasterLite2 support for sqlite3
- * LibKML
-   Use LIBKML library
- * HDF5
-   Enable HDF5
- * WebP
-   WebP compression
- * FreeXL
-   Enable XLS driver
- * OpenCL
-   Enable OpenCL (may be used for warping)
- * PostgreSQL
- * LibLZMA
-   LZMA compression
- * LIBAEC
-   Adaptive Entropy Coding implementing Golomb-Rice algorithm (used by GRIB)
- * JXL
-   JPEG-XL compression
- * JXL_THREADS
-   JPEG-XL threading
- * OpenEXR
-   OpenEXR >=2.2
- * HEIF
-   HEIF >= 1.1
- * OpenJPEG
- * Poppler, A PDF rendering library, <http://poppler.freedesktop.org>
-   Enable PDF driver with Poppler (read side)
- * BISON
-
--- The following RECOMMENDED packages have been found:
-
- * EXPAT
-   Read and write XML formats
- * TIFF (required version >= 4.0), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
-   Support for the Tag Image File Format (TIFF).
-   gdal_GTIFF: GeoTIFF image format
-   gdal_CALS: CALS type 1 driver
- * GeoTIFF
-   libgeotiff library (external)
- * PNG
-   PNG compression library (external)
- * JPEG
-   JPEG compression library (external)
- * QHULL
-   Enable QHULL (external)
- * LERC
-   Enable LERC (external)
- * SQLite3
-   Enable SQLite3 support (used by SQLite/Spatialite, GPKG, Rasterlite, MBTiles, etc.)
- * GEOS
-   Geometry Engine - Open Source (GDAL core dependency)
-
--- The following REQUIRED packages have been found:
-
- * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
-
--- The following features have been disabled:
-
- * gdal_MSG, Meteosat Second Generation
- * gdal_NETCDF, NetCDF network Common Data Form
- * gdal_FITS, FITS Driver
  * gdal_GTA, Generic Tagged Arrays
+ * gdal_WEBP, WebP
  * gdal_HDF4, Hierarchical Data Format Release 4 (HDF4)
+ * gdal_MBTILES, MBTile
  * gdal_DDS, DirectDraw Surface
  * gdal_KEA, Kea
  * gdal_TILEDB, TileDB tiledb.io
+ * gdal_EXR, EXR support via OpenEXR library
+ * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
  * gdal_RDB, RIEGL RDB Map Pixel (.mpx) driver
+ * gdal_JPEGXL, JPEG-XL
  * gdal_BASISU_KTX2, Basis Universal and KTX2 texture formats
  * gdal_JP2KAK, JPEG-2000 (based on Kakadu)
  * gdal_JPIPKAK, JPIP Streaming
@@ -613,18 +571,48 @@
  * gdal_MRSID, Multi-resolution Seamless Image Database
  * gdal_GEOR, Oracle Spatial GeoRaster
  * gdal_ECW, ERDAS JPEG2000 (.jp2)
+ * ogr_AVC, AVC
+ * ogr_DGN, DGN
+ * ogr_GMT, GMT
+ * ogr_NTF, NTF
+ * ogr_S57, S57
+ * ogr_GEOCONCEPT, GEOCONCEPT
+ * ogr_GEORSS, GEORSS
+ * ogr_GPSBABEL, GPSBABEL
+ * ogr_EDIGEO, EDIGEO
+ * ogr_SXF, SXF
+ * ogr_WASP, WAsP .map format
+ * ogr_SELAFIN, OSELAFIN
+ * ogr_JML, JML
+ * ogr_VDV, VDV-451/VDV-452/INTREST Data Format
+ * ogr_FLATGEOBUF, FlatGeobuf
+ * ogr_MIRAMON, MiraMonVector
+ * ogr_SDTS, SDTS
  * ogr_DWG, DWG
  * ogr_FILEGDB, FileGDB
+ * ogr_NAS, NAS/ALKIS
+ * ogr_PLSCENES, PLSCENES
  * ogr_SOSI, SOSI:Systematic Organization of Spatial Information
+ * ogr_NGW, NextGIS Web
+ * ogr_IDRISI, IDRISI
+ * ogr_PDS, Planetary Data Systems TABLE
+ * ogr_VFK, Czech Cadastral Exchange Data Format
+ * ogr_PMTILES, PMTiles
+ * ogr_AMIGOCLOUD, AMIGOCLOUD
+ * ogr_CARTO, CARTO
+ * ogr_ILI, ILI
  * ogr_MSSQLSPATIAL, MSSQLSPATIAL
  * ogr_ODBC, ODBC
  * ogr_PGEO, PGEO
  * ogr_MONGODBV3, MongoDB V3
  * ogr_PARQUET, Parquet
  * ogr_ARROW, Arrow
+ * ogr_GTFS, GTFS
  * ogr_OCI, Oracle OCI
  * ogr_IDB, IDB
+ * ogr_ODS, ODS
  * ogr_OGDI, OGDI
+ * ogr_LVBAG, LVBAG
  * ogr_HANA, SAP HANA
 
 -- The following OPTIONAL packages have not been found:
@@ -637,6 +625,8 @@
    MSSQL Native Client to enable bulk copy
  * MSSQL_ODBC
    MSSQL ODBC driver to enable bulk copy
+ * CryptoPP
+   Use crypto++ library for CPL.
  * SFCGAL
    gdal core supports ISO 19107:2013 and OGC Simple Features Access 1.2 for 3D operations
  * OpenCAD
@@ -645,8 +635,14 @@
    Enable BRUNSLI for JPEG packing in MRF
  * libQB3
    Enable QB3 compression in MRF
+ * SPATIALITE (required version >= 4.1.2)
+   Enable spatialite support for sqlite3
+ * RASTERLITE2 (required version >= 1.1.0)
+   Enable RasterLite2 support for sqlite3
  * KEA
    Enable KEA driver
+ * HDF5
+   Enable HDF5
  * GTA
    Enable GTA driver
  * MRSID
@@ -659,7 +655,7 @@
    Enable HDF4 driver
  * ECW
    Enable ECW driver
- * NetCDF
+ * NetCDF (required version >= 4.7)
    Enable netCDF driver
  * OGDI
    Enable ogr_OGDI driver
@@ -671,6 +667,8 @@
    Blosc compression
  * ARCHIVE
    Multi-format archive and compression library library (used for /vsi7z/
+ * LIBAEC
+   Adaptive Entropy Coding implementing Golomb-Rice algorithm (used by GRIB)
  * Crnlib
    enable gdal_DDS driver
  * basisu
@@ -685,8 +683,8 @@
    Enable MongoDBV3 driver
  * HDFS
    Enable Hadoop File System through native library
- * PDFIUM
-   Enable PDF driver with Pdfium (read side)
+ * Poppler (required version >= 0.86), A PDF rendering library, <http://poppler.freedesktop.org>
+   Enable PDF driver with Poppler (read side)
  * Oracle
    Enable Oracle OCI driver
  * TEIGHA
@@ -705,14 +703,20 @@
  * Dotnet
  * CSharp
    SWIG_CSharp: CSharp binding
+ * BISON
+
+-- The following RECOMMENDED packages have not been found:
+
+ * GeoTIFF
+   libgeotiff library (external)
 
 -- Internal libraries enabled:
 
+ * TIFF internal library enabled
+ * GEOTIFF internal library enabled
  * OPENCAD internal library enabled
 
 
--- Found GTest: /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake (found suitable version "1.12.1", minimum required is "1.10.0")  
--- Using external GTest
 -- Configuring done
 -- Generating done
--- Build files have been written to: /gdal-3.8.4/build
+-- Build files have been written to: /gdal-3.9.1/build

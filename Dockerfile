@@ -129,12 +129,9 @@ WORKDIR /gclient/pdfium
 COPY code.patch .
 RUN git apply --verbose code.patch
 
-COPY build_linux.patch build/
-RUN cd build && git apply --verbose build_linux.patch
-
-# don't error on warnings about deprecated declarations
-COPY pdfium-noerror-deprecated.patch .
-RUN git apply --verbose pdfium-noerror-deprecated.patch
+# when is_clang=false and is_debug=false we get a free-nonheap warning; ignore it
+COPY noerror-freenonheap.patch .
+RUN git apply --verbose noerror-freenonheap.patch
 
 COPY args_release_linux.gn out/Release/args.gn
 RUN gn gen out/Release --color --verbose

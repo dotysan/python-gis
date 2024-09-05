@@ -2,6 +2,8 @@
 # See "gn args <out_dir> --list" for available build arguments.
 #is_debug = true  # Enable debugging features.
 is_debug = false
+# above needs patch when is_clang=false is set, due to
+# some free-nonheap warning being thrown as an error
 
 # no need for javascript
 pdf_enable_v8 = false
@@ -9,7 +11,8 @@ pdf_enable_v8 = false
 # Set true to enable experimental Skia backend.
 pdf_use_skia = false
 pdf_is_standalone = true  # Set for a non-embedded build.
-clang_use_chrome_plugins = false  # Currently must be false.
+
+is_clang = false
 
 is_component_build = false
 pdf_is_complete_lib = true

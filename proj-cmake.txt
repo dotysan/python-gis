@@ -26,7 +26,11 @@
 -- Looking for exp in m - found
 -- nlohmann/json: internal
 -- Found SQLite3: /usr/include (found version "3.40.1") 
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found version "4.5.0")  
+[33mCMake Warning at CMakeLists.txt:239 (message):
+  TIFF support is not enabled and will result in the inability to read some
+  grids
+
+[0m
 -- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success

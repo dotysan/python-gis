@@ -6,13 +6,12 @@ GDVER:=$(shell grep -oP 'ARG GDVER=\K.*' Dockerfile)
 REL=$(TAG):$(PYVER)-gdal$(GDVER)
 GID=$(shell id -g)
 
-.PHONY: run bash push push-docker push-github tag build force
+.PHONY: run bash push push-docker push-github tag build force ls rm
 
 run: build
-	docker run --rm -it $(TAG)
-
+	docker run --rm -it $(TAG):latest
 bash: build
-	docker run --rm -it $(TAG) bash
+	docker run --rm -it $(TAG):latest bash
 
 push: push-docker push-github
 
@@ -54,11 +53,24 @@ push-github: build tag
 	docker push ghcr.io/$$DOCKER_GHUSER/$(REL)
 
 tag: build
-	docker tag $(TAG) $(REL)
+	docker tag $(TAG):latest $(REL)
+
+image_exists = $(shell docker image inspect $(TAG):latest --format="exists" 2>/dev/null || echo "")
+last_built = $(shell docker image inspect $(TAG):latest --format='{{.Created}}' 2>/dev/null | cut -d'.' -f1)
 
 build:
-	docker build --progress=plain --tag $(TAG) . && \
-	  docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'
+ifeq ($(image_exists),)
+	docker build --progress=plain --tag $(TAG):latest . && \
+	  docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG):latest sh -c 'cp /*.txt /mnt/'
+else
+	@echo "Not rebuilding $(TAG):latest built $(last_built). If you don't like that, try \`make rm\` to remove it first."
+endif
 force:
-	docker build --progress=plain --tag $(TAG) --pull --no-cache . && \
-	  docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG) sh -c 'cp /*.txt /mnt/'
+	docker build --progress=plain --tag $(TAG):latest --pull --no-cache . && \
+	  docker run --rm --volume=$$PWD:/mnt --user=$$UID:$(GID) $(TAG):latest sh -c 'cp /*.txt /mnt/'
+
+ls:
+	@docker image ls |grep --color=always -E "$(TAG)|^REPO"
+
+rm:
+	docker image rm $(TAG):latest

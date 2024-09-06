@@ -5,5 +5,18 @@
 # folium is a wrapper around leflet
 folium==0.17.*
 
+# Google Earth Engine
+#geemap
+
+# geococders
+geocoder==1.38.*
+#geopy
+#geos
+
 geopandas==1.0.*
+# PySAL?
 rasterio==1.3.*
+
+# LiDAR
+laspy==2.5.*
+#lidar

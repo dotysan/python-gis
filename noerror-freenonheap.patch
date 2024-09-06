@@ -1,0 +1,15 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index c96235026..e80a5d6bf 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -222,6 +222,10 @@ config("pdfium_common_config") {
+       # GCC assumes that control can get past an exhaustive switch and then
+       # warns if there's no return there.
+       "-Wno-return-type",
++
++      # when using is_debug=false with is_clang=false, we get some
++      # strange warnings; just ignore them for now
++      "-Wno-error=free-nonheap-object",
+     ]
+   }
+ 

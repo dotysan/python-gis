@@ -1,13 +1,13 @@
--- The C compiler identification is GNU 11.3.0
--- The CXX compiler identification is GNU 11.3.0
+-- The C compiler identification is GNU 12.2.0
+-- The CXX compiler identification is GNU 12.2.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/local/bin/gcc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/local/bin/g++ - skipped
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Performing Test test_sse
@@ -212,8 +212,8 @@
 -- Performing Test HAVE_SHARED_MUTEX - Success
 -- Looking for linux/userfaultfd.h
 -- Looking for linux/userfaultfd.h - found
--- GDAL_VERSION          = 3.9.1
--- GDAL_ABI_FULL_VERSION = 35.3.9.1
+-- GDAL_VERSION          = 3.9.2
+-- GDAL_ABI_FULL_VERSION = 35.3.9.2
 -- GDAL_SOVERSION        = 35
 -- Could NOT find ODBC (missing: ODBC_LIBRARY ODBC_INCLUDE_DIR ODBCINST) 
 -- Could NOT find ODBCCPP (missing: ODBCCPP_LIBRARY ODBCCPP_INCLUDE_DIR) 
@@ -233,8 +233,8 @@
 -- Found Deflate: /usr/lib/x86_64-linux-gnu/libdeflate.so  
 -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.14") found components: SSL Crypto 
 -- Could NOT find CryptoPP (missing: CRYPTOPP_LIBRARY CRYPTOPP_TEST_KNOWNBUG CRYPTOPP_INCLUDE_DIR) 
--- Found CURL: /usr/lib/x86_64-linux-gnu/libcurl.so (found version "7.88.1")  
--- Found TIFF: /usr/lib/x86_64-linux-gnu/libtiff.so (found suitable version "4.5.0", minimum required is "4.1")  
+-- Found PROJ: /usr/local/proj/lib/libproj.so (found version "9.4.1") 
+-- Could NOT find TIFF (missing: TIFF_LIBRARY TIFF_INCLUDE_DIR) (Required is at least version "4.1")
 -- Could NOT find SFCGAL (missing: SFCGAL_LIBRARY SFCGAL_INCLUDE_DIR) 
 -- Could NOT find GeoTIFF (missing: GeoTIFF_DIR)
 -- Could NOT find GeoTIFF (missing: GEOTIFF_LIBRARY GEOTIFF_INCLUDE_DIR) 
@@ -324,13 +324,17 @@
 -- Looking for JxlEncoderInitExtraChannelInfo - found
 -- Looking for JxlEncoderSetExtraChannelDistance
 -- Looking for JxlEncoderSetExtraChannelDistance - not found
+-- Looking for JxlDecoderSetDecompressBoxes
+-- Looking for JxlDecoderSetDecompressBoxes - found
+-- Looking for JxlDecoderDefaultPixelFormat
+-- Looking for JxlDecoderDefaultPixelFormat - found
 -- Looking for sqlite3ext.h
 -- Looking for sqlite3ext.h - found
 --   Target system:             Linux
 --   Installation directory:    /usr/local
 --   C++ Compiler type:         GNU
---   C compile command line:     /usr/local/bin/gcc
---   C++ compile command line:   /usr/local/bin/g++
+--   C compile command line:     /usr/bin/cc
+--   C++ compile command line:   /usr/bin/c++
 -- 
 --   CMAKE_C_FLAGS:               -fvisibility=hidden
 --   CMAKE_CXX_FLAGS:               -fvisibility=hidden
@@ -356,11 +360,16 @@
  * gdal_MEM, Read/write data in Memory
  * gdal_VRT, Virtual GDAL Datasets
  * gdal_HFA, Erdas Imagine .img
+ * gdal_SDTS, SDTS translator
+ * gdal_DTED, Military Elevation Data
+ * gdal_PDS, USGS Astrogeology ISIS Cube (Version 2)
  * gdal_HEIF, HEIF
  * gdal_ESRIC, ESRI compact cache
  * gdal_KMLSUPEROVERLAY
+ * gdal_CALS, CALS type 1
  * gdal_WMTS, OGC Web Map Tile Service
  * gdal_BMP, Microsoft Windows Device Independent Bitmap
+ * gdal_USGSDEM, USGS ASCII DEM (and CDED)
  * gdal_PDF, Geospatial PDF
  * gdal_PNG, PNG image format
  * gdal_GIF, Graphics Interchange Format
@@ -372,6 +381,7 @@
  * gdal_RASTERLITE, Rasterlite - Rasters in SQLite DB
  * gdal_POSTGISRASTER, PostGIS Raster driver
  * gdal_JP2OPENJPEG, JPEG2000 driver based on OpenJPEG library
+ * gdal_JPEGXL, JPEG-XL
  * ogr_MEM, Read/write driver for MEMORY virtual files
  * ogr_GEOJSON, GeoJSON/ESRIJSON/TopoJSON driver
  * ogr_TAB, MapInfo TAB and MIF/MID
@@ -386,6 +396,7 @@
  * ogr_OPENFILEGDB, OPENFILEGDB
  * ogr_MAPML, MapML
  * ogr_JSONFG, JSONFG
+ * ogr_SDTS, SDTS
  * ogr_GPX, GPX - GPS Exchange Format
  * ogr_GMLAS, GMLAS
  * ogr_SVG, Scalable Vector Graphics
@@ -420,7 +431,6 @@
    Enable libdeflate compression library (complement to ZLib)
  * OpenSSL
    Use OpenSSL library
- * PROJ
  * ZSTD
    ZSTD compression library
  * ZLIB
@@ -457,14 +467,10 @@
 
 -- The following RECOMMENDED packages have been found:
 
+ * CURL (required version >= 7.68)
+   Enable drivers to use web API
  * EXPAT
    Read and write XML formats
- * CURL
-   Enable drivers to use web API
- * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
-   Support for the Tag Image File Format (TIFF).
-   gdal_GTIFF: GeoTIFF image format
-   gdal_CALS: CALS type 1 driver
  * PNG (required version >= 1.6)
    PNG compression library (external)
  * JPEG
@@ -480,18 +486,17 @@
 
 -- The following REQUIRED packages have been found:
 
+ * PROJ
  * SWIG, Software development tool that connects programs written in C and C++ with a variety of high-level programming languages., <http://swig.org/>
 
 -- The following features have been disabled:
 
- * gdal_SDTS, SDTS translator
  * gdal_NITF, National Imagery Transmission Format
  * gdal_GXF, GXF
  * gdal_AAIGRID, Arc/Info ASCII Grid Format.
  * gdal_CEOS, CEOS translator
  * gdal_SAR_CEOS, ASI CEOS translator
  * gdal_XPM, XPM image format
- * gdal_DTED, Military Elevation Data
  * gdal_JDEM, JDEM driver
  * gdal_ENVISAT, Envisat
  * gdal_ELAS, Earth Resources Laboratory Applications Software
@@ -510,7 +515,6 @@
  * gdal_DIMAP, SPOT Dimap Driver
  * gdal_GFF, Ground-based SAR Applitcations Testbed File Format driver
  * gdal_COSAR, COSAR -- TerraSAR-X Complex SAR Data Product
- * gdal_PDS, USGS Astrogeology ISIS Cube (Version 2)
  * gdal_ADRG, ADRG reader and ASRP/USRP Reader
  * gdal_COASP, DRDC Configurable Airborne SAR Processor (COASP) data reader
  * gdal_TSX, TerraSAR-X XML Product Support
@@ -528,7 +532,6 @@
  * gdal_NGSGEOID, NOAA NGS Geoid Height Grids
  * gdal_IRIS, IRIS driver
  * gdal_MAP, OziExplorer .MAP
- * gdal_CALS, CALS type 1
  * gdal_SAFE, SAFE -- Sentinel-1 SAFE XML Product
  * gdal_SENTINEL2, Driver for Sentinel-2 Level-1B, Level-1C and Level-2A products.
  * gdal_PRF, PHOTOMOD Raster File
@@ -538,7 +541,6 @@
  * gdal_STACTA, STACTA
  * gdal_BSB, Maptech/NOAA BSB Nautical Chart Format
  * gdal_AIGRID, Arc/Info Binary Grid Format
- * gdal_USGSDEM, USGS ASCII DEM (and CDED)
  * gdal_AIRSAR, AirSAR Polarimetric Format
  * gdal_OZI, OZF2/OZFX3 raster
  * gdal_PCIDSK, PCI Geomatics Database File
@@ -562,7 +564,6 @@
  * gdal_EXR, EXR support via OpenEXR library
  * gdal_PCRASTER, PCRaster CSF 2.0 raster file driver
  * gdal_RDB, RIEGL RDB Map Pixel (.mpx) driver
- * gdal_JPEGXL, JPEG-XL
  * gdal_BASISU_KTX2, Basis Universal and KTX2 texture formats
  * gdal_JP2KAK, JPEG-2000 (based on Kakadu)
  * gdal_JPIPKAK, JPIP Streaming
@@ -587,7 +588,6 @@
  * ogr_VDV, VDV-451/VDV-452/INTREST Data Format
  * ogr_FLATGEOBUF, FlatGeobuf
  * ogr_MIRAMON, MiraMonVector
- * ogr_SDTS, SDTS
  * ogr_DWG, DWG
  * ogr_FILEGDB, FileGDB
  * ogr_NAS, NAS/ALKIS
@@ -707,6 +707,10 @@
 
 -- The following RECOMMENDED packages have not been found:
 
+ * TIFF (required version >= 4.1), Support for the Tag Image File Format (TIFF)., <https://libtiff.gitlab.io/libtiff/>
+   Support for the Tag Image File Format (TIFF).
+   gdal_GTIFF: GeoTIFF image format
+   gdal_CALS: CALS type 1 driver
  * GeoTIFF
    libgeotiff library (external)
 
@@ -719,4 +723,4 @@
 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /gdal-3.9.1/build
+-- Build files have been written to: /gdal-3.9.2/build

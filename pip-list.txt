@@ -17,6 +17,7 @@ geocoder           1.38.1      /usr/local/lib/python3.11/site-packages pip
 geopandas          1.0.1       /usr/local/lib/python3.11/site-packages pip
 idna               3.8         /usr/local/lib/python3.11/site-packages pip
 Jinja2             3.1.4       /usr/local/lib/python3.11/site-packages pip
+laspy              2.5.4       /usr/local/lib/python3.11/site-packages pip
 MarkupSafe         2.1.5       /usr/local/lib/python3.11/site-packages pip
 numpy              2.1.1       /usr/local/lib/python3.11/site-packages pip
 packaging          24.1        /usr/local/lib/python3.11/site-packages pip

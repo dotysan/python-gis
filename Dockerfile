@@ -160,7 +160,6 @@ COPY 2024-0*.patch ./
 RUN git apply --verbose 2024-05-22T17:23.fe08ea1b31.PDF-split-import-of-SDK-headers.patch
 RUN git apply --verbose 2024-08-25T12:37.PDF-update-to-PDFium-6677.patch
 
-RUN mkdir build
 WORKDIR /gdal-$GDVER/build
 # configure GDAL
 ARG PYVER

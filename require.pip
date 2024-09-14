@@ -1,5 +1,5 @@
 # notes:
-#  - fiona==1.9.* is built in Dockerfile against GDAL
+#  - fiona==1.10.* is built in Dockerfile against GDAL
 #  - numpy=2.1.* is build early in Dockerfile so GDAL can use it
 
 # folium is a wrapper around leflet
@@ -10,7 +10,7 @@ folium==0.17.*
 
 # geococders
 geocoder==1.38.*
-#geopy
+geopy==2.4.*
 #geos
 
 geopandas==1.0.*

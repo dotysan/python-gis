@@ -9,12 +9,14 @@ click              8.1.7       /usr/local/lib/python3.11/site-packages pip
 click-plugins      1.1.1       /usr/local/lib/python3.11/site-packages pip
 cligj              0.7.2       /usr/local/lib/python3.11/site-packages pip
 decorator          5.1.1       /usr/local/lib/python3.11/site-packages pip
-fiona              1.9.6       /usr/local/lib/python3.11/site-packages pip
+fiona              1.10.0      /usr/local/lib/python3.11/site-packages pip
 folium             0.17.0      /usr/local/lib/python3.11/site-packages pip
 future             1.0.0       /usr/local/lib/python3.11/site-packages pip
 GDAL               3.9.2       /usr/local/lib/python3.11/site-packages
 geocoder           1.38.1      /usr/local/lib/python3.11/site-packages pip
+geographiclib      2.0         /usr/local/lib/python3.11/site-packages pip
 geopandas          1.0.1       /usr/local/lib/python3.11/site-packages pip
+geopy              2.4.1       /usr/local/lib/python3.11/site-packages pip
 idna               3.8         /usr/local/lib/python3.11/site-packages pip
 Jinja2             3.1.4       /usr/local/lib/python3.11/site-packages pip
 laspy              2.5.4       /usr/local/lib/python3.11/site-packages pip
@@ -27,7 +29,7 @@ pyogrio            0.9.0       /usr/local/lib/python3.11/site-packages pip
 pyparsing          3.1.4       /usr/local/lib/python3.11/site-packages pip
 pyproj             3.6.1       /usr/local/lib/python3.11/site-packages pip
 python-dateutil    2.9.0.post0 /usr/local/lib/python3.11/site-packages pip
-pytz               2024.1      /usr/local/lib/python3.11/site-packages pip
+pytz               2024.2      /usr/local/lib/python3.11/site-packages pip
 rasterio           1.3.11      /usr/local/lib/python3.11/site-packages pip
 ratelim            0.1.6       /usr/local/lib/python3.11/site-packages pip
 requests           2.32.3      /usr/local/lib/python3.11/site-packages pip
@@ -36,6 +38,6 @@ shapely            2.0.6       /usr/local/lib/python3.11/site-packages pip
 six                1.16.0      /usr/local/lib/python3.11/site-packages pip
 snuggs             1.4.7       /usr/local/lib/python3.11/site-packages pip
 tzdata             2024.1      /usr/local/lib/python3.11/site-packages pip
-urllib3            2.2.2       /usr/local/lib/python3.11/site-packages pip
+urllib3            2.2.3       /usr/local/lib/python3.11/site-packages pip
 wheel              0.44.0      /usr/local/lib/python3.11/site-packages pip
 xyzservices        2024.9.0    /usr/local/lib/python3.11/site-packages pip

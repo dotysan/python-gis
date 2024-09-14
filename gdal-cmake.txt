@@ -33,7 +33,7 @@
 -- Performing Test test_avx2
 -- Performing Test test_avx2 - Success
 -- Found SWIG: /usr/bin/swig4.0 (found version "4.1.0")  
--- Found Python: /usr/local/bin/python3 (found suitable version "3.11.9", minimum required is "3.8") found components: Interpreter Development NumPy Development.Module Development.Embed 
+-- Found Python: /usr/local/bin/python3 (found suitable version "3.11.10", minimum required is "3.8") found components: Interpreter Development NumPy Development.Module Development.Embed 
 -- Performing Test HAVE_WFLAG_ALL
 -- Performing Test HAVE_WFLAG_ALL - Success
 -- Performing Test HAVE_WFLAG_EXTRA
@@ -361,6 +361,7 @@
  * gdal_VRT, Virtual GDAL Datasets
  * gdal_HFA, Erdas Imagine .img
  * gdal_SDTS, SDTS translator
+ * gdal_AAIGRID, Arc/Info ASCII Grid Format.
  * gdal_DTED, Military Elevation Data
  * gdal_PDS, USGS Astrogeology ISIS Cube (Version 2)
  * gdal_HEIF, HEIF
@@ -369,6 +370,7 @@
  * gdal_CALS, CALS type 1
  * gdal_WMTS, OGC Web Map Tile Service
  * gdal_BMP, Microsoft Windows Device Independent Bitmap
+ * gdal_AIGRID, Arc/Info Binary Grid Format
  * gdal_USGSDEM, USGS ASCII DEM (and CDED)
  * gdal_PDF, Geospatial PDF
  * gdal_PNG, PNG image format
@@ -388,6 +390,7 @@
  * ogr_SHAPE, ESRI shape-file
  * ogr_KML, KML
  * ogr_VRT, VRT - Virtual Format
+ * ogr_AVC, AVC
  * ogr_GML, GML
  * ogr_CSV, CSV
  * ogr_TIGER, U.S. Census TIGER/Line
@@ -493,7 +496,6 @@
 
  * gdal_NITF, National Imagery Transmission Format
  * gdal_GXF, GXF
- * gdal_AAIGRID, Arc/Info ASCII Grid Format.
  * gdal_CEOS, CEOS translator
  * gdal_SAR_CEOS, ASI CEOS translator
  * gdal_XPM, XPM image format
@@ -540,7 +542,6 @@
  * gdal_TGA, TGA
  * gdal_STACTA, STACTA
  * gdal_BSB, Maptech/NOAA BSB Nautical Chart Format
- * gdal_AIGRID, Arc/Info Binary Grid Format
  * gdal_AIRSAR, AirSAR Polarimetric Format
  * gdal_OZI, OZF2/OZFX3 raster
  * gdal_PCIDSK, PCI Geomatics Database File
@@ -572,7 +573,6 @@
  * gdal_MRSID, Multi-resolution Seamless Image Database
  * gdal_GEOR, Oracle Spatial GeoRaster
  * gdal_ECW, ERDAS JPEG2000 (.jp2)
- * ogr_AVC, AVC
  * ogr_DGN, DGN
  * ogr_GMT, GMT
  * ogr_NTF, NTF

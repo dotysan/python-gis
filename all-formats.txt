@@ -1,4 +1,8 @@
+  AAIGrid -raster- (rwv): Arc/Info ASCII Grid (*.asc)
   ACE2 -raster- (rov): ACE2 (*.ACE2)
+  AIG -raster- (rov): Arc/Info Binary Grid
+  AVCBin -vector- (rov): Arc/Info Binary Coverage
+  AVCE00 -vector- (rov): Arc/Info E00 (ASCII) Coverage (*.e00)
   BIGGIF -raster- (rov): Graphics Interchange Format (.gif) (*.gif)
   BMP -raster- (rw+v): MS Windows Device Independent Bitmap (*.bmp)
   BT -raster- (rw+v): VTP .bt (Binary Terrain) 1.3 Format (*.bt)
@@ -31,6 +35,7 @@
   GMLAS -vector- (rwv): Geography Markup Language (GML) driven by application schemas (*.gml, *.xml)
   GPKG -raster,vector- (rw+vs): GeoPackage (*.gpkg, *.gpkg.zip)
   GPX -vector- (rw+v): GPX (*.gpx)
+  GRASSASCIIGrid -raster- (rov): GRASS ASCII Grid
   GSC -raster- (rov): GSC Geogrid
   GTI -raster- (rov): GDAL Raster Tile Index (*.gti.gpkg, *.gti.fgb, *.gti)
   GTX -raster- (rw+v): NOAA Vertical Datum .GTX (*.gtx)
@@ -42,6 +47,7 @@
   HFA -raster- (rw+v): Erdas Imagine Images (.img) (*.img)
   HTTP -raster,vector- (ro): HTTP Fetching Wrapper
   ISCE -raster- (rw+v): ISCE raster
+  ISG -raster- (rov): International Service for the Geoid (*.isg)
   ISIS2 -raster- (rw+v): USGS Astrogeology ISIS cube (Version 2)
   ISIS3 -raster- (rw+v): USGS Astrogeology ISIS cube (Version 3) (*.lbl, *.cub)
   JP2OpenJPEG -raster,vector- (rwv): JPEG-2000 driver based on JP2OpenJPEG library (*.jp2, *.j2k)
